@@ -16,10 +16,6 @@ public class AccountServiceImpl implements AccountService {
 		accountDAO.saveAccount(account);
 		account.addObserver(new EmailSender());
 		account.changeNotification();
-		account.deleteObservers();
-		account.addObserver(new SMSSender());
-		account.addObserver(new Logger());
-
 		return account;
 	}
 
@@ -33,7 +29,6 @@ public class AccountServiceImpl implements AccountService {
 	public void addInterest(String accountNumber) {
 		Account account = accountDAO.loadAccount(accountNumber);
 		account.addInterest();
-		account.changeNotification();
 		accountDAO.updateAccount(account);
 	}
 
@@ -52,7 +47,6 @@ public class AccountServiceImpl implements AccountService {
 		account.changeNotification();
 		accountDAO.updateAccount(account);
 	}
-
 
 
 	public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) {
