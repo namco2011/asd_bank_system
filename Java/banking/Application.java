@@ -5,8 +5,8 @@ public class Application {
 		AccountService accountService = new AccountServiceImpl();
 
 		// create 2 accounts;
-		accountService.createAccount("1263862", "Frank Brown",AccountType.SAVING);
-		accountService.createAccount("4253892", "John Doe",AccountType.CHECKING);
+		accountService.createAccount("1263862", "Frank Brown",AccountType.SAVING,AccountClass.COMPANY);
+		accountService.createAccount("4253892", "John Doe",AccountType.CHECKING,AccountClass.PERSONAL);
 		// use account 1;
 		accountService.deposit("1263862", 240);
 		accountService.deposit("1263862", 529);

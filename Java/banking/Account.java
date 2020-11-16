@@ -9,13 +9,15 @@ public class Account extends Observable {
 	private Customer customer;
 	private InterestCalculationStrategy interestCalculationStrategy;
 	private AccountType accountType;
+	private AccountClass accountClass;
 	private String accountNumber;
 
 	private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
-	public Account(String accountNumber, AccountType accountType) {
+	public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
+		this.accountClass = accountClass;
 		this.interestCalculationStrategy = accountType==AccountType.CHECKING?new CheckingInterestCalculation():new SavingInterestCalculation();
 	}
 
