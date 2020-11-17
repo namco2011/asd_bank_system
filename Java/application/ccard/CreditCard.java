@@ -21,13 +21,21 @@ public class CreditCard extends Account {
         double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
         double totalDue = MP * newBalance;
         this.addInterest();
-
         String report;
-        report = String.format("Previous balance : ${0}",previousBalance );
+        report = String.format("Name= ",this.getCustomer().getName() );
+        report += String.format("\n Address=",this.getCustomer().getStreet() );
+        report += String.format(", ",this.getCustomer().getCity() );
+        report += String.format(", ",this.getCustomer().getState() );
+        report += String.format(", ",this.getCustomer().getZip() );
+        report += String.format("\r\n CC number=",this.getAccountNumber() );
+        report += String.format("\r\n CC type=",this.getCreditCardType());
+        report += String.format("\r\nPrevious balance : ${0}",previousBalance);
         report += String.format("\n Total charge : ${0}",totalCharge );
         report += String.format("\n Total credit : ${0}",totalCredit );
         report += String.format("\n New Balance  : ${0}",newBalance );
-        report += String.format("\n Total Due    : ${0}",totalDue);
+        report += String.format("\n Total Amount Due    : ${0}",totalDue);
+        report += String.format("\r\n");
+        report += String.format("\r\n");
         System.out.println(report);
         return report;
     }
@@ -35,7 +43,7 @@ public class CreditCard extends Account {
 
     public double getTotalCredits() {
         double totalCredits = 0;
-        for (AccountEntry entry : entryList) {
+        for (AccountEntry entry : AccountEntryDB.accountEntry) {
             if (entry.getDescription().equals("deposit")) {
                 totalCredits += entry.getAmount();
             }
@@ -45,8 +53,8 @@ public class CreditCard extends Account {
 
     public double getTotalCharges() {
         double totalCharges = 0;
-        for (AccountEntry entry : entryList) {
-            if (entry.getDescription().equals("withdrawn")) {
+        for (AccountEntry entry : AccountEntryDB.accountEntry) {
+            if (entry.getDescription().equals("charge")) {
                 totalCharges += entry.getAmount();
             }
         }

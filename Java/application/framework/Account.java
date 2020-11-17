@@ -3,6 +3,7 @@ package application.framework;
 import application.banking.CheckingICStrategy;
 import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
+import application.ccard.CreditCardType;
 import application.ccard.GoldCCStrategy;
 
 import java.time.LocalDate;
@@ -20,6 +21,17 @@ public class Account extends Observable {
 
 
 	protected AccountType accountType;
+
+	public CreditCardType getCreditCardType() {
+		return creditCardType;
+	}
+
+	public Account setCreditCardType(CreditCardType creditCardType) {
+		this.creditCardType = creditCardType;
+		return this;
+	}
+
+	protected CreditCardType creditCardType;
 
 	public AccountType getAccountType() {
 		return accountType;
@@ -76,13 +88,17 @@ public class Account extends Observable {
 		return balance;
 	}
 
+	public String monthlyBilling(){
+		return "Need to update";
+	}
+
 	public double getPreviousBalance() {
 		double balance = 0;
 		LocalDate current = LocalDate.now();
 		LocalDate prevMonth = current.minusMonths(1);
 		LocalDate startPrevMonth = prevMonth.with(firstDayOfMonth());
-		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
-		for (AccountEntry entry : entryList) {
+//		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
+		for (AccountEntry entry : AccountEntryDB.accountEntry) {
 			Date entryDate = entry.getDate();
 			LocalDate entryLocalDate = entryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			if(entryLocalDate.isAfter(startPrevMonth) && entryLocalDate.isBefore(entryLocalDate)){
@@ -135,6 +151,13 @@ public class Account extends Observable {
 	public void withdraw(String accountNumber,double amount) {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", accountNumber, "");
 	//	entryList.add(entry);
+		AccountEntryDB.accountEntry.add(entry);
+		notifyChanges(entry);
+	}
+
+	public void charge(String accountNumber,double amount) {
+		AccountEntry entry = new AccountEntry(-amount, "charge", accountNumber, "");
+		//	entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
 	}

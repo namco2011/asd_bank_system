@@ -1,5 +1,7 @@
 package application.framework;
 
+import application.ccard.CreditCard;
+
 import java.util.Collection;
 
 public interface AccountDAO {

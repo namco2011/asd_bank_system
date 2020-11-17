@@ -1,5 +1,7 @@
 package application.framework;
 
+import application.ccard.CreditCard;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,6 +28,7 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 		return null;
 	}
+
 
 	public Collection<Account> getAccounts() {
 		return accountlist;

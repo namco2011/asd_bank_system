@@ -1,4 +1,7 @@
 package ui.ccard;
+import application.framework.AccountEntry;
+import application.framework.AccountEntryDB;
+
 import java.io.IOException;
 
 
@@ -89,6 +92,9 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) throws IOException {
         parentframe.amountDeposit=JTextField_AMT.getText();
 		parentframe.accountService.withdraw(name,Double.parseDouble(JTextField_AMT.getText()));
+		for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
+			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
+		}
 		dispose();
 	}
 

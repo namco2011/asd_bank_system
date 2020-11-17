@@ -4,6 +4,10 @@ package ui.ccard;
 */
 
 import application.ccard.CreditCardType;
+import application.framework.Account;
+import application.framework.AccountDB;
+import application.framework.AccountEntry;
+import application.framework.AccountEntryDB;
 
 public class JDialog_AddCCAccount extends javax.swing.JDialog
 {
@@ -202,7 +206,9 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
                 else
                 parentframe.creditCardType =CreditCardType.BRONZE;
            }
-           
+
+
+
 	   parentframe.newaccount=true;
        dispose();
 	}

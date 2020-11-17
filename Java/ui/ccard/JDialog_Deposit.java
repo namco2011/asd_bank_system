@@ -1,4 +1,6 @@
 package ui.ccard;
+import application.framework.*;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -8,7 +10,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
     private CardFrm parentframe;
     private String name;
-    
+
 	public JDialog_Deposit(CardFrm parent, String aname)
 	{
 		super(parent);
@@ -84,9 +86,11 @@ public class JDialog_Deposit extends javax.swing.JDialog
 	{
         parentframe.amountDeposit=JTextField_Deposit.getText();
         parentframe.accountService.deposit(name,Double.parseDouble(JTextField_Deposit.getText()));
+		for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
+			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
+		}
         dispose();
 	}
-
 	void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		dispose();

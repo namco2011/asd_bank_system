@@ -5,6 +5,8 @@ import application.ccard.*;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
 
@@ -74,6 +76,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = new CreditCard(ccNumber, AccountType.CREDITCARD, AccountClass.CREDITCARD);
         Customer customer = new Customer(ccNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         account.setCustomer(customer);
+        account.setCreditCardType(creditCardType);
         customer.setExpirationDate(expireDate);
         accountDAO.saveAccount(account);
 
@@ -89,13 +92,15 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
+    public String monthlyBilling(String accountNumber){
+        Account account = accountDAO.loadAccount(accountNumber);
+        return account.monthlyBilling();
+    }
 
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(accountNumber,amount);
         accountDAO.updateAccount(account);
-
-
     }
 
     public void addInterest(String accountNumber) {
@@ -103,7 +108,6 @@ public class AccountServiceImpl implements AccountService {
         account.addInterest(accountNumber);
         accountDAO.updateAccount(account);
     }
-
 
     public Account getAccount(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
@@ -118,14 +122,19 @@ public class AccountServiceImpl implements AccountService {
 
     public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
-//        if (account.getBalance()<amount) {
-//            SendEmail email  = new SendEmail();
-//            email.SendEMail(account.getCustomer().getEmailAddress()," You can't withdraw because account balance "+ account.getBalance() +" less than "+ amount);
-//        }
-//        else {
-            account.withdraw(amount);
+        if(account.accountClass!=AccountClass.CREDITCARD) {
+            if (account.getBalance() < amount) {
+                SendEmail email = new SendEmail();
+                email.SendEMail(account.getCustomer().getEmailAddress(), " You can't withdraw because account balance " + account.getBalance() + " less than " + amount);
+            } else {
+                account.withdraw(accountNumber,amount);
+                accountDAO.updateAccount(account);
+            }
+        }
+        else {
+            account.charge(accountNumber,amount);
             accountDAO.updateAccount(account);
-//        }
+        }
     }
 
 
