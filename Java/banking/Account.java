@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Observable;
 
 public class Account extends Observable {
-	private Customer customer;
-	private ICStrategy ICStrategy;
-	private AccountType accountType;
-	private AccountClass accountClass;
-	private String accountNumber;
+	protected Customer customer;
+	protected ICStrategy ICStrategy;
+	protected AccountType accountType;
+	protected AccountClass accountClass;
+	protected String accountNumber;
 
-	private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+	protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
 	public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
 		this.accountNumber = accountNumber;

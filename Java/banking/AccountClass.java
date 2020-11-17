@@ -1,5 +1,5 @@
 package banking;
 
 public enum AccountClass {
-    PERSONAL,COMPANY
+    PERSONAL,COMPANY,CREDITCARD
 }
