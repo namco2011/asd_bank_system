@@ -214,9 +214,9 @@ public class BankFrm extends javax.swing.JFrame {
             //Nam update
             Date birthDay = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
             accountService.createPersonalAccount(accountnr, clientName, accountType, AccountClass.PERSONAL, street, city, state, zip, email, birthDay);
-//            for(Account account: AccountDB.accountList){
-//				System.out.println(account.getAccountNumber());
-//			}
+            for(Account account: AccountDB.accountList){
+				System.out.println(account.getAccountNumber());
+			}
             newaccount = false;
         }
 
@@ -269,6 +269,7 @@ public class BankFrm extends javax.swing.JFrame {
             long currentamount = Long.parseLong(samount);
             long newamount = currentamount + deposit;
             model.setValueAt(String.valueOf(newamount), selection, 5);
+            accountService.deposit(accnr,newamount);
         }
 
 

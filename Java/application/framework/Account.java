@@ -86,6 +86,9 @@ public class Account extends Observable {
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
+		for (AccountEntry e:AccountEntryDB.accountEntry) {
+			System.out.println(e.getFromAccountNumber() +" "+ e.getAmount());
+		}
 	}
 
 	public void addInterest() {
