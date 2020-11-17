@@ -131,6 +131,7 @@ public class BankFrm extends javax.swing.JFrame {
     javax.swing.JButton JButton_Addinterest = new javax.swing.JButton();
     javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
+
     void exitApplication() {
         try {
             this.setVisible(false);    // hide the Frame
@@ -180,7 +181,6 @@ public class BankFrm extends javax.swing.JFrame {
                 JButtonWithdraw_actionPerformed(event);
             else if (object == JButton_Addinterest)
                 JButtonAddinterest_actionPerformed(event);
-
         }
     }
 
@@ -194,7 +194,7 @@ public class BankFrm extends javax.swing.JFrame {
 		/*
 		 JDialog_AddPAcc type object is for adding personal information
 		 construct a JDialog_AddPAcc type object 
-		 set the boundaries and show it 
+		 set the boundaries and show it
 		*/
 
         JDialog_AddPAcc pac = new JDialog_AddPAcc(myframe);
@@ -214,13 +214,11 @@ public class BankFrm extends javax.swing.JFrame {
             //Nam update
             Date birthDay = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
             accountService.createPersonalAccount(accountnr, clientName, accountType, AccountClass.PERSONAL, street, city, state, zip, email, birthDay);
-            for(Account account: AccountDB.accountList){
-				System.out.println(account.getAccountNumber());
-			}
+//            for(Account account: AccountDB.accountList){
+//				System.out.println(account.getAccountNumber());
+//			}
             newaccount = false;
         }
-
-
     }
 
     void JButtonCompAC_actionPerformed(java.awt.event.ActionEvent event) {
@@ -252,6 +250,21 @@ public class BankFrm extends javax.swing.JFrame {
 
     }
 
+    void loadData() {
+        model.setRowCount(0);
+        for (Account account : AccountDB.accountList) {
+
+            //	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
+            rowdata[0] = account.getAccountNumber();
+            rowdata[1] = account.getCustomer().getName();
+            rowdata[2] = account.getCustomer().getCity();
+            rowdata[3] = account.getAccountClass()==AccountClass.COMPANY?"C":"P";
+            rowdata[4] = account.getAccountType();
+            rowdata[5] = account.getBalance();
+            model.addRow(rowdata);
+        }
+    }
+
     void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event) {
         // get selected name
         int selection = JTable1.getSelectionModel().getMinSelectionIndex();
@@ -264,12 +277,12 @@ public class BankFrm extends javax.swing.JFrame {
             dep.show();
 
             // compute new amount
-            long deposit = Long.parseLong(transactionAmount);
-            String samount = (String) model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-            long newamount = currentamount + deposit;
-            model.setValueAt(String.valueOf(newamount), selection, 5);
-            accountService.deposit(accnr,newamount);
+//            long deposit = Long.parseLong(transactionAmount);
+//            String samount = (String) model.getValueAt(selection, 5);
+//            long currentamount = Long.parseLong(samount);
+//            long newamount = currentamount + deposit;
+//            model.setValueAt(String.valueOf(newamount), selection, 5);
+            model.setValueAt(String.valueOf((accountService.getAccount(accnr).getBalance())), selection, 5);
         }
 
 
@@ -287,16 +300,16 @@ public class BankFrm extends javax.swing.JFrame {
             wd.show();
 
             // compute new amount
-            long deposit = Long.parseLong(transactionAmount);
-            String samount = (String) model.getValueAt(selection, 5);
-            long currentamount = Long.parseLong(samount);
-            long newamount = currentamount - deposit;
-            model.setValueAt(String.valueOf(newamount), selection, 5);
-            if (newamount < 0) {
-                JOptionPane.showMessageDialog(JButton_Withdraw, " Account " + accnr + " : balance is negative: $" + String.valueOf(newamount) + " !", "Warning: negative balance", JOptionPane.WARNING_MESSAGE);
-            }
+//            long deposit = Long.parseLong(transactionAmount);
+//            String samount = (String) model.getValueAt(selection, 5);
+//            long currentamount = Long.parseLong(samount);
+//            long newamount = currentamount - deposit;
+//            model.setValueAt(String.valueOf(newamount), selection, 5);
+//            if (newamount < 0) {
+//                JOptionPane.showMessageDialog(JButton_Withdraw, " Account " + accnr + " : balance is negative: $" + String.valueOf(newamount) + " !", "Warning: negative balance", JOptionPane.WARNING_MESSAGE);
+//            }
+            model.setValueAt(String.valueOf((accountService.getAccount(accnr).getBalance())), selection, 5);
         }
-
 
     }
 
@@ -310,6 +323,8 @@ public class BankFrm extends javax.swing.JFrame {
                 accountService.addInterest(account.getAccountNumber());
             }
         }
+        loadData();
+
 //		  			AccountDB.accountList.stream()
 //					.filter(a->!a.getAccountType().equals(AccountType.CREDITCARD))
 //					.filter(a->a.getAccountNumber().equals("111"))

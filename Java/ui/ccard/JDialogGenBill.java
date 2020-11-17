@@ -3,6 +3,8 @@ package ui.ccard;
 		A basic implementation of the JDialog class.
 */
 
+import application.ccard.CreditCard;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -41,9 +43,9 @@ public class JDialogGenBill extends javax.swing.JDialog
 		billstring += "Total Credits = $ 25.00\r\n";
 		billstring += "Total Charges = $ 560.00\r\n";
 		billstring += "New balance = $ 638.75\r\n";
-		billstring += "Total amount due = $ 63.88\r\n";		
-		billstring += "\r\n";		
-		billstring += "\r\n";		
+		billstring += "Total amount due = $ 63.88\r\n";
+		billstring += "\r\n";
+		billstring += "\r\n";
 		billstring += "Name= Frank Summer\r\n";
 		billstring += "Address= 1000 N, 4th St, Fairfield, IA, 52556\r\n";
 		billstring += "CC number= 0099 3421 4321 6577\r\n";
