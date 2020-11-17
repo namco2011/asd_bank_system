@@ -1,8 +1,9 @@
 package banking;
 
+import banking.Database.AccountDB;
+
 import java.util.Collection;
 import java.util.Date;
-
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
 
@@ -17,6 +18,7 @@ public class AccountServiceImpl implements AccountService {
         Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         account.setCustomer(customer);
         accountDAO.saveAccount(account);
+        AccountDB.accountList.add(account);
         account.addObserver(new EmailSender());
         account.changeNotification();
         return account;
@@ -30,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         customer.setBirthday(birthdate);
         accountDAO.saveAccount(account);
+        AccountDB.accountList.add(account);
         account.addObserver(new EmailSender());
         account.changeNotification();
         return account;
@@ -42,6 +45,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         customer.setNoOfEmployee(noOfEmployee);
         accountDAO.saveAccount(account);
+        AccountDB.accountList.add(account);
         account.addObserver(new EmailSender());
         account.changeNotification();
         return account;
@@ -54,6 +58,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         customer.setExpirationDate(expireDate);
         accountDAO.saveAccount(account);
+
         account.addObserver(new EmailSender());
         account.changeNotification();
         switch (creditCardType) {
@@ -61,6 +66,7 @@ public class AccountServiceImpl implements AccountService {
             case SILVER -> account.setCreditCardStrategy(new SilverCCStrategy());
             case BRONZE -> account.setCreditCardStrategy(new BronzeCCStrategy());
         }
+        AccountDB.accountList.add(account);
         return account;
     }
 
@@ -70,6 +76,8 @@ public class AccountServiceImpl implements AccountService {
         account.deposit(amount);
         account.changeNotification();
         accountDAO.updateAccount(account);
+
+
     }
 
     public void addInterest(String accountNumber) {

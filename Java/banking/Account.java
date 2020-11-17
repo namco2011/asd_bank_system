@@ -1,5 +1,7 @@
 package banking;
 
+import banking.Database.AccountEntryDB;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -62,16 +64,19 @@ public class Account extends Observable {
 	public void deposit(double amount) {
 		AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
 		entryList.add(entry);
+		AccountEntryDB.accountEntry.add(entry);
 	}
 
 	public void addInterest() {
 		AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", "", "");
 		entryList.add(entry);
+		AccountEntryDB.accountEntry.add(entry);
 	}
 
 	public void withdraw(double amount) {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
 		entryList.add(entry);
+		AccountEntryDB.accountEntry.add(entry);
 	}
 
 	private void addEntry(AccountEntry entry) {
@@ -85,8 +90,10 @@ public class Account extends Observable {
 				toAccount.getCustomer().getName());
 		
 		entryList.add(fromEntry);
+		AccountEntryDB.accountEntry.add(fromEntry);
 		
 		toAccount.addEntry(toEntry);
+		AccountEntryDB.accountEntry.add(toEntry);
 	}
 
 	public Customer getCustomer() {

@@ -1,5 +1,7 @@
 package banking;
 
+import banking.Database.AccountEntryDB;
+
 public class CreditCard extends Account{
 
     public CreditCard(String accountNumber, AccountType accountType, AccountClass accountClass) {
@@ -38,16 +40,20 @@ public class CreditCard extends Account{
     public void deposit(double amount) {
         AccountEntry entry = new AccountEntry(amount, "credit", "", "");
         entryList.add(entry);
+        AccountEntryDB.accountEntry.add(entry);
+
     }
 
     public void addInterest() {
         AccountEntry entry = new AccountEntry(this.getBalance()*this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
         entryList.add(entry);
+        AccountEntryDB.accountEntry.add(entry);
     }
 
     public void withdraw(double amount) {
         AccountEntry entry = new AccountEntry(-amount, "charge", "", "");
         entryList.add(entry);
+        AccountEntryDB.accountEntry.add(entry);
     }
 
 }
