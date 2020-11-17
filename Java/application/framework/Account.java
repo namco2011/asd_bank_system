@@ -5,8 +5,6 @@ import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.GoldCCStrategy;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Account extends Observable {
@@ -101,6 +99,7 @@ public class Account extends Observable {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
+
 		notifyChanges(entry);
 	}
 

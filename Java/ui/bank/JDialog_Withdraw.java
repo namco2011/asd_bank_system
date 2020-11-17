@@ -1,6 +1,8 @@
 package ui.bank;
 
 
+import java.io.IOException;
+
 public class JDialog_Withdraw extends javax.swing.JDialog
 {
    
@@ -72,15 +74,19 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 		public void actionPerformed(java.awt.event.ActionEvent event)
 		{
 			Object object = event.getSource();
-			if (object == JButton_OK)
-				JButtonOK_actionPerformed(event);
+			if (object == JButton_OK) {
+				try {
+					JButtonOK_actionPerformed(event);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			else if (object == JButton_Calcel)
 				JButtonCalcel_actionPerformed(event);
 		}
 	}
 
-	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
-	{
+	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) throws IOException {
         parentframe.transactionAmount =JTextField_AMT.getText();
         parentframe.accountService.withdraw(accnr,Double.parseDouble(JTextField_AMT.getText()));
 //		            for(Account account: AccountDB.accountList){

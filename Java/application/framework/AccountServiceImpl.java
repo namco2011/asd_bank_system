@@ -2,6 +2,7 @@ package application.framework;
 
 import application.ccard.*;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 public class AccountServiceImpl implements AccountService {
@@ -9,6 +10,7 @@ public class AccountServiceImpl implements AccountService {
 
     //MEKU
     //Singleton account service implementation
+
     private static AccountServiceImpl instance;
 
     public AccountServiceImpl() {
@@ -35,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
         AccountDB.accountList.add(account);
         CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-        account.changeNotification();
+      //  account.changeNotification();
         return account;
     }
 
@@ -49,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
         AccountDB.accountList.add(account);
         CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-        account.changeNotification();
+     //   account.changeNotification();
         return account;
     }
 
@@ -63,7 +65,7 @@ public class AccountServiceImpl implements AccountService {
         AccountDB.accountList.add(account);
         CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-        account.changeNotification();
+     //   account.changeNotification();
         return account;
     }
 
@@ -76,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
         accountDAO.saveAccount(account);
 
         account.addObserver(new EmailSender());
-        account.changeNotification();
+//        account.changeNotification();
         switch (creditCardType) {
             case GOLD -> account.setCreditCardStrategy(new GoldCCStrategy());
             case SILVER -> account.setCreditCardStrategy(new SilverCCStrategy());
@@ -113,21 +115,31 @@ public class AccountServiceImpl implements AccountService {
         return AccountDB.accountList;
     }
 
-    public void withdraw(String accountNumber, double amount) {
+    public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.withdraw(amount);
-        account.changeNotification();
-
-        accountDAO.updateAccount(account);
+        if (account.getBalance()<amount) {
+            SendEmail email  = new SendEmail();
+            email.SendEMail(account.getCustomer().getEmailAddress()," You can't withdraw because account balance "+ account.getBalance() +" less than "+ amount);
+        }
+        else {
+            account.withdraw(amount);
+            accountDAO.updateAccount(account);
+        }
     }
 
 
-    public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) {
+    public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException {
         Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
         Account toAccount = accountDAO.loadAccount(toAccountNumber);
-        fromAccount.transferFunds(toAccount, amount, description);
-        fromAccount.changeNotification();
-        accountDAO.updateAccount(fromAccount);
-        accountDAO.updateAccount(toAccount);
+        if (fromAccount.getBalance()<amount) {
+            SendEmail email  = new SendEmail();
+            email.SendEMail(fromAccount.getCustomer().getEmailAddress()," You can't withdraw because account balance "+ fromAccount.getBalance() +" less than "+ amount);
+        }
+        else {
+            fromAccount.transferFunds(toAccount, amount, description);
+            //  fromAccount.changeNotification();
+            accountDAO.updateAccount(fromAccount);
+            accountDAO.updateAccount(toAccount);
+        }
     }
 }
