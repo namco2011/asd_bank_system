@@ -20,6 +20,7 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         accountDAO.saveAccount(account);
         AccountDB.accountList.add(account);
+        CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
         account.changeNotification();
         return account;
@@ -33,6 +34,7 @@ public class AccountServiceImpl implements AccountService {
         customer.setBirthday(birthdate);
         accountDAO.saveAccount(account);
         AccountDB.accountList.add(account);
+        CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
         account.changeNotification();
         return account;
@@ -46,6 +48,7 @@ public class AccountServiceImpl implements AccountService {
         customer.setNoOfEmployee(noOfEmployee);
         accountDAO.saveAccount(account);
         AccountDB.accountList.add(account);
+        CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
         account.changeNotification();
         return account;
@@ -67,6 +70,7 @@ public class AccountServiceImpl implements AccountService {
             case BRONZE -> account.setCreditCardStrategy(new BronzeCCStrategy());
         }
         AccountDB.accountList.add(account);
+        CustomerDB.customerList.add(customer);
         return account;
     }
 
