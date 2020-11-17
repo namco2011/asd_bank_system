@@ -1,6 +1,7 @@
 package banking;
 
 import banking.Database.AccountDB;
+import banking.Database.CustomerDB;
 
 import java.util.Collection;
 import java.util.Date;
@@ -26,7 +27,6 @@ public class AccountServiceImpl implements AccountService {
 
     public Account createPersonalAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                          String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date birthdate) {
-
         Account account = new Account(accountNumber, accountType, AccountClass.PERSONAL);
         Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         account.setCustomer(customer);

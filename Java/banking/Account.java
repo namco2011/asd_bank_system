@@ -10,8 +10,6 @@ import java.util.Observable;
 public class Account extends Observable {
 	protected Customer customer;
 	protected ICStrategy ICStrategy;
-
-
 	protected CreditCardStrategy creditCardStrategy;
 	protected AccountType accountType;
 	protected AccountClass accountClass;
