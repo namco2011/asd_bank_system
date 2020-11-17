@@ -75,7 +75,7 @@ public class Account extends Observable {
 	public double getPreviousBalance() {
 		double balance = 0;
 		for (AccountEntry entry : entryList) {
-			if(entry.getDate().getMonth()==LocalDate.now().getMonthValue()-1){
+			if(entry.getDate().compareTo(new Date())<0){
 			balance += entry.getAmount();}
 		}
 		return balance;
