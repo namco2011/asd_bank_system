@@ -1,6 +1,7 @@
 package banking;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class AccountServiceImpl implements AccountService {
 	private AccountDAO accountDAO;
@@ -21,6 +22,19 @@ public class AccountServiceImpl implements AccountService {
 		return account;
 	}
 
+	// methods for adding special methods for different customers
+	public void setBirthdate(Date birthDate){
+		//personal.setBirthday(birthDate);
+	}
+
+	public void setNumOfEmployee(int numEmployee){
+       //company.setNumOfEmployee(numEmployee);
+	}
+	public void setExpDate(Date expDate){
+		//credit.setExpDate(expDate)
+	}
+
+	//
 	public void deposit(String accountNumber, double amount) {
 		Account account = accountDAO.loadAccount(accountNumber);
 		account.deposit(amount);
