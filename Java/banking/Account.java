@@ -7,7 +7,7 @@ import java.util.Observable;
 
 public class Account extends Observable {
 	private Customer customer;
-	private InterestCalculationStrategy interestCalculationStrategy;
+	private ICStrategy ICStrategy;
 	private AccountType accountType;
 	private AccountClass accountClass;
 	private String accountNumber;
@@ -18,7 +18,7 @@ public class Account extends Observable {
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
 		this.accountClass = accountClass;
-		this.interestCalculationStrategy = accountType==AccountType.CHECKING?new CheckingInterestCalculation():new SavingInterestCalculation();
+		this.ICStrategy = accountType==AccountType.CHECKING?new CheckingICStrategy():new SavingICStrategy();
 	}
 
 	public void changeNotification(){
@@ -48,7 +48,7 @@ public class Account extends Observable {
 	}
 
 	public void addInterest() {
-		AccountEntry entry = new AccountEntry(this.interestCalculationStrategy.interestCalculation(this), "interest", "", "");
+		AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", "", "");
 		entryList.add(entry);
 	}
 

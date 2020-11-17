@@ -1,5 +1,5 @@
 package banking;
 
-public interface InterestCalculationStrategy {
+public interface ICStrategy {
     public double interestCalculation(Account account);
 }

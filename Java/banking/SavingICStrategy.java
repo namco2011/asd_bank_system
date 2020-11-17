@@ -1,6 +1,6 @@
 package banking;
 
-public class SavingInterestCalculation implements InterestCalculationStrategy{
+public class SavingICStrategy implements ICStrategy {
     @Override
     public double interestCalculation(Account account) {
         double balance = account.getBalance();
