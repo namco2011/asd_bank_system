@@ -5,10 +5,9 @@ import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.GoldCCStrategy;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Observable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class Account extends Observable {
 	protected Customer customer;
@@ -73,6 +72,14 @@ public class Account extends Observable {
 		return balance;
 	}
 
+	public double getPreviousBalance() {
+		double balance = 0;
+		for (AccountEntry entry : entryList) {
+			if(entry.getDate().getMonth()==LocalDate.now().getMonthValue()-1){
+			balance += entry.getAmount();}
+		}
+		return balance;
+	}
 
 
 
