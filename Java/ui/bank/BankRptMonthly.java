@@ -72,7 +72,7 @@ public class BankRptMonthly extends JFrame
 		this.addWindowListener(aSymWindow);
 		SymAction lSymAction = new SymAction();
 		JButton_Exit.addActionListener(lSymAction);
-		loadData(new AccountServiceImpl());
+		loadData(AccountServiceImpl.getInstance());
 
 		
 	}

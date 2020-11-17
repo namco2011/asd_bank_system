@@ -2,7 +2,7 @@ package banking;
 
 public class Application {
 	public static void main(String[] args) {
-		AccountService accountService = new AccountServiceImpl();
+		AccountService accountService = AccountServiceImpl.getInstance();
 
 
 		//String accountNumber, String customerName,  AccountType accountType,AccountClass accountClass,
