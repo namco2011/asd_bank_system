@@ -32,6 +32,8 @@ public class Account extends Observable {
 		notifyObservers();
 	}
 
+
+
 	public Account setCreditCardStrategy(CreditCardStrategy creditCardStrategy) {
 		this.creditCardStrategy = creditCardStrategy;
 		return this;
@@ -65,18 +67,21 @@ public class Account extends Observable {
 		AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
+		notifyChanges(entry);
 	}
 
 	public void addInterest() {
 		AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", "", "");
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
+		notifyChanges(entry);
 	}
 
 	public void withdraw(double amount) {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
+		notifyChanges(entry);
 	}
 
 	private void addEntry(AccountEntry entry) {
@@ -91,9 +96,11 @@ public class Account extends Observable {
 		
 		entryList.add(fromEntry);
 		AccountEntryDB.accountEntry.add(fromEntry);
-		
+		notifyChanges(fromEntry);
 		toAccount.addEntry(toEntry);
 		AccountEntryDB.accountEntry.add(toEntry);
+		notifyChanges(toEntry);
+
 	}
 
 	public Customer getCustomer() {
@@ -107,5 +114,12 @@ public class Account extends Observable {
 	public Collection<AccountEntry> getEntryList() {
 		return entryList;
 	}
+
+	public void notifyChanges(AccountEntry entry){
+		setChanged();
+		notifyObservers(entry);
+
+	}
+
 
 }

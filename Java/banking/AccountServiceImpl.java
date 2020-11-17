@@ -99,6 +99,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountDAO.loadAccount(accountNumber);
         account.withdraw(amount);
         account.changeNotification();
+
         accountDAO.updateAccount(account);
     }
 
