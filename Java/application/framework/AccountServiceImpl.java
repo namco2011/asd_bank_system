@@ -91,7 +91,6 @@ public class AccountServiceImpl implements AccountService {
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(amount);
-        account.changeNotification();
         accountDAO.updateAccount(account);
 
 

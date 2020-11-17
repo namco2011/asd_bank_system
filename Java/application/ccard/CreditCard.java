@@ -12,31 +12,34 @@ public class CreditCard extends Account {
         super(accountNumber, accountType, accountClass);
     }
 
-    public String monthlyBilling(){
+    public String monthlyBilling() {
         double previousBalance = this.getBalance();
         double totalCharge = this.getTotalCharges();
         double totalCredit = this.getTotalCredits();
         double MI = this.creditCardStrategy.monthlyInterest();
         double MP = this.creditCardStrategy.minimumPayment();
-        double newBalance = previousBalance - totalCredit + totalCharge + MI*(previousBalance - totalCredit);
-        double totalDue = MP*newBalance;
+        double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
+        double totalDue = MP * newBalance;
+        this.addInterest();
         return String.format("Name nhu yeu cau repot");
     }
 
-    public double getTotalCredits(){
+    public double getTotalCredits() {
         double totalCredits = 0;
         for (AccountEntry entry : entryList) {
-            if(entry.getDescription().equals("deposit")){
-                totalCredits += entry.getAmount();}
+            if (entry.getDescription().equals("deposit")) {
+                totalCredits += entry.getAmount();
+            }
         }
         return totalCredits;
     }
 
-    public double getTotalCharges(){
+    public double getTotalCharges() {
         double totalCharges = 0;
         for (AccountEntry entry : entryList) {
-            if(entry.getDescription().equals("withdrawn")){
-                totalCharges += entry.getAmount();}
+            if (entry.getDescription().equals("withdrawn")) {
+                totalCharges += entry.getAmount();
+            }
         }
         return totalCharges;
     }
@@ -49,9 +52,11 @@ public class CreditCard extends Account {
     }
 
     public void addInterest() {
-        AccountEntry entry = new AccountEntry(this.getBalance()*this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
-        entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
+        if (this.getBalance() > 0) {
+            AccountEntry entry = new AccountEntry(this.getBalance() * this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
+            entryList.add(entry);
+            AccountEntryDB.accountEntry.add(entry);
+        }
     }
 
     public void withdraw(double amount) {
