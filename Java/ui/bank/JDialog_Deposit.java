@@ -1,5 +1,8 @@
 package ui.bank;
 
+import application.banking.transaction.Deposit;
+import application.banking.transaction.HistoryCommand;
+
 public class JDialog_Deposit extends javax.swing.JDialog
 {
     
@@ -80,8 +83,14 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
+		HistoryCommand historyCommand = new HistoryCommand();
+		long amount=Long.parseLong(JTextField_Deposit.getText());
+		Deposit depositcommand = new Deposit(parentframe.accountService,accnr,amount);
+		depositcommand.execute();
+		historyCommand.addCommand(depositcommand);
         parentframe.transactionAmount =JTextField_Deposit.getText();
-		parentframe.accountService.deposit(accnr,Double.parseDouble(JTextField_Deposit.getText()));
+		//parentframe.accountService.deposit(accnr,);
+
 //		            for(Account account: AccountDB.accountList){
 //				System.out.println(account.getAccountNumber()+account.getBalance());
 //			}
