@@ -13,10 +13,14 @@ public class EmailSender implements Observer {
 
         SendEmail email = new SendEmail();
         StringBuilder sb = new StringBuilder();
-        sb.append("Dear "+ ac.customer );
+        sb.append("Dear "+ ac.getCustomer().getName() );
+        sb.append("\n");
+        sb.append("There is a transaction with "+ entry.getAmount());
         sb.append("\n");
         sb.append("Account balance of "+ac.accountNumber +" is"+ac.getBalance());
+        sb.append("\n");
         sb.append("Thank you");
+        sb.append("\n");
         sb.append("ASD Bank");
         try {
             email.SendEMail(ac.customer.getEmailAddress(),sb.toString());
