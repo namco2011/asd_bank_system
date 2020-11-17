@@ -9,9 +9,11 @@ public class AccountServiceImpl implements AccountService {
 		accountDAO = new AccountDAOImpl();
 	}
 
-	public Account createAccount(String accountNumber, String customerName,AccountType accountType,AccountClass accountClass) {
+	public Account createAccount(String accountNumber, String customerName,  AccountType accountType,AccountClass accountClass,
+								 String customerStreet,String customerCity,String customerState,String customerZip , String customerEmail ) {
+
 		Account account = new Account(accountNumber,accountType,accountClass);
-		Customer customer = new Customer(customerName);
+		Customer customer = new Customer(accountNumber,customerName, customerEmail, customerStreet,customerCity, customerState, customerZip);
 		account.setCustomer(customer);
 		accountDAO.saveAccount(account);
 		account.addObserver(new EmailSender());

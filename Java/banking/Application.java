@@ -4,9 +4,14 @@ public class Application {
 	public static void main(String[] args) {
 		AccountService accountService = new AccountServiceImpl();
 
+
+		//String accountNumber, String customerName,  AccountType accountType,AccountClass accountClass,
+		//								 String customerStreet,String customerCity,String customerState,String customerZip , String customerEmail
 		// create 2 accounts;
-		accountService.createAccount("1263862", "Frank Brown",AccountType.SAVING,AccountClass.COMPANY);
-		accountService.createAccount("4253892", "John Doe",AccountType.CHECKING,AccountClass.PERSONAL);
+		accountService.createAccount("1263862", "Frank Brown",AccountType.SAVING,AccountClass.COMPANY,
+				"110 st", "Fairfield", "Iowa", "52556", "cust01@gmail.com");
+		accountService.createAccount("4253892", "John Doe",AccountType.CHECKING,AccountClass.PERSONAL,
+				"111 st", "Fairfield", "Iowa", "52556", "cust02@gmail.com");
 		// use account 1;
 		accountService.deposit("1263862", 240);
 		accountService.deposit("1263862", 529);
