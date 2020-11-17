@@ -2,6 +2,7 @@ package application.framework;
 
 import application.ccard.CreditCardType;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ public interface AccountService {
     Collection<Account> getAllAccounts();
     void deposit (String accountNumber, double amount);
     void addInterest (String accountNumber);
-    void withdraw (String accountNumber, double amount);
-    void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description);
+    void withdraw (String accountNumber, double amount) throws IOException;
+    void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException;
 
     }

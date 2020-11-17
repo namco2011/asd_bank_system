@@ -5,8 +5,6 @@ import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.GoldCCStrategy;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class Account extends Observable {
@@ -75,7 +73,7 @@ public class Account extends Observable {
 	public double getPreviousBalance() {
 		double balance = 0;
 		for (AccountEntry entry : entryList) {
-			if(entry.getDate().getMonth()==LocalDate.now().getMonthValue()-1){
+			if(entry.getDate().compareTo(new Date())<0){
 			balance += entry.getAmount();}
 		}
 		return balance;
@@ -101,6 +99,7 @@ public class Account extends Observable {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
+
 		notifyChanges(entry);
 	}
 

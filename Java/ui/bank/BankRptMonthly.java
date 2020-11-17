@@ -82,7 +82,7 @@ public class BankRptMonthly extends JFrame
 
 	public  void loadData( ){
 		rowdata = new Object[8];
-		System.out.println(AccountEntryDB.accountEntry.size());
+
 
 
 
