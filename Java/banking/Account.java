@@ -6,24 +6,38 @@ import java.util.List;
 import java.util.Observable;
 
 public class Account extends Observable {
-	private Customer customer;
-	private ICStrategy ICStrategy;
-	private AccountType accountType;
-	private AccountClass accountClass;
-	private String accountNumber;
+	protected Customer customer;
+	protected ICStrategy ICStrategy;
 
-	private List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+
+	protected CreditCardStrategy creditCardStrategy;
+	protected AccountType accountType;
+	protected AccountClass accountClass;
+	protected String accountNumber;
+
+	protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
 	public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
 		this.accountClass = accountClass;
 		this.ICStrategy = accountType==AccountType.CHECKING?new CheckingICStrategy():new SavingICStrategy();
+		this.creditCardStrategy = new GoldCCStrategy();
 	}
 
 	public void changeNotification(){
 		setChanged();
 		notifyObservers();
+	}
+
+	public Account setCreditCardStrategy(CreditCardStrategy creditCardStrategy) {
+		this.creditCardStrategy = creditCardStrategy;
+		return this;
+	}
+
+
+	public CreditCardStrategy getCreditCardStrategy() {
+		return creditCardStrategy;
 	}
 
 	public String getAccountNumber() {
@@ -41,6 +55,9 @@ public class Account extends Observable {
 		}
 		return balance;
 	}
+
+
+
 
 	public void deposit(double amount) {
 		AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
