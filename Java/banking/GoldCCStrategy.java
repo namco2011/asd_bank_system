@@ -1,6 +1,6 @@
 package banking;
 
-public class Gold implements CreditCardStrategy{
+public class GoldCCStrategy implements CreditCardStrategy{
     @Override
     public double minimumPayment() {
         return 0.1;

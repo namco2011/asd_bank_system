@@ -57,27 +57,14 @@ public class AccountServiceImpl implements AccountService {
         account.addObserver(new EmailSender());
         account.changeNotification();
         switch (creditCardType) {
-            case GOLD -> account.setCreditCardStrategy(new Gold());
-            case SILVER -> account.setCreditCardStrategy(new Silver());
-            case BRONZE -> account.setCreditCardStrategy(new Bronze());
+            case GOLD -> account.setCreditCardStrategy(new GoldCCStrategy());
+            case SILVER -> account.setCreditCardStrategy(new SilverCCStrategy());
+            case BRONZE -> account.setCreditCardStrategy(new BronzeCCStrategy());
         }
         return account;
     }
 
-    // methods for adding special methods for different customers
-    public void setBirthdate(Date birthDate) {
-        //personal.setBirthday(birthDate);
-    }
 
-    public void setNumOfEmployee(int numEmployee) {
-        //company.setNumOfEmployee(numEmployee);
-    }
-
-    public void setExpDate(Date expDate) {
-        //credit.setExpDate(expDate)
-    }
-
-    //
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.deposit(amount);

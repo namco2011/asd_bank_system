@@ -1,6 +1,6 @@
 package banking;
 
-public class Silver implements CreditCardStrategy{
+public class BronzeCCStrategy implements CreditCardStrategy{
     @Override
     public double minimumPayment() {
         return 0.1;

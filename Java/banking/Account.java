@@ -22,7 +22,7 @@ public class Account extends Observable {
 		this.accountType = accountType;
 		this.accountClass = accountClass;
 		this.ICStrategy = accountType==AccountType.CHECKING?new CheckingICStrategy():new SavingICStrategy();
-		this.creditCardStrategy = new Gold();
+		this.creditCardStrategy = new GoldCCStrategy();
 	}
 
 	public void changeNotification(){
