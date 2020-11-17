@@ -1,6 +1,9 @@
 package ui.bank;
 
-import application.framework.*;
+import application.framework.AccountEntry;
+import application.framework.AccountEntryDB;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +24,7 @@ public class BankRptMonthly extends JFrame
     private JScrollPane JScrollPane1 =new JScrollPane();
     BankRptMonthly myframe;
     private Object rowdata[];
+	AccountService accountService =new AccountServiceImpl();
 
 	public BankRptMonthly()
 	{
@@ -71,45 +75,49 @@ public class BankRptMonthly extends JFrame
 		this.addWindowListener(aSymWindow);
 		SymAction lSymAction = new SymAction();
 		JButton_Exit.addActionListener(lSymAction);
-		loadData(AccountServiceImpl.getInstance());
+		loadData();
 
 		
 	}
 
-	public  void loadData(AccountServiceImpl accountService){
+	public  void loadData( ){
 		rowdata = new Object[8];
 		System.out.println(AccountEntryDB.accountEntry.size());
 
-		for (Account account : accountService.getAllAccounts()) {
-			Customer customer = account.getCustomer();
-			System.out.println("Statement for Account: " + account.getAccountNumber());
-			System.out.println("Account Holder: " + customer.getName());
 
-			System.out.println("-Date-------------------------"
-					+ "-Description------------------"
-					+ "-Amount-------------");
 
-			for (AccountEntry entry : account.getEntryList()) {
-				System.out.printf("%30s%30s%20.2f\n",
-						entry.getDate().toString(),
-						entry.getDescription(),
-						entry.getAmount());
-			}
 
-			System.out.println("----------------------------------------" + "----------------------------------------");
-			System.out.printf("%30s%30s%20.2f\n\n", "", "Current Balance:", account.getBalance());
-		}
+//		Calendar cal = new GregorianCalendar();
+//		Calendar cal2 = new GregorianCalendar();
+//		cal.roll(Calendar.DAY_OF_YEAR, -30);
+////if within the first 30 days, need to roll the year as well
+//		if(cal.after(cal2)){
+//			cal.roll(Calendar.YEAR, -1);
+//		}
+	for (AccountEntry entry:AccountEntryDB.accountEntry) {
 
-		for (AccountEntry entry:AccountEntryDB.accountEntry) {
-
-			rowdata[0]=entry.getFromAccountNumber();
-			rowdata[1]=entry.getFromPersonName();
-			rowdata[2]=entry.getFromPersonName();
-			rowdata[3]=entry.getFromPersonName();
-			rowdata[4]=entry.getFromPersonName();
-			rowdata[5]=entry.getAmount();
+	//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
+			rowdata[0] = entry.getFromAccountNumber();
+			rowdata[1] = entry.getFromPersonName();
+			rowdata[2] = entry.getFromPersonName();
+			rowdata[3] = entry.getFromPersonName();
+			rowdata[4] = entry.getFromPersonName();
+			rowdata[5] = entry.getAmount();
 			model.addRow(rowdata);
 		}
+	//}
+
+
+
+
+
+//		System.out.println("Year " + cal.get(Calendar.YEAR));
+//		System.out.println("Month " + cal.get(Calendar.MONTH));
+//		System.out.println("Day " + cal.get(Calendar.DAY_OF_MONTH));
+		//ZoneId defaultZoneId = ZoneId.systemDefault();
+		//AccountEntryDB.accountEntry.stream().filter(e ->  e.getDate().compareTo(cal.getTime() )>=0);
+
+
 	}
 
 	
