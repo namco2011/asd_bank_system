@@ -8,6 +8,9 @@ import java.util.Observable;
 public class Account extends Observable {
 	protected Customer customer;
 	protected ICStrategy ICStrategy;
+
+
+	protected CreditCardStrategy creditCardStrategy;
 	protected AccountType accountType;
 	protected AccountClass accountClass;
 	protected String accountNumber;
@@ -19,11 +22,22 @@ public class Account extends Observable {
 		this.accountType = accountType;
 		this.accountClass = accountClass;
 		this.ICStrategy = accountType==AccountType.CHECKING?new CheckingICStrategy():new SavingICStrategy();
+		this.creditCardStrategy = new Gold();
 	}
 
 	public void changeNotification(){
 		setChanged();
 		notifyObservers();
+	}
+
+	public Account setCreditCardStrategy(CreditCardStrategy creditCardStrategy) {
+		this.creditCardStrategy = creditCardStrategy;
+		return this;
+	}
+
+
+	public CreditCardStrategy getCreditCardStrategy() {
+		return creditCardStrategy;
 	}
 
 	public String getAccountNumber() {
@@ -41,6 +55,9 @@ public class Account extends Observable {
 		}
 		return balance;
 	}
+
+
+
 
 	public void deposit(double amount) {
 		AccountEntry entry = new AccountEntry(amount, "deposit", "", "");

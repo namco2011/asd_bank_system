@@ -10,7 +10,7 @@ public class Application {
 		// create 2 accounts;
 		accountService.createAccount("1263862", "Frank Brown",AccountType.SAVING,AccountClass.COMPANY,
 				"110 st", "Fairfield", "Iowa", "52556", "cust01@gmail.com");
-		accountService.createAccount("4253892", "John Doe",AccountType.CHECKING,AccountClass.PERSONAL,
+		accountService.createAccount("4253892", "John Doe",AccountType.CHECKING,AccountClass.CREDITCARD,
 				"111 st", "Fairfield", "Iowa", "52556", "cust02@gmail.com");
 		// use account 1;
 		accountService.deposit("1263862", 240);
