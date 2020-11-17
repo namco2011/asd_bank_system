@@ -21,8 +21,17 @@ public class CreditCard extends Account {
         double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
         double totalDue = MP * newBalance;
         this.addInterest();
-        return String.format("Name nhu yeu cau repot");
+
+        String report;
+        report = String.format("Previous balance : ${0}",previousBalance );
+        report += String.format("\n Total charge : ${0}",totalCharge );
+        report += String.format("\n Total credit : ${0}",totalCredit );
+        report += String.format("\n New Balance  : ${0}",newBalance );
+        report += String.format("\n Total Due    : ${0}",totalDue);
+        System.out.println(report);
+        return report;
     }
+
 
     public double getTotalCredits() {
         double totalCredits = 0;
