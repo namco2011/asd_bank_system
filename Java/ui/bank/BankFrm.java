@@ -1,5 +1,8 @@
 package ui.bank;
 
+import banking.Database.AccountDB;
+import banking.*;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -112,7 +115,9 @@ public class BankFrm extends javax.swing.JFrame
 		    }
 		    
 			//Create a new instance of our application's frame, and make it visible.
-			(new BankFrm()).setVisible(true);
+			BankFrm bf = new BankFrm();
+			bf.setVisible(true);
+			bf.PopulateInitialData();
 		} 
 		catch (Throwable t) {
 			t.printStackTrace();
@@ -301,5 +306,21 @@ public class BankFrm extends javax.swing.JFrame
 	{
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
 	    
+	}
+
+	//MEKU
+	//Populate the grid with the inital data
+	public void PopulateInitialData()
+	{
+		//Get the accounts from the account service
+		for (Account acc : AccountServiceImpl.getInstance().getAllAccounts()) {
+			rowdata[0] = acc.getAccountNumber();
+			rowdata[1] = acc.getCustomer() != null ? acc.getCustomer().getName() : "";
+			rowdata[2] = acc.getCustomer() != null ? acc.getCustomer().getCity() : "";
+			rowdata[3] = acc.getAccountClass();
+			rowdata[4] = acc.getAccountType();
+			rowdata[5] = acc.getBalance();
+			model.addRow(rowdata);
+		}
 	}
 }

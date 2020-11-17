@@ -8,8 +8,22 @@ import java.util.Date;
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
 
-    public AccountServiceImpl() {
+    //MEKU
+    //Singleton account service implementation
+    private static AccountServiceImpl instance;
+
+    private AccountServiceImpl() {
         accountDAO = new AccountDAOImpl();
+    }
+
+    public static AccountServiceImpl getInstance()
+    {
+        if(instance == null)
+        {
+            instance = new AccountServiceImpl();
+        }
+
+        return instance;
     }
 
     public Account createAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
@@ -96,7 +110,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Collection<Account> getAllAccounts() {
-        return accountDAO.getAccounts();
+        //Revert later
+        // return accountDAO.getAccounts();
+        return AccountDB.accountList;
     }
 
     public void withdraw(String accountNumber, double amount) {
