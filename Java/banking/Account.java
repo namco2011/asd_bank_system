@@ -11,7 +11,19 @@ public class Account extends Observable {
 	protected Customer customer;
 	protected ICStrategy ICStrategy;
 	protected CreditCardStrategy creditCardStrategy;
+
+
+
 	protected AccountType accountType;
+
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public AccountClass getAccountClass() {
+		return accountClass;
+	}
+
 	protected AccountClass accountClass;
 	protected String accountNumber;
 

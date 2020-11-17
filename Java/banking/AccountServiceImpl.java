@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
 
     public Account createCreditCard(String ccNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                     String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date expireDate, CreditCardType creditCardType) {
-        Account account = new CreditCard(ccNumber, accountType, AccountClass.CREDITCARD);
+        Account account = new CreditCard(ccNumber, AccountType.CREDITCARD, AccountClass.CREDITCARD);
         Customer customer = new Customer(ccNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         account.setCustomer(customer);
         customer.setExpirationDate(expireDate);

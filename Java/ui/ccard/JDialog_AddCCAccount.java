@@ -3,6 +3,8 @@ package ui.ccard;
 		A basic implementation of the JDialog class.
 */
 
+import banking.CreditCardType;
+
 public class JDialog_AddCCAccount extends javax.swing.JDialog
 {
     private CardFrm parentframe;
@@ -55,7 +57,7 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
 		getContentPane().add(JLabel6);
 		JLabel6.setForeground(java.awt.Color.black);
 		JLabel6.setBounds(12,252,96,24);
-		Label7.setText("Exp. Date");
+		Label7.setText("Exp.Date-dd/MM/yyyy");
 		getContentPane().add(Label7);
 		Label7.setForeground(java.awt.Color.black);
 		Label7.setBounds(12,276,72,24);
@@ -190,14 +192,15 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
        parentframe.zip=JTextField_ZIP.getText();
        parentframe.state=JTextField_ST.getText();
        parentframe.ccnumber=JTextField_CCNR.getText();
+       parentframe.email=JTextField_Email.getText();
        parentframe.expdate=JTextField_ExpDate.getText();
        if (JRadioButton_Gold.isSelected())
-           parentframe.accountType="Gold";
+           parentframe.accountType= CreditCardType.GOLD;
            else{
             if (JRadioButton_Silver.isSelected())
-                parentframe.accountType="Silver";
+                parentframe.accountType=CreditCardType.SILVER;
                 else
-                parentframe.accountType="Bronze";
+                parentframe.accountType=CreditCardType.BRONZE;
            }
            
 	   parentframe.newaccount=true;

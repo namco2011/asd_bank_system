@@ -1,6 +1,4 @@
 package ui.bank;
-import java.awt.*;
-import javax.swing.*;
 
 public class JDialog_Deposit extends javax.swing.JDialog
 {
@@ -82,7 +80,11 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-        parentframe.amountDeposit=JTextField_Deposit.getText();
+        parentframe.transactionAmount =JTextField_Deposit.getText();
+		parentframe.accountService.deposit(accnr,Double.parseDouble(JTextField_Deposit.getText()));
+//		            for(Account account: AccountDB.accountList){
+//				System.out.println(account.getAccountNumber()+account.getBalance());
+//			}
         dispose();
 	}
 

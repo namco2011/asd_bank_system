@@ -1,5 +1,7 @@
 package banking;
 
+import banking.Database.AccountDB;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -20,7 +22,7 @@ public class AccountDAOImpl implements AccountDAO {
 	}
 
 	public Account loadAccount(String accountNumber) {
-		for (Account account : accountlist) {
+		for (Account account : AccountDB.accountList) {
 			if (account.getAccountNumber() == accountNumber) {
 				return account;
 			}

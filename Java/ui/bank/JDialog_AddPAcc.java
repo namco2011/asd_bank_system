@@ -3,6 +3,8 @@ package ui.bank;
 		A basic implementation of the JDialog class.
 */
 
+import banking.AccountType;
+
 public class JDialog_AddPAcc extends javax.swing.JDialog
 {
     private BankFrm parentframe;
@@ -51,7 +53,7 @@ public class JDialog_AddPAcc extends javax.swing.JDialog
 		getContentPane().add(JLabel5);
 		JLabel5.setForeground(java.awt.Color.black);
 		JLabel5.setBounds(12,180,48,24);
-		JLabel6.setText("Birthdate");
+		JLabel6.setText("Birthdate-dd/MM/yyyy");
 		getContentPane().add(JLabel6);
 		JLabel6.setForeground(java.awt.Color.black);
 		JLabel6.setBounds(12,204,96,24);
@@ -169,18 +171,18 @@ public class JDialog_AddPAcc extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-//       parentframe.accountnr=JTextField_ACNR.getText();
-//       parentframe.clientName=JTextField_NAME.getText();
-//       parentframe.street=JTextField_STR.getText();
-//       parentframe.city=JTextField_CT.getText();
-//       parentframe.zip=JTextField_ZIP.getText();
-//       parentframe.state=JTextField_ST.getText();
-//       if (JRadioButton_Chk.isSelected())
-//           parentframe.accountType="Ch";
-//           else
-//           parentframe.accountType="S";
-//	   parentframe.newaccount=true;
-		parentframe.accountnr="11111111";
+       parentframe.accountnr=JTextField_ACNR.getText();
+       parentframe.clientName=JTextField_NAME.getText();
+       parentframe.street=JTextField_STR.getText();
+       parentframe.city=JTextField_CT.getText();
+       parentframe.zip=JTextField_ZIP.getText();
+       parentframe.state=JTextField_ST.getText();
+       parentframe.dateOfBirth=JTextField_BD.getText();
+       if (JRadioButton_Chk.isSelected())
+           parentframe.accountType= AccountType.CHECKING;
+           else
+           parentframe.accountType=AccountType.SAVING;
+	   parentframe.newaccount=true;
        dispose();
 	}
 

@@ -1,8 +1,8 @@
 package ui.bank;
-import java.awt.*;
-import javax.swing.*;
 
 
+import banking.Account;
+import banking.Database.AccountDB;
 
 public class JDialog_Withdraw extends javax.swing.JDialog
 {
@@ -84,7 +84,11 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-        parentframe.amountDeposit=JTextField_AMT.getText();
+        parentframe.transactionAmount =JTextField_AMT.getText();
+        parentframe.accountService.withdraw(accnr,Double.parseDouble(JTextField_AMT.getText()));
+//		            for(Account account: AccountDB.accountList){
+//				System.out.println(account.getAccountNumber()+account.getBalance());
+//			}
 		dispose();
 	}
 

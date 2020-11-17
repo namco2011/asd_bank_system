@@ -1,8 +1,15 @@
 package ui.bank;
 
+import banking.*;
+import banking.Database.AccountDB;
+import banking.Database.AccountEntryDB;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A basic JFC based application.
@@ -12,13 +19,15 @@ public class BankFrm extends javax.swing.JFrame
     /****
      * init variables in the object
      ****/
-    String accountnr, clientName,street,city,zip,state,accountType,clientType,amountDeposit;
+    String accountnr,clientName,street,city,zip,state,clientType, transactionAmount,email,noOfEmployee,dateOfBirth;
+    AccountType accountType;
     boolean newaccount;
     private DefaultTableModel model;
     private JTable JTable1;
     private JScrollPane JScrollPane1;
     BankFrm myframe;
     private Object rowdata[];
+	AccountService accountService = new AccountServiceImpl();
     
 	public BankFrm()
 	{
@@ -80,7 +89,6 @@ public class BankFrm extends javax.swing.JFrame
 		//$$ lineBorder1.move(24,312);
 
 		JButton_PerAC.setActionCommand("jbutton");
-
 		SymWindow aSymWindow = new SymWindow();
 		this.addWindowListener(aSymWindow);
 		SymAction lSymAction = new SymAction();
@@ -171,8 +179,13 @@ public class BankFrm extends javax.swing.JFrame
 			Object object = event.getSource();
 			if (object == JButton_Exit)
 				JButtonExit_actionPerformed(event);
-			else if (object == JButton_PerAC)
-				JButtonPerAC_actionPerformed(event);
+			else if (object == JButton_PerAC) {
+				try {
+					JButtonPerAC_actionPerformed(event);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			else if (object == JButton_CompAC)
 				JButtonCompAC_actionPerformed(event);
 			else if (object == JButton_Deposit)
@@ -192,8 +205,7 @@ public class BankFrm extends javax.swing.JFrame
 		System.exit(0);
 	}
 
-	void JButtonPerAC_actionPerformed(java.awt.event.ActionEvent event)
-	{
+	void JButtonPerAC_actionPerformed(java.awt.event.ActionEvent event) throws ParseException {
 		/*
 		 JDialog_AddPAcc type object is for adding personal information
 		 construct a JDialog_AddPAcc type object 
@@ -214,6 +226,12 @@ public class BankFrm extends javax.swing.JFrame
             rowdata[5] = "0";
             model.addRow(rowdata);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
+            //Nam update
+			Date birthDay =new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirth);
+            accountService.createPersonalAccount(accountnr,clientName,accountType, AccountClass.PERSONAL,street,city,state,zip,email,birthDay);
+//            for(Account account: AccountDB.accountList){
+//				System.out.println(account.getAccountNumber());
+//			}
             newaccount=false;
         }
 
@@ -243,6 +261,9 @@ public class BankFrm extends javax.swing.JFrame
             rowdata[5] = "0";
             model.addRow(rowdata);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
+            //Nam update
+			int noEmployee = Integer.parseInt(noOfEmployee);
+			accountService.createCompanyAccount(accountnr,clientName,accountType, AccountClass.PERSONAL,street,city,state,zip,email,noEmployee);
             newaccount=false;
         }
 
@@ -261,7 +282,7 @@ public class BankFrm extends javax.swing.JFrame
 		    dep.show();
     		
 		    // compute new amount
-            long deposit = Long.parseLong(amountDeposit);
+            long deposit = Long.parseLong(transactionAmount);
             String samount = (String)model.getValueAt(selection, 5);
             long currentamount = Long.parseLong(samount);
 		    long newamount=currentamount+deposit;
@@ -284,7 +305,7 @@ public class BankFrm extends javax.swing.JFrame
 		    wd.show();
     		
 		    // compute new amount
-            long deposit = Long.parseLong(amountDeposit);
+            long deposit = Long.parseLong(transactionAmount);
             String samount = (String)model.getValueAt(selection, 5);
             long currentamount = Long.parseLong(samount);
 		    long newamount=currentamount-deposit;
@@ -300,6 +321,21 @@ public class BankFrm extends javax.swing.JFrame
 	void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		  JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts","Add interest to all accounts",JOptionPane.WARNING_MESSAGE);
+            for(Account account: AccountDB.accountList){
+				System.out.println(account.getAccountNumber()+" "+account.getAccountClass());
+			}
+		for(Account account: AccountDB.accountList){
+			accountService.addInterest(account.getAccountNumber());;
+		}
+//		  			AccountDB.accountList.stream()
+//					.filter(a->!a.getAccountType().equals(AccountType.CREDITCARD))
+//					.filter(a->a.getAccountNumber().equals("111"))
+//					.forEach(acc->{accountService.addInterest(acc.getAccountNumber());});
+//Nam update
+		            for(AccountEntry accountEntry: AccountEntryDB.accountEntry){
+				System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+" "+accountEntry.getAmount());
+
+		}
 	    
 	}
 }

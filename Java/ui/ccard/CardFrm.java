@@ -1,6 +1,14 @@
 package ui.ccard;
 
+import banking.AccountClass;
+import banking.AccountService;
+import banking.AccountServiceImpl;
+import banking.CreditCardType;
+
 import java.awt.BorderLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -16,13 +24,15 @@ public class CardFrm extends javax.swing.JFrame
     /****
      * init variables in the object
      ****/
-    String clientName,street,city, zip, state,accountType,amountDeposit,expdate, ccnumber;
+    String clientName,street,city, zip, state,amountDeposit,expdate, email,ccnumber;
+    CreditCardType accountType;
     boolean newaccount;
     private DefaultTableModel model;
     private JTable JTable1;
     private JScrollPane JScrollPane1;
     CardFrm thisframe;
     private Object rowdata[];
+	AccountService accountService = new AccountServiceImpl();
     
 	public CardFrm()
 	{
@@ -168,8 +178,13 @@ public class CardFrm extends javax.swing.JFrame
 			Object object = event.getSource();
 			if (object == JButton_Exit)
 				JButtonExit_actionPerformed(event);
-			else if (object == JButton_NewCCAccount)
-				JButtonNewCCAC_actionPerformed(event);
+			else if (object == JButton_NewCCAccount) {
+				try {
+					JButtonNewCCAC_actionPerformed(event);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
 			else if (object == JButton_GenBill)
 				JButtonGenerateBill_actionPerformed(event);
 			else if (object == JButton_Deposit)
@@ -187,8 +202,7 @@ public class CardFrm extends javax.swing.JFrame
 		System.exit(0);
 	}
 
-	void JButtonNewCCAC_actionPerformed(java.awt.event.ActionEvent event)
-	{
+	void JButtonNewCCAC_actionPerformed(java.awt.event.ActionEvent event) throws ParseException {
 		/*
 		 JDialog_AddPAcc type object is for adding personal information
 		 construct a JDialog_AddPAcc type object 
@@ -207,6 +221,8 @@ public class CardFrm extends javax.swing.JFrame
             rowdata[3] = accountType;
             rowdata[4] = "0";
             model.addRow(rowdata);
+			Date expDate =new SimpleDateFormat("dd/MM/yyyy").parse(expdate);
+            accountService.createCreditCard(ccnumber,clientName,null, AccountClass.CREDITCARD,street,city,state,zip,email,expDate,accountType);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
