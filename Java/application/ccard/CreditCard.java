@@ -13,7 +13,7 @@ public class CreditCard extends Account {
     }
 
     public String monthlyBilling() {
-        double previousBalance = this.getBalance();
+        double previousBalance = this.getPreviousBalance();
         double totalCharge = this.getTotalCharges();
         double totalCredit = this.getTotalCredits();
         double MI = this.creditCardStrategy.monthlyInterest();

@@ -4,7 +4,11 @@ import application.banking.CheckingICStrategy;
 import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.GoldCCStrategy;
+import static java.time.temporal.TemporalAdjusters.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 public class Account extends Observable {
@@ -72,14 +76,18 @@ public class Account extends Observable {
 
 	public double getPreviousBalance() {
 		double balance = 0;
+		LocalDate current = LocalDate.now();
+		LocalDate prevMonth = current.minusMonths(1);
+		LocalDate startPrevMonth = prevMonth.with(firstDayOfMonth());
+		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
 		for (AccountEntry entry : entryList) {
-			if(entry.getDate().compareTo(new Date())<0){
-			balance += entry.getAmount();}
+			Date entryDate = entry.getDate();
+			LocalDate entryLocalDate = entryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			if(entryLocalDate.isAfter(startPrevMonth) && entryLocalDate.isBefore(entryLocalDate)){
+				balance += entry.getAmount();}
 		}
 		return balance;
 	}
-
-
 
 	public void deposit(double amount) {
 		AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
@@ -99,7 +107,6 @@ public class Account extends Observable {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
 		entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
-
 		notifyChanges(entry);
 	}
 
