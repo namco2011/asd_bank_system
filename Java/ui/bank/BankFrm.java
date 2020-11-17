@@ -1,10 +1,8 @@
 package ui.bank;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 /**
  * A basic JFC based application.
@@ -277,7 +275,7 @@ public class BankFrm extends javax.swing.JFrame
 	{
 	    // get selected name
         int selection = JTable1.getSelectionModel().getMinSelectionIndex();
-        if (selection >=0){
+        if (selection >=-1){
             String accnr = (String)model.getValueAt(selection, 0);
 
 		    //Show the dialog for adding withdraw amount for the current mane
