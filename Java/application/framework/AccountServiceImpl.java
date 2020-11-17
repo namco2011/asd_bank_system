@@ -118,14 +118,14 @@ public class AccountServiceImpl implements AccountService {
 
     public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
-        if (account.getBalance()<amount) {
-            SendEmail email  = new SendEmail();
-            email.SendEMail(account.getCustomer().getEmailAddress()," You can't withdraw because account balance "+ account.getBalance() +" less than "+ amount);
-        }
-        else {
+//        if (account.getBalance()<amount) {
+//            SendEmail email  = new SendEmail();
+//            email.SendEMail(account.getCustomer().getEmailAddress()," You can't withdraw because account balance "+ account.getBalance() +" less than "+ amount);
+//        }
+//        else {
             account.withdraw(amount);
             accountDAO.updateAccount(account);
-        }
+//        }
     }
 
 

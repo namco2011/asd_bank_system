@@ -4,6 +4,8 @@ package ui.ccard;
 */
 
 import application.ccard.CreditCard;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
 
 import java.awt.*;
 import javax.swing.*;
@@ -11,6 +13,7 @@ import javax.swing.*;
 public class JDialogGenBill extends javax.swing.JDialog
 {
     String billstring;
+	AccountService accountService = new AccountServiceImpl();
     
 	public JDialogGenBill(Frame parent)
 	{
@@ -33,6 +36,9 @@ public class JDialogGenBill extends javax.swing.JDialog
 		JButton_OK.setActionCommand("OK");
 		getContentPane().add(JButton_OK);
 		JButton_OK.setBounds(156,276,96,24);
+		//
+
+//		billstring =
 
 		// generate the string for the monthly bill
 		billstring = "Name= John White\r\n";
