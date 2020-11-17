@@ -1,4 +1,4 @@
-package application.bank;
+package application.banking;
 
 import application.framework.AccountClass;
 import application.framework.AccountType;

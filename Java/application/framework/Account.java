@@ -1,7 +1,7 @@
 package application.framework;
 
-import application.bank.CheckingICStrategy;
-import application.bank.SavingICStrategy;
+import application.banking.CheckingICStrategy;
+import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.GoldCCStrategy;
 
@@ -12,7 +12,7 @@ import java.util.Observable;
 
 public class Account extends Observable {
 	protected Customer customer;
-	protected application.bank.ICStrategy ICStrategy;
+	protected application.banking.ICStrategy ICStrategy;
 	protected CreditCardStrategy creditCardStrategy;
 
 
