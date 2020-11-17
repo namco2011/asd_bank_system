@@ -1,6 +1,4 @@
-package banking;
-
-import banking.utilities.SendEmail;
+package application.framework;
 
 import java.io.IOException;
 import java.util.Observable;

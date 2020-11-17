@@ -1,4 +1,8 @@
-package banking;
+package application.bank;
+
+import application.framework.AccountClass;
+import application.framework.AccountType;
+import application.framework.Account;
 
 import java.util.Date;
 

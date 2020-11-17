@@ -1,6 +1,4 @@
-package banking;
-
-import banking.Database.AccountDB;
+package application.framework;
 
 import java.util.ArrayList;
 import java.util.Collection;

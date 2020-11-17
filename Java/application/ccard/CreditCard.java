@@ -1,8 +1,12 @@
-package banking;
+package application.ccard;
 
-import banking.Database.AccountEntryDB;
+import application.framework.Account;
+import application.framework.AccountClass;
+import application.framework.AccountEntry;
+import application.framework.AccountType;
+import application.framework.AccountEntryDB;
 
-public class CreditCard extends Account{
+public class CreditCard extends Account {
 
     public CreditCard(String accountNumber, AccountType accountType, AccountClass accountClass) {
         super(accountNumber, accountType, accountClass);

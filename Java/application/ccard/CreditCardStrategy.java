@@ -1,4 +1,4 @@
-package banking;
+package application.ccard;
 
 public interface CreditCardStrategy {
     public double minimumPayment();

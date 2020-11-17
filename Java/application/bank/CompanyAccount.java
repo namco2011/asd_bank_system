@@ -1,8 +1,10 @@
-package banking;
+package application.bank;
 
-import java.util.Date;
+import application.framework.AccountClass;
+import application.framework.AccountType;
+import application.framework.Account;
 
-public class CompanyAccount extends Account{
+public class CompanyAccount extends Account {
 
 
 

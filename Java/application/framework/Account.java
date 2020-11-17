@@ -1,6 +1,9 @@
-package banking;
+package application.framework;
 
-import banking.Database.AccountEntryDB;
+import application.bank.CheckingICStrategy;
+import application.bank.SavingICStrategy;
+import application.ccard.CreditCardStrategy;
+import application.ccard.GoldCCStrategy;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +12,7 @@ import java.util.Observable;
 
 public class Account extends Observable {
 	protected Customer customer;
-	protected ICStrategy ICStrategy;
+	protected application.bank.ICStrategy ICStrategy;
 	protected CreditCardStrategy creditCardStrategy;
 
 

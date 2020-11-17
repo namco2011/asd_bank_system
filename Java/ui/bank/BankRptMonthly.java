@@ -1,7 +1,6 @@
 package ui.bank;
 
-import banking.*;
-import banking.Database.AccountEntryDB;
+import application.framework.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

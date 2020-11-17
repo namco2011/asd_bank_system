@@ -1,4 +1,4 @@
-package banking;
+package application.ccard;
 
 public class SilverCCStrategy implements CreditCardStrategy{
     @Override

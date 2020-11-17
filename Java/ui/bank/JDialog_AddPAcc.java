@@ -3,7 +3,7 @@ package ui.bank;
 		A basic implementation of the JDialog class.
 */
 
-import banking.AccountType;
+import application.framework.AccountType;
 
 public class JDialog_AddPAcc extends javax.swing.JDialog
 {

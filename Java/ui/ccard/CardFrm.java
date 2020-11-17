@@ -1,9 +1,10 @@
 package ui.ccard;
 
-import banking.AccountClass;
-import banking.AccountService;
-import banking.AccountServiceImpl;
-import banking.CreditCardType;
+import application.ccard.CreditCardType;
+import application.framework.AccountClass;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
+import application.framework.AccountType;
 
 import java.awt.BorderLayout;
 import java.text.ParseException;
@@ -25,7 +26,7 @@ public class CardFrm extends javax.swing.JFrame
      * init variables in the object
      ****/
     String clientName,street,city, zip, state,amountDeposit,expdate, email,ccnumber;
-    CreditCardType accountType;
+    CreditCardType creditCardType;
     boolean newaccount;
     private DefaultTableModel model;
     private JTable JTable1;
@@ -218,17 +219,14 @@ public class CardFrm extends javax.swing.JFrame
             rowdata[0] = clientName;
             rowdata[1] = ccnumber;
             rowdata[2] = expdate;
-            rowdata[3] = accountType;
+            rowdata[3] = creditCardType;
             rowdata[4] = "0";
             model.addRow(rowdata);
 			Date expDate =new SimpleDateFormat("dd/MM/yyyy").parse(expdate);
-            accountService.createCreditCard(ccnumber,clientName,null, AccountClass.CREDITCARD,street,city,state,zip,email,expDate,accountType);
+            accountService.createCreditCard(ccnumber,clientName, AccountType.CREDITCARD, AccountClass.CREDITCARD,street,city,state,zip,email,expDate, creditCardType);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
         }
-
-       
-        
     }
 
 	void JButtonGenerateBill_actionPerformed(java.awt.event.ActionEvent event)
@@ -244,10 +242,12 @@ public class CardFrm extends javax.swing.JFrame
 	    // get selected name
         int selection = JTable1.getSelectionModel().getMinSelectionIndex();
         if (selection >=0){
-            String name = (String)model.getValueAt(selection, 0);
-    	    
+//            String name = (String)model.getValueAt(selection, 0);
+            String ccNumber = (String)model.getValueAt(selection, 1);
+
 		    //Show the dialog for adding deposit amount for the current mane
-		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,name);
+//		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,name);
+		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,ccNumber);
 		    dep.setBounds(430, 15, 275, 140);
 		    dep.show();
     		
@@ -267,10 +267,12 @@ public class CardFrm extends javax.swing.JFrame
 	    // get selected name
         int selection = JTable1.getSelectionModel().getMinSelectionIndex();
         if (selection >=0){
-            String name = (String)model.getValueAt(selection, 0);
+//            String name = (String)model.getValueAt(selection, 0);
+            String ccNumber = (String)model.getValueAt(selection, 1);
 
 		    //Show the dialog for adding withdraw amount for the current mane
-		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,name);
+//		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,name);
+		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,ccNumber);
 		    wd.setBounds(430, 15, 275, 140);
 		    wd.show();
     		
@@ -281,7 +283,8 @@ public class CardFrm extends javax.swing.JFrame
 		    long newamount=currentamount-deposit;
 		    model.setValueAt(String.valueOf(newamount),selection, 4);
 		    if (newamount <0){
-		       JOptionPane.showMessageDialog(JButton_Withdraw, " "+name+" Your balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
+//		       JOptionPane.showMessageDialog(JButton_Withdraw, " "+name+" Your balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
+		       JOptionPane.showMessageDialog(JButton_Withdraw, " "+ccNumber+" Your balance is negative: $"+String.valueOf(newamount)+" !","Warning: negative balance",JOptionPane.WARNING_MESSAGE);
 		    }
 		}
 		

@@ -1,9 +1,6 @@
 package ui.bank;
 
 
-import banking.Account;
-import banking.Database.AccountDB;
-
 public class JDialog_Withdraw extends javax.swing.JDialog
 {
    

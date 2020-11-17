@@ -1,11 +1,13 @@
-package banking;
+package application.framework;
+
+import application.ccard.CreditCardType;
 
 import java.util.Collection;
 import java.util.Date;
 
 public interface AccountService {
-    Account createAccount(String accountNumber, String customerName,  AccountType accountType,AccountClass accountClass,
-                          String customerStreet,String customerCity,String customerState,String customerZip , String customerEmail );
+    Account createAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
+                          String customerStreet, String customerCity, String customerState, String customerZip , String customerEmail );
     Account createPersonalAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                   String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date birthdate);
     Account createCompanyAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,

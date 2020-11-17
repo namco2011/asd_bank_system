@@ -1,7 +1,6 @@
-package banking;
+package application.framework;
 
-import banking.Database.AccountDB;
-import banking.Database.CustomerDB;
+import application.ccard.*;
 
 import java.util.Collection;
 import java.util.Date;
@@ -12,7 +11,7 @@ public class AccountServiceImpl implements AccountService {
     //Singleton account service implementation
     private static AccountServiceImpl instance;
 
-    private AccountServiceImpl() {
+    public AccountServiceImpl() {
         accountDAO = new AccountDAOImpl();
     }
 

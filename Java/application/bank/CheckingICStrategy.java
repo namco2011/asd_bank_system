@@ -1,4 +1,6 @@
-package banking;
+package application.bank;
+
+import application.framework.Account;
 
 public class CheckingICStrategy implements ICStrategy {
     @Override

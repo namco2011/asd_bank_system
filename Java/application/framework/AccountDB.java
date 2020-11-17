@@ -1,8 +1,4 @@
-package banking.Database;
-
-import banking.Account;
-import banking.AccountClass;
-import banking.AccountType;
+package application.framework;
 
 import java.util.ArrayList;
 import java.util.List;

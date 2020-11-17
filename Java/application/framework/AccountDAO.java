@@ -1,4 +1,4 @@
-package banking;
+package application.framework;
 
 import java.util.Collection;
 

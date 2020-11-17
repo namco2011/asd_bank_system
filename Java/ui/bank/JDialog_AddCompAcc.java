@@ -1,9 +1,5 @@
 package ui.bank;
-import banking.AccountType;
-
-import java.awt.*;
-import javax.swing.*;
-
+import application.framework.AccountType;
 
 
 public class JDialog_AddCompAcc extends javax.swing.JDialog

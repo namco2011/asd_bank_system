@@ -1,4 +1,4 @@
-package banking.utilities;
+package application.framework;
 
 
 //import javax.mail.*;
