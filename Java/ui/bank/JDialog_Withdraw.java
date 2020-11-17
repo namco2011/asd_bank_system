@@ -1,6 +1,7 @@
 package ui.bank;
 
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class JDialog_Withdraw extends javax.swing.JDialog
@@ -76,6 +77,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 			Object object = event.getSource();
 			if (object == JButton_OK) {
 				try {
+
 					JButtonOK_actionPerformed(event);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -87,8 +89,14 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 	}
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) throws IOException {
-        parentframe.transactionAmount =JTextField_AMT.getText();
-        parentframe.accountService.withdraw(accnr,Double.parseDouble(JTextField_AMT.getText()));
+		double amount = Double.parseDouble(JTextField_AMT.getText());
+		if (amount < parentframe.accountService.getAccount(accnr).getBalance()) {
+			parentframe.transactionAmount = JTextField_AMT.getText();
+			parentframe.accountService.withdraw(accnr, Double.parseDouble(JTextField_AMT.getText()));
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Withdraw exceed current balance.");
+		}
 //		            for(Account account: AccountDB.accountList){
 //				System.out.println(account.getAccountNumber()+account.getBalance());
 //			}

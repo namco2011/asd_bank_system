@@ -4,12 +4,13 @@ import application.banking.CheckingICStrategy;
 import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.GoldCCStrategy;
-import static java.time.temporal.TemporalAdjusters.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+
+import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 public class Account extends Observable {
 	protected Customer customer;
@@ -68,7 +69,8 @@ public class Account extends Observable {
 
 	public double getBalance() {
 		double balance = 0;
-		for (AccountEntry entry : entryList) {
+		for (AccountEntry entry : AccountEntryDB.accountEntry) {
+			if (entry.getFromAccountNumber().equals(accountNumber))
 			balance += entry.getAmount();
 		}
 		return balance;
@@ -91,7 +93,7 @@ public class Account extends Observable {
 
 	public void deposit(double amount) {
 		AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
-		entryList.add(entry);
+	//	entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
 		for (AccountEntry e:AccountEntryDB.accountEntry) {
@@ -99,16 +101,40 @@ public class Account extends Observable {
 		}
 	}
 
-	public void addInterest() {
-		AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", "", "");
-		entryList.add(entry);
+	public void deposit(String accountNumber,double amount) {
+		AccountEntry entry = new AccountEntry(amount, "deposit", accountNumber, "");
+	//	entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
+		for (AccountEntry e:AccountEntryDB.accountEntry) {
+			System.out.println("Deposit Transaction: "+ e.getFromAccountNumber() +" "+ e.getAmount());
+		}
+	}
+
+	public void addInterest(String accountNumber) {
+		AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", accountNumber, "");
+	//	entryList.add(entry);
+		AccountEntryDB.accountEntry.add(entry);
+		notifyChanges(entry);
+		for (AccountEntry e:AccountEntryDB.accountEntry) {
+			System.out.println("Interest Function: "+ e.getFromAccountNumber() +" "+ e.getAmount());
+		}
 	}
 
 	public void withdraw(double amount) {
 		AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
-		entryList.add(entry);
+	//	entryList.add(entry);
+		AccountEntryDB.accountEntry.add(entry);
+
+		notifyChanges(entry);
+		for (AccountEntry e:AccountEntryDB.accountEntry) {
+			System.out.println("Withdraw Function: "+ e.getFromAccountNumber() +" "+ e.getAmount() + " balance ");
+		}
+	}
+
+	public void withdraw(String accountNumber,double amount) {
+		AccountEntry entry = new AccountEntry(-amount, "withdraw", accountNumber, "");
+	//	entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
 	}
@@ -123,10 +149,10 @@ public class Account extends Observable {
 		AccountEntry toEntry = new AccountEntry(amount, description, toAccount.getAccountNumber(),
 				toAccount.getCustomer().getName());
 		
-		entryList.add(fromEntry);
+	//	entryList.add(fromEntry);
 		AccountEntryDB.accountEntry.add(fromEntry);
 		notifyChanges(fromEntry);
-		toAccount.addEntry(toEntry);
+	//	toAccount.addEntry(toEntry);
 		AccountEntryDB.accountEntry.add(toEntry);
 		notifyChanges(toEntry);
 

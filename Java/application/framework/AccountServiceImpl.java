@@ -92,7 +92,7 @@ public class AccountServiceImpl implements AccountService {
 
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(amount);
+        account.deposit(accountNumber,amount);
         accountDAO.updateAccount(account);
 
 
@@ -100,9 +100,10 @@ public class AccountServiceImpl implements AccountService {
 
     public void addInterest(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.addInterest();
+        account.addInterest(accountNumber);
         accountDAO.updateAccount(account);
     }
+
 
     public Account getAccount(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
