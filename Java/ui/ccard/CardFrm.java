@@ -98,7 +98,7 @@ public class CardFrm extends javax.swing.JFrame
 
 	void loadData() {
 		model.setRowCount(0);
-		for (Account account : AccountDB.accountList) {
+		for (Account account : accountService.getAllAccounts()) {
 			if(account.getAccountClass()!=null && account.getAccountClass().equals(AccountClass.CREDITCARD)) {
 				//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
 				if (account instanceof CreditCard) {
