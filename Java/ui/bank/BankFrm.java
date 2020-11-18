@@ -1,5 +1,6 @@
 package ui.bank;
 
+import application.banking.transaction.HistoryCommand;
 import application.framework.*;
 
 import javax.swing.*;
@@ -77,6 +78,11 @@ public class BankFrm extends javax.swing.JFrame {
         JButton_Addinterest.setText("Add interest");
         JPanel1.add(JButton_Addinterest);
         JButton_Withdraw.setBounds(468, 164, 96, 33);
+
+//        JPanel1.add(JButton_Reverse);
+//        JButton_Reverse.setText("Reverse");
+//        JButton_Reverse.setBounds(468, 210, 96, 33);
+
         JButton_Exit.setText("Exit");
         JPanel1.add(JButton_Exit);
         JButton_Exit.setBounds(468, 248, 96, 31);
@@ -129,6 +135,7 @@ public class BankFrm extends javax.swing.JFrame {
     javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
     javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
     javax.swing.JButton JButton_Addinterest = new javax.swing.JButton();
+   // javax.swing.JButton JButton_Reverse  = new javax.swing.JButton();
     javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
 
@@ -181,6 +188,8 @@ public class BankFrm extends javax.swing.JFrame {
                 JButtonWithdraw_actionPerformed(event);
             else if (object == JButton_Addinterest)
                 JButtonAddinterest_actionPerformed(event);
+//            else if (object == JButton_Reverse)
+//                JButtonReverse_actionPerformed(event);
         }
     }
 
@@ -334,6 +343,13 @@ public class BankFrm extends javax.swing.JFrame {
             System.out.println(accountEntry.getFromAccountNumber() + " " + accountEntry.getDescription() + " " + accountEntry.getAmount());
 
         }
+
+    }
+
+
+    void JButtonReverse_actionPerformed(java.awt.event.ActionEvent event) {
+        HistoryCommand history = new HistoryCommand();
+
 
     }
 }
