@@ -12,9 +12,9 @@ public class EmailSender implements Observer {
         AccountEntry entry= (AccountEntry) arg;
 
         if (ac.getAccountClass().equals(AccountClass.COMPANY)
-                ||(ac.getAccountClass().equals(AccountClass.PERSONAL) && (entry.getAmount()>400 || entry.getAmount()<400))
+                ||(ac.getAccountClass().equals(AccountClass.PERSONAL) && (entry.getAmount()>400 || entry.getAmount()<-400))
                 ||(ac.getAccountClass().equals(AccountClass.PERSONAL) && ac.getBalance()+entry.getAmount() <0)
-                ||(ac.getAccountClass().equals(AccountClass.CREDITCARD) && (entry.getAmount()>400 || entry.getAmount()<400))
+                ||(ac.getAccountClass().equals(AccountClass.CREDITCARD) && (entry.getAmount()>400 || entry.getAmount()<-400))
 
         )  {
             SendEmail email = new SendEmail();

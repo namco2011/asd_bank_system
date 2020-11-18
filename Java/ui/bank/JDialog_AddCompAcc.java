@@ -142,6 +142,7 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog
        parentframe.state=JTextField_ST.getText();
        parentframe.email=JTextField_EM.getText();
        parentframe.noOfEmployee=JTextField_NoOfEmp.getText();
+
        if (JRadioButton_Chk.isSelected())
            parentframe.accountType= AccountType.CHECKING;
            else

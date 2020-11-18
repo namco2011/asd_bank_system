@@ -178,6 +178,7 @@ public class JDialog_AddPAcc extends javax.swing.JDialog
        parentframe.zip=JTextField_ZIP.getText();
        parentframe.state=JTextField_ST.getText();
        parentframe.dateOfBirth=JTextField_BD.getText();
+       parentframe.email=JTextField_EM.getText();
        if (JRadioButton_Chk.isSelected())
            parentframe.accountType= AccountType.CHECKING;
            else
