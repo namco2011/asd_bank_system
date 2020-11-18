@@ -6,10 +6,41 @@ import application.framework.AccountEntry;
 import application.framework.AccountType;
 import application.framework.AccountEntryDB;
 
+import java.time.LocalDate;
+
 public class CreditCard extends Account {
+
+    String cardNumber;
+    LocalDate expiry_date;
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCartNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public LocalDate getExpiry_date() {
+        return expiry_date;
+    }
+
+    public void setExpiry_date(LocalDate expiry_date) {
+        this.expiry_date = expiry_date;
+    }
 
     public CreditCard(String accountNumber, AccountType accountType, AccountClass accountClass) {
         super(accountNumber, accountType, accountClass);
+        this.expiry_date=LocalDate.now().plusYears(3);
+
+
+    }
+
+
+    public CreditCard(String accountNumber, AccountType accountType, AccountClass accountClass, String cardNumber, String expireDate) {
+        super(accountNumber, accountType, accountClass);
+       this.cardNumber=cardNumber;
+       this.expiry_date  = LocalDate.parse(expireDate);
     }
 
     public String monthlyBilling() {
