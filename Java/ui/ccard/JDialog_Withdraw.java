@@ -101,7 +101,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 		withdrawcommand.execute();
 		historyCommand.addCommand(withdrawcommand);
 
-		for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
+		for (AccountEntry accountEntry : AccountEntryDB.accountEntries) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}
 		dispose();

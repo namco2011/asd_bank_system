@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountEntryDB {
-    public static List<AccountEntry> accountEntry = new ArrayList<>();
+    public static List<AccountEntry> accountEntries = new ArrayList<>();
     static {
 //        LocalDateTime localDateTime = LocalDateTime.now().minusDays(30);
 //        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneOffset.systemDefault());
@@ -20,10 +20,10 @@ public class AccountEntryDB {
         accountentry3.setDate(LocalDate.now().minusDays(60));
         AccountEntry accountentry4 = new AccountEntry(50000, "Deposit", "22222222","CU002");
         accountentry4.setDate(LocalDate.now().minusDays(90));
-        accountEntry.add(accountentry1);
-        accountEntry.add(accountentry2);
-        accountEntry.add(accountentry3);
-        accountEntry.add(accountentry4);
+        accountEntries.add(accountentry1);
+        accountEntries.add(accountentry2);
+        accountEntries.add(accountentry3);
+        accountEntries.add(accountentry4);
 
     }
 

@@ -11,6 +11,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
     List<Customer> customerList = CustomerDB.customerList;
 
+
     //MEKU
     //Singleton account service implementation
 

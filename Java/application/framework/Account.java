@@ -5,6 +5,7 @@ import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.CreditCardType;
 import application.ccard.GoldCCStrategy;
+import application.banking.ICStrategy;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
 
 public class Account extends Observable {
     protected Customer customer;
-    protected application.banking.ICStrategy ICStrategy;
+    protected ICStrategy ICStrategy;
     protected CreditCardStrategy creditCardStrategy;
     protected AccountClass accountClass;
     protected String accountNumber;
@@ -75,7 +76,7 @@ public class Account extends Observable {
 
     public double getBalance() {
         double balance = 0;
-        for (AccountEntry entry : AccountEntryDB.accountEntry) {
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
             if (entry.getFromAccountNumber().equals(accountNumber))
                 balance += entry.getAmount();
         }
@@ -92,7 +93,7 @@ public class Account extends Observable {
         LocalDate prevMonth = current.minusMonths(1);
         LocalDate startPrevMonth = prevMonth.with(firstDayOfMonth());
 //		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
-        for (AccountEntry entry : AccountEntryDB.accountEntry) {
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
             //	LocalDate entryDate = entry.getDate();
             //	LocalDate entryLocalDate = entryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             //	if(entryLocalDate.isAfter(startPrevMonth) && entryLocalDate.isBefore(entryLocalDate)){
@@ -116,9 +117,9 @@ public class Account extends Observable {
     public void deposit(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(amount, "deposit", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
+        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
-        for (AccountEntry e : AccountEntryDB.accountEntry) {
+        for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println("Deposit Transaction: " + e.getFromAccountNumber() + " " + e.getAmount());
         }
     }
@@ -126,9 +127,9 @@ public class Account extends Observable {
     public void addInterest(String accountNumber) {
         AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
+        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
-        for (AccountEntry e : AccountEntryDB.accountEntry) {
+        for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println("Interest Function: " + e.getFromAccountNumber() + " " + e.getAmount());
         }
     }
@@ -147,10 +148,10 @@ public class Account extends Observable {
     public void withdraw(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(-amount, "withdraw", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
+        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
 
-        for (AccountEntry e : AccountEntryDB.accountEntry) {
+        for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
         }
     }
@@ -158,10 +159,10 @@ public class Account extends Observable {
     public void charge(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(-amount, "charge", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
+        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
 
-        for (AccountEntry e : AccountEntryDB.accountEntry) {
+        for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
         }
     }
@@ -177,10 +178,10 @@ public class Account extends Observable {
                 toAccount.getCustomer().getName());
 
         //	entryList.add(fromEntry);
-        AccountEntryDB.accountEntry.add(fromEntry);
+        AccountEntryDB.accountEntries.add(fromEntry);
         notifyChanges(fromEntry);
         //	toAccount.addEntry(toEntry);
-        AccountEntryDB.accountEntry.add(toEntry);
+        AccountEntryDB.accountEntries.add(toEntry);
         notifyChanges(toEntry);
 
     }

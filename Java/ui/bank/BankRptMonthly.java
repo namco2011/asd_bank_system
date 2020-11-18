@@ -94,7 +94,7 @@ public class BankRptMonthly extends JFrame
 //		if(cal.after(cal2)){
 //			cal.roll(Calendar.YEAR, -1);
 //		}
-	for (AccountEntry entry:AccountEntryDB.accountEntry) {
+	for (AccountEntry entry:AccountEntryDB.accountEntries) {
 
 	//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
 			rowdata[0] = entry.getFromAccountNumber();

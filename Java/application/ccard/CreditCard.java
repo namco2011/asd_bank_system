@@ -42,7 +42,7 @@ public class CreditCard extends Account {
 
     public double getTotalCredits() {
         double totalCredits = 0;
-        for (AccountEntry entry : AccountEntryDB.accountEntry) {
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
             if (entry.getDescription().equals("deposit")) {
                 totalCredits += entry.getAmount();
             }
@@ -52,7 +52,7 @@ public class CreditCard extends Account {
 
     public double getTotalCharges() {
         double totalCharges = 0;
-        for (AccountEntry entry : AccountEntryDB.accountEntry) {
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
             if (entry.getDescription().equals("charge")) {
                 totalCharges += entry.getAmount();
             }
@@ -70,7 +70,7 @@ public class CreditCard extends Account {
         if (this.getBalance() > 0) {
             AccountEntry entry = new AccountEntry(this.getBalance() * this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
             entryList.add(entry);
-            AccountEntryDB.accountEntry.add(entry);
+            AccountEntryDB.accountEntries.add(entry);
         }
     }
 

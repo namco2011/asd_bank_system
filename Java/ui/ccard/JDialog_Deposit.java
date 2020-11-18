@@ -94,7 +94,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
 		historyCommand.addCommand(depositcommand);
 
 
-		for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
+		for (AccountEntry accountEntry : AccountEntryDB.accountEntries) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}
         dispose();
