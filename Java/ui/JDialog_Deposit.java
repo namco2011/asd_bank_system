@@ -6,14 +6,14 @@ import application.framework.AccountServiceImpl;
 
 import javax.swing.*;
 
-public class JDialog_General_Deposit extends javax.swing.JDialog
+public class JDialog_Deposit extends javax.swing.JDialog
 {
 
 
     private JFrame parentframe;
     private String accnr;
 
-	public JDialog_General_Deposit(JFrame parent, String aaccnr)
+	public JDialog_Deposit(JFrame parent, String aaccnr)
 	{
 		super(parent);
 		parentframe=parent;

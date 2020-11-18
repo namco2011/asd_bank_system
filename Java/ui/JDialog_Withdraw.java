@@ -8,13 +8,13 @@ import application.framework.AccountServiceImpl;
 import javax.swing.*;
 import java.io.IOException;
 
-public class JDialog_General_Withdraw extends javax.swing.JDialog
+public class JDialog_Withdraw extends javax.swing.JDialog
 {
 
     private JFrame parentframe;
     private String accnr;
 
-	public JDialog_General_Withdraw(JFrame parent, String aaccnr)
+	public JDialog_Withdraw(JFrame parent, String aaccnr)
 	{
 		super(parent);
 		parentframe=parent;
