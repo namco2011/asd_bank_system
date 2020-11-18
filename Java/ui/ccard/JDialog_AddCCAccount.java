@@ -4,9 +4,7 @@ package ui.ccard;
 */
 
 import application.ccard.CreditCardType;
-import application.framework.Account;
-import application.framework.AccountEntry;
-import application.framework.AccountEntryDB;
+import application.utilities.Utilities;
 
 public class JDialog_AddCCAccount extends javax.swing.JDialog
 {
@@ -106,6 +104,8 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
 		JButton_OK.addActionListener(lSymAction);
 		JButton_Cancel.addActionListener(lSymAction);
 		JRadioButton_Bronze.addMouseListener(aSymMouse);
+		JTextField_CCNR.setText( Utilities.generateCardNumber());
+		JTextField_ExpDate.setText(Utilities.generate_ExpireDate());
 		//}}
 	}
 
@@ -134,6 +134,7 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
 	javax.swing.JRadioButton JRadioButton_Bronze = new javax.swing.JRadioButton();
 	javax.swing.JLabel JLabel7 = new javax.swing.JLabel();
 	javax.swing.JTextField JTextField_Email = new javax.swing.JTextField();
+
 	//}}
 
 
@@ -205,7 +206,6 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
                 else
                 parentframe.creditCardType =CreditCardType.BRONZE;
            }
-
 
 
 	   parentframe.newaccount=true;

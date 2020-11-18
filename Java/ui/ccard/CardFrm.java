@@ -1,5 +1,6 @@
 package ui.ccard;
 
+import application.ccard.CreditCard;
 import application.ccard.CreditCardType;
 import application.framework.*;
 
@@ -7,8 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * A basic JFC based application.
@@ -19,6 +19,7 @@ public class CardFrm extends javax.swing.JFrame
      * init variables in the object
      ****/
     String clientName,street,city, zip, state,amountDeposit,expdate, email,ccnumber;
+    LocalDate expiry_date;
     CreditCardType creditCardType;
     boolean newaccount;
     private DefaultTableModel model;
@@ -91,10 +92,27 @@ public class CardFrm extends javax.swing.JFrame
 		JButton_GenBill.addActionListener(lSymAction);
 		JButton_Deposit.addActionListener(lSymAction);
 		JButton_Withdraw.addActionListener(lSymAction);
+		loadData();
 		
 	}
 
-	
+	void loadData() {
+		model.setRowCount(0);
+		for (Account account : AccountDB.accountList) {
+			if(account.getAccountClass()!=null && account.getAccountClass().equals(AccountClass.CREDITCARD)) {
+				//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
+				if (account instanceof CreditCard) {
+					CreditCard cc = (CreditCard) account;
+					rowdata[0] = cc.getCustomer().getName();
+					rowdata[1] = cc.getAccountNumber();
+					rowdata[2] = cc.getExpiry_date();
+					rowdata[3] = account.getAccountClass() == AccountClass.COMPANY ? "C" : "P";
+					rowdata[4] = account.getBalance();
+					model.addRow(rowdata);
+				}
+			}
+		}
+	}
 	/*****************************************************
 	 * The entry point for this application.
 	 * Sets the Look and Feel to the System Look and Feel.
@@ -215,8 +233,9 @@ public class CardFrm extends javax.swing.JFrame
             rowdata[3] = creditCardType;
             rowdata[4] = "0";
             model.addRow(rowdata);
-			Date expDate =new SimpleDateFormat("dd/MM/yyyy").parse(expdate);
-            accountService.createCreditCard(ccnumber,clientName, AccountType.CREDITCARD, AccountClass.CREDITCARD,street,city,state,zip,email,expDate, creditCardType);
+			//Date expDate =new SimpleDateFormat("dd/MM/yyyy").parse(expdate);
+            LocalDate expDate = LocalDate.parse(expdate);
+			accountService.createCreditCard(ccnumber,clientName, AccountType.CREDITCARD, AccountClass.CREDITCARD,street,city,state,zip,email,expDate, creditCardType);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
 			for (Account account: accountService.getAllAccounts()) {
