@@ -259,7 +259,7 @@ public class BankFrm extends javax.swing.JFrame {
 
     void loadData() {
         model.setRowCount(0);
-        for (Account account : AccountDB.accountList) {
+        for (Account account : accountService.getAllAccounts()) {
             if(account.getAccountClass()!=null && !account.getAccountClass().equals(AccountClass.CREDITCARD)){
             //	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
             rowdata[0] = account.getAccountNumber();
@@ -327,7 +327,7 @@ public class BankFrm extends javax.swing.JFrame {
             System.out.println("Before Generate transaction: " + e.getFromAccountNumber() + " " + e.getAmount()+" "+ e.getDate());
         }
 
-        for (Account account : AccountDB.accountList) {
+        for (Account account : accountService.getAllAccounts()) {
 
             if (account.getAccountClass() != AccountClass.CREDITCARD) {
                 accountService.addInterest(account.getAccountNumber());

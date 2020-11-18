@@ -219,7 +219,7 @@ public class CardFrm extends javax.swing.JFrame
             accountService.createCreditCard(ccnumber,clientName, AccountType.CREDITCARD, AccountClass.CREDITCARD,street,city,state,zip,email,expDate, creditCardType);
             JTable1.getSelectionModel().setAnchorSelectionIndex(-1);
             newaccount=false;
-			for (Account account: AccountDB.accountList) {
+			for (Account account: accountService.getAllAccounts()) {
 				System.out.println(account.getAccountNumber()+" "+account.getAccountClass()+"  "+account.getBalance());
 			}
 

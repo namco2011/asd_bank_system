@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDB {
-    public static List<Account> accountList = new ArrayList<>();
+    protected static List<Account> accountList = new ArrayList<>();
     static {
 
 

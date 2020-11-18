@@ -5,7 +5,6 @@ package ui.ccard;
 
 import application.ccard.CreditCardType;
 import application.framework.Account;
-import application.framework.AccountDB;
 import application.framework.AccountEntry;
 import application.framework.AccountEntryDB;
 
