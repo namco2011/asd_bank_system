@@ -80,7 +80,20 @@ public class Account extends Observable {
         return balance;
     }
 
+    public double getBalance(String acct) {
+        double balance = 0;
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
+
+            if (entry.getFromAccountNumber().equals(accountNumber))
+                balance += entry.getAmount();
+        }
+        return balance;
+    }
+
     public String monthlyBilling() {
+        return "go to CreditCard";
+    }
+    public String monthlyBilling(String acct) {
         return "go to CreditCard";
     }
 
@@ -95,6 +108,20 @@ public class Account extends Observable {
             //	LocalDate entryLocalDate = entryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             //	if(entryLocalDate.isAfter(startPrevMonth) && entryLocalDate.isBefore(entryLocalDate)){
             if (entry.getDate().isAfter(startPrevMonth) && entry.getDate().isBefore(entry.getDate())) {
+                balance += entry.getAmount();
+            }
+        }
+        return balance;
+    }
+
+    public double getPreviousBalance(String acct) {
+        double balance = 0;
+        LocalDate current = LocalDate.now();
+        LocalDate prevMonth = current.minusMonths(1);
+        LocalDate startPrevMonth = prevMonth.with(firstDayOfMonth());
+//		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
+            if (entry.getDate().isAfter(startPrevMonth) && entry.getDate().isBefore(entry.getDate()) && entry.getFromAccountNumber().equals(acct)) {
                 balance += entry.getAmount();
             }
         }

@@ -19,11 +19,11 @@ public class Transfer  implements  ICommand{
 
     @Override
     public void execute() throws IOException {
-//        accountService.transferFunds(fromAccount,toAccount,amount,"Tranfer");
+       // accountService.transferFunds(fromAccount,toAccount,amount,"Tranfer");
     }
 
     @Override
     public void unexecute() throws IOException {
-//        accountService.transferFunds(toAccount,fromAccount,amount,"Reserval transfer");;
+     //   accountService.transferFunds(toAccount,fromAccount,amount,"Reserval transfer");;
     }
 }
