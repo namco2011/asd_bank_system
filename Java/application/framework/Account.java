@@ -18,32 +18,10 @@ public class Account extends Observable {
     protected Customer customer;
     protected application.banking.ICStrategy ICStrategy;
     protected CreditCardStrategy creditCardStrategy;
-
-
-    protected AccountType accountType;
-
-    public CreditCardType getCreditCardType() {
-        return creditCardType;
-    }
-
-    public Account setCreditCardType(CreditCardType creditCardType) {
-        this.creditCardType = creditCardType;
-        return this;
-    }
-
-    protected CreditCardType creditCardType;
-
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public AccountClass getAccountClass() {
-        return accountClass;
-    }
-
     protected AccountClass accountClass;
     protected String accountNumber;
-
+    protected AccountType accountType;
+    protected CreditCardType creditCardType;
     protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
     public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
@@ -54,10 +32,27 @@ public class Account extends Observable {
         this.creditCardStrategy = new GoldCCStrategy();
     }
 
-    public void changeNotification() {
-        setChanged();
-        notifyObservers();
+    public CreditCardType getCreditCardType() {
+        return creditCardType;
     }
+
+    public Account setCreditCardType(CreditCardType creditCardType) {
+        this.creditCardType = creditCardType;
+        return this;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public AccountClass getAccountClass() {
+        return accountClass;
+    }
+
+//    public void changeNotification() {
+//        setChanged();
+//        notifyObservers();
+//    }
 
 
     public Account setCreditCardStrategy(CreditCardStrategy creditCardStrategy) {
@@ -88,7 +83,7 @@ public class Account extends Observable {
     }
 
     public String monthlyBilling() {
-        return "Need to update";
+        return "go to CreditCard";
     }
 
     public double getPreviousBalance() {
@@ -108,15 +103,15 @@ public class Account extends Observable {
         return balance;
     }
 
-    public void deposit(double amount) {
-        AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
-        //	entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
-        notifyChanges(entry);
-        for (AccountEntry e : AccountEntryDB.accountEntry) {
-            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
-        }
-    }
+//    public void deposit(double amount) {
+//        AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
+//        //	entryList.add(entry);
+//        AccountEntryDB.accountEntry.add(entry);
+//        notifyChanges(entry);
+//        for (AccountEntry e : AccountEntryDB.accountEntry) {
+//            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
+//        }
+//    }
 
     public void deposit(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(amount, "deposit", accountNumber, "");
@@ -138,16 +133,16 @@ public class Account extends Observable {
         }
     }
 
-    public void withdraw(double amount) {
-        AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
-        //	entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
-
-        notifyChanges(entry);
-        for (AccountEntry e : AccountEntryDB.accountEntry) {
-            System.out.println("Withdraw Function: " + e.getFromAccountNumber() + " " + e.getAmount() + " balance ");
-        }
-    }
+//    public void withdraw(double amount) {
+//        AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
+//        //	entryList.add(entry);
+//        AccountEntryDB.accountEntry.add(entry);
+//
+//        notifyChanges(entry);
+//        for (AccountEntry e : AccountEntryDB.accountEntry) {
+//            System.out.println("Withdraw Function: " + e.getFromAccountNumber() + " " + e.getAmount() + " balance ");
+//        }
+//    }
 
     public void withdraw(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(-amount, "withdraw", accountNumber, "");

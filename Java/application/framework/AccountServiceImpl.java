@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService {
                                  String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail) {
 
         Account account = new Account(accountNumber, accountType, accountClass);
-        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        Customer customer = new Customer(customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         account.setCustomer(customer);
         accountDAO.saveAccount(account);
         AccountDB.accountList.add(account);
@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         if (customer == null) {
-            customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+            customer = new Customer(customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         }
         account.setCustomer(customer);
         customer.setBirthday(birthdate);
@@ -78,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         if (customer == null) {
-            customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+            customer = new Customer( customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         }
         account.setCustomer(customer);
         customer.setNoOfEmployee(noOfEmployee);
@@ -101,7 +101,7 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         if (customer == null) {
-            customer = new Customer(ccNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+            customer = new Customer( customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         }
         account.setCustomer(customer);
         account.setCreditCardType(creditCardType);

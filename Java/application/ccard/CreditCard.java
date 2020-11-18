@@ -22,23 +22,6 @@ public class CreditCard extends Account {
         double totalDue = MP * newBalance;
         this.addInterest();
         StringBuilder report =new StringBuilder();
-//        System.out.println(this.getCustomer().getEmailAddress() + " "+this.getCustomer().getName() + " "+ this.getCustomer().getCity()
-//         + this.getCustomer().getStreet());
-//        report = String.format("Name= ",this.customer.getName() );
-//        report += String.format("\n Address=",this.customer.getStreet() );
-//        report += String.format(", ",super.customer.getCity() );
-//        report += String.format(", ",this.customer.getState() );
-//        report += String.format(", ",this.customer.getZip() );
-//        report += String.format("\r\n CC number=",this.getAccountNumber() );
-//        report += String.format("\r\n CC type=",this.getCreditCardType());
-//        report += String.format("\r\nPrevious balance : ${0}",previousBalance);
-//        report += String.format("\n Total charge : ${0}",totalCharge );
-//        report += String.format("\n Total credit : ${0}",totalCredit );
-//        report += String.format("\n New Balance  : ${0}",newBalance );
-//        report += String.format("\n Total Amount Due    : ${0}",totalDue);
-//        report += String.format("\r\n");
-//        report += String.format("\r\n");
-
         report.append("Name= " +this.getCustomer().getName() );
         report.append("\n Address=" +this.getCustomer().getStreet());
         report.append( ", "+super.getCustomer().getCity() );
@@ -77,12 +60,11 @@ public class CreditCard extends Account {
         return totalCharges;
     }
 
-    public void deposit(double amount) {
-        AccountEntry entry = new AccountEntry(amount, "credit", "", "");
-        entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
-
-    }
+//    public void deposit(double amount) {
+//        AccountEntry entry = new AccountEntry(amount, "credit", "", "");
+//        entryList.add(entry);
+//        AccountEntryDB.accountEntry.add(entry);
+//    }
 
     public void addInterest() {
         if (this.getBalance() > 0) {
@@ -92,11 +74,11 @@ public class CreditCard extends Account {
         }
     }
 
-    public void withdraw(double amount) {
-        AccountEntry entry = new AccountEntry(-amount, "charge", "", "");
-        entryList.add(entry);
-        AccountEntryDB.accountEntry.add(entry);
-    }
+//    public void withdraw(double amount) {
+//        AccountEntry entry = new AccountEntry(-amount, "charge", "", "");
+//        entryList.add(entry);
+//        AccountEntryDB.accountEntry.add(entry);
+//    }
 
 }
 

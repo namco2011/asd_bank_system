@@ -10,7 +10,7 @@ public class Customer {
 	private String city;
 	private String state;
 	private String zip;
-	private String AccountNumber;
+//	private String AccountNumber;
 	private String emailAddress;
 	private Date Birthday;
 	private int noOfEmployee;
@@ -18,8 +18,8 @@ public class Customer {
 	List<Account> accountList = new ArrayList<>();
 
 
-	public Customer(String AccountNumber, String name, String emailAddress, String street, String city, String state, String zip) {
-		this.AccountNumber = AccountNumber;
+	public Customer(String name, String emailAddress, String street, String city, String state, String zip) {
+//		this.AccountNumber = AccountNumber;
 		this.name = name;
 		this.emailAddress = emailAddress;
 		this.street = street;
@@ -47,9 +47,9 @@ public class Customer {
 		this.zip = zip;
 	}
 
-	public void setAccountNumber(String accountNumber) {
-		AccountNumber = accountNumber;
-	}
+//	public void setAccountNumber(String accountNumber) {
+//		AccountNumber = accountNumber;
+//	}
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
@@ -78,9 +78,9 @@ public class Customer {
 		return zip;
 	}
 
-	public String getAccountNumber() {
-		return AccountNumber;
-	}
+//	public String getAccountNumber() {
+//		return AccountNumber;
+//	}
 
 	public String getEmailAddress() {
 		return emailAddress;
