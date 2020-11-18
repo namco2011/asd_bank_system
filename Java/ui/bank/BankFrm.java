@@ -263,7 +263,7 @@ public class BankFrm extends javax.swing.JFrame {
     void loadData() {
         model.setRowCount(0);
         for (Account account : AccountDB.accountList) {
-
+            if(account.getAccountClass()!=null && !account.getAccountClass().equals(AccountClass.CREDITCARD)){
             //	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
             rowdata[0] = account.getAccountNumber();
             rowdata[1] = account.getCustomer().getName();
@@ -271,7 +271,7 @@ public class BankFrm extends javax.swing.JFrame {
             rowdata[3] = account.getAccountClass()==AccountClass.COMPANY?"C":"P";
             rowdata[4] = account.getAccountType();
             rowdata[5] = account.getBalance();
-            model.addRow(rowdata);
+            model.addRow(rowdata);}
         }
     }
 
@@ -325,10 +325,9 @@ public class BankFrm extends javax.swing.JFrame {
 
     void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
         JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
+
         for (Account account : AccountDB.accountList) {
             System.out.println(account.getAccountNumber() + " " + account.getAccountClass());
-        }
-        for (Account account : AccountDB.accountList) {
             if (account.getAccountClass() != AccountClass.CREDITCARD) {
                 accountService.addInterest(account.getAccountNumber());
             }
