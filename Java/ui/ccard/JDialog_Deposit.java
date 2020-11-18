@@ -1,8 +1,8 @@
 package ui.ccard;
-import application.framework.*;
-
-import java.awt.*;
-import javax.swing.*;
+import application.banking.transaction.Deposit;
+import application.banking.transaction.HistoryCommand;
+import application.framework.AccountEntry;
+import application.framework.AccountEntryDB;
 
 public class JDialog_Deposit extends javax.swing.JDialog
 {
@@ -85,7 +85,15 @@ public class JDialog_Deposit extends javax.swing.JDialog
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
         parentframe.amountDeposit=JTextField_Deposit.getText();
-        parentframe.accountService.deposit(name,Double.parseDouble(JTextField_Deposit.getText()));
+    //    parentframe.accountService.deposit(name,Double.parseDouble(JTextField_Deposit.getText()));
+
+		HistoryCommand historyCommand = new HistoryCommand();
+		long amount=Long.parseLong(JTextField_Deposit.getText());
+		Deposit depositcommand = new Deposit(parentframe.accountService,name,amount);
+		depositcommand.execute();
+		historyCommand.addCommand(depositcommand);
+
+
 		for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}

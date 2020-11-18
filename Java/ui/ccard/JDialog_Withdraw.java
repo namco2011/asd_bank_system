@@ -1,4 +1,6 @@
 package ui.ccard;
+import application.banking.transaction.HistoryCommand;
+import application.banking.transaction.Withdraw;
 import application.framework.AccountEntry;
 import application.framework.AccountEntryDB;
 
@@ -91,7 +93,14 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) throws IOException {
         parentframe.amountDeposit=JTextField_AMT.getText();
-		parentframe.accountService.withdraw(name,Double.parseDouble(JTextField_AMT.getText()));
+	//	parentframe.accountService.withdraw(name,Double.parseDouble(JTextField_AMT.getText()));
+
+		HistoryCommand historyCommand = new HistoryCommand();
+		long amounts=Long.parseLong(JTextField_AMT.getText());
+		Withdraw withdrawcommand = new Withdraw(parentframe.accountService,name,amounts);
+		withdrawcommand.execute();
+		historyCommand.addCommand(withdrawcommand);
+
 		for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}

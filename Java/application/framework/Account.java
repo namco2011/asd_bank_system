@@ -155,6 +155,10 @@ public class Account extends Observable {
 	//	entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
+
+		for (AccountEntry e:AccountEntryDB.accountEntry) {
+			System.out.println(e.getFromAccountNumber() +" "+ e.getAmount());
+		}
 	}
 
 	public void charge(String accountNumber,double amount) {
@@ -162,6 +166,10 @@ public class Account extends Observable {
 		//	entryList.add(entry);
 		AccountEntryDB.accountEntry.add(entry);
 		notifyChanges(entry);
+
+		for (AccountEntry e:AccountEntryDB.accountEntry) {
+			System.out.println(e.getFromAccountNumber() +" "+ e.getAmount());
+		}
 	}
 
 	private void addEntry(AccountEntry entry) {
