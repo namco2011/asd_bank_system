@@ -6,22 +6,22 @@ import java.io.IOException;
 
 public class Deposit implements  ICommand{
     AccountService accountService;
-    private String accontNumber;
+    private String accountNumber;
     private long amount;
 
     public Deposit(AccountService accountService, String accontNumber,long amount) {
         this.accountService = accountService;
-        this.accontNumber = accontNumber;
+        this.accountNumber = accontNumber;
         this.amount = amount;
     }
 
     @Override
     public void execute() {
-        accountService.deposit(accontNumber,amount);
+        accountService.deposit(accountNumber,amount);
     }
 
     @Override
     public void unexecute() throws IOException {
-        accountService.withdraw(accontNumber,amount);
+        accountService.withdraw(accountNumber,amount);
     }
 }

@@ -29,7 +29,6 @@ public class AccountDAOImpl implements AccountDAO {
 		return null;
 	}
 
-
 	public Collection<Account> getAccounts() {
 		return accountlist;
 	}
