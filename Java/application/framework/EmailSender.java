@@ -11,28 +11,35 @@ public class EmailSender implements Observer {
         Account ac = (Account) observable;
         AccountEntry entry= (AccountEntry) arg;
 
-        SendEmail email = new SendEmail();
-        StringBuilder sb = new StringBuilder();
-        sb.append("Dear "+ ac.getCustomer().getName() );
-        sb.append("\n");
+        if (ac.getAccountClass().equals(AccountClass.COMPANY)
+                ||(ac.getAccountClass().equals(AccountClass.PERSONAL) && (entry.getAmount()>400 || entry.getAmount()<400))
+                ||(ac.getAccountClass().equals(AccountClass.PERSONAL) && ac.getBalance()+entry.getAmount() <0)
+                ||(ac.getAccountClass().equals(AccountClass.CREDITCARD) && (entry.getAmount()>400 || entry.getAmount()<400))
 
-        if (entry.getAmount()>0)
-        sb.append("There is a deposit " + entry.getAmount() +" to account "+ entry.getFromAccountNumber() +"( "+entry.getDescription()+")");
+        )  {
+            SendEmail email = new SendEmail();
+            StringBuilder sb = new StringBuilder();
+            sb.append("Dear " + ac.getCustomer().getName());
+            sb.append("\n");
 
-        if (entry.getAmount()<0)
-            sb.append("There is a withdraw "+ entry.getAmount() +" from account "+ entry.getFromAccountNumber()+ entry.getFromAccountNumber() +"( "+entry.getDescription()+")");
-         sb.append("\n");
-        sb.append("Account balance of  is "+ac.getBalance());
-        sb.append("\n");
-        sb.append("Thank you");
-        sb.append("\n");
-        sb.append("ASD Bank");
-        try {
-            email.SendEMail(ac.customer.getEmailAddress(),sb.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (entry.getAmount() > 0)
+                sb.append("There is a deposit " + entry.getAmount() + " to account " + entry.getFromAccountNumber() + "( " + entry.getDescription() + ")");
+
+            if (entry.getAmount() < 0)
+                sb.append("There is a withdraw " + entry.getAmount() + " from account " + entry.getFromAccountNumber() + entry.getFromAccountNumber() + "( " + entry.getDescription() + ")");
+            sb.append("\n");
+            sb.append("Account balance of  is " + ac.getBalance());
+            sb.append("\n");
+            sb.append("Thank you");
+            sb.append("\n");
+            sb.append("ASD Bank");
+            try {
+                email.SendEMail(ac.customer.getEmailAddress(), sb.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Email sent");
         }
-
-        System.out.println("Email sent");
     }
 }
