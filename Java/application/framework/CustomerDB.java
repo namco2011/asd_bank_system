@@ -10,11 +10,11 @@ public class CustomerDB {
 
     //String AccountNumber, String name, String emailAddress, String street, String city, String state, String zip
     static{
-        Customer customerAccount1 = new Customer( "Jhon", "jhon@gmail.com", "101 street", "Fairfield", "Iowa", "52556");
-        Customer customerAccount2 = new Customer("Frank", "frank@gmail.com", "102 street", "Fairfield", "Iowa", "52556");
+        Customer customer1= new Customer( "Jhon", "hanhduy.nguyen@gmail.com", "101 street", "Fairfield", "Iowa", "52556");
+        Customer customer2 = new Customer("Frank", "frank@gmail.com", "102 street", "Fairfield", "Iowa", "52556");
 
-        customerList.add(customerAccount1);
-        customerList.add(customerAccount2);
+        customerList.add(customer1);
+        customerList.add(customer2);
     }
 
 }

@@ -1,6 +1,5 @@
 package ui.bank;
 
-import application.banking.transaction.HistoryCommand;
 import application.framework.*;
 
 import javax.swing.*;
@@ -24,6 +23,7 @@ public class BankFrm extends javax.swing.JFrame {
     private JTable JTable1;
     private JScrollPane JScrollPane1;
     BankFrm myframe;
+    BankRptMonthly bankrpt;
     private Object rowdata[];
     AccountService accountService = new AccountServiceImpl();
 
@@ -79,9 +79,9 @@ public class BankFrm extends javax.swing.JFrame {
         JPanel1.add(JButton_Addinterest);
         JButton_Withdraw.setBounds(468, 164, 96, 33);
 
-//        JPanel1.add(JButton_Reverse);
-//        JButton_Reverse.setText("Reverse");
-//        JButton_Reverse.setBounds(468, 210, 96, 33);
+        JPanel1.add(JButton_Report);
+        JButton_Report.setText("Report");
+        JButton_Report.setBounds(468, 210, 96, 33);
 
         JButton_Exit.setText("Exit");
         JPanel1.add(JButton_Exit);
@@ -100,6 +100,7 @@ public class BankFrm extends javax.swing.JFrame {
         JButton_Deposit.addActionListener(lSymAction);
         JButton_Withdraw.addActionListener(lSymAction);
         JButton_Addinterest.addActionListener(lSymAction);
+        loadData();
 
     }
 
@@ -135,7 +136,7 @@ public class BankFrm extends javax.swing.JFrame {
     javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
     javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
     javax.swing.JButton JButton_Addinterest = new javax.swing.JButton();
-   // javax.swing.JButton JButton_Reverse  = new javax.swing.JButton();
+    javax.swing.JButton JButton_Report  = new javax.swing.JButton();
     javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
 
@@ -188,8 +189,8 @@ public class BankFrm extends javax.swing.JFrame {
                 JButtonWithdraw_actionPerformed(event);
             else if (object == JButton_Addinterest)
                 JButtonAddinterest_actionPerformed(event);
-//            else if (object == JButton_Reverse)
-//                JButtonReverse_actionPerformed(event);
+            else if (object == JButton_Report)
+                JButton_Report_actionPerformed(event);
         }
     }
 
@@ -347,8 +348,11 @@ public class BankFrm extends javax.swing.JFrame {
     }
 
 
-    void JButtonReverse_actionPerformed(java.awt.event.ActionEvent event) {
-        HistoryCommand history = new HistoryCommand();
+    void JButton_Report_actionPerformed(java.awt.event.ActionEvent event) {
+
+      //  BankRptMonthly wd = new BankRptMonthly(myframe);
+//        wd.setBounds(430, 15, 275, 140);
+//        wd.show();
 
 
     }

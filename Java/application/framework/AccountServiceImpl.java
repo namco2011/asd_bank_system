@@ -128,12 +128,14 @@ public class AccountServiceImpl implements AccountService {
 
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
+        account.addObserver(new EmailSender());
         account.deposit(accountNumber, amount);
         accountDAO.updateAccount(account);
     }
 
     public void addInterest(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
+        account.addObserver(new EmailSender());
         account.addInterest(accountNumber);
         accountDAO.updateAccount(account);
     }
@@ -151,6 +153,7 @@ public class AccountServiceImpl implements AccountService {
 
     public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
+        account.addObserver(new EmailSender());
         if (account.accountClass != AccountClass.CREDITCARD) {
 //            if (account.getBalance() < amount) {
 //                SendEmail email = new SendEmail();
