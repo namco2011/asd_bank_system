@@ -36,7 +36,7 @@ public class Application {
 					+ "-Description------------------"
 					+ "-Amount-------------");
 
-			for (AccountEntry entry : account.getEntryList()) {
+			for (AccountEntry entry : AccountEntryDB.accountEntries) {
 				System.out.printf("%30s%30s%20.2f\n",
 						entry.getDate().toString(),
 						entry.getDescription(),

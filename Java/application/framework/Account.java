@@ -23,7 +23,7 @@ public class Account extends Observable {
     protected String accountNumber;
     protected AccountType accountType;
     protected CreditCardType creditCardType;
-    protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
+//    protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
     public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
         this.accountNumber = accountNumber;
@@ -167,9 +167,9 @@ public class Account extends Observable {
         }
     }
 
-    private void addEntry(AccountEntry entry) {
-        entryList.add(entry);
-    }
+//    private void addEntry(AccountEntry entry) {
+//        entryList.add(entry);
+//    }
 
     public void transferFunds(Account toAccount, double amount, String description) {
         AccountEntry fromEntry = new AccountEntry(-amount, description, toAccount.getAccountNumber(),
@@ -197,9 +197,9 @@ public class Account extends Observable {
         }
     }
 
-    public Collection<AccountEntry> getEntryList() {
-        return entryList;
-    }
+//    public Collection<AccountEntry> getEntryList() {
+//        return entryList;
+//    }
 
     public void notifyChanges(AccountEntry entry) {
         setChanged();

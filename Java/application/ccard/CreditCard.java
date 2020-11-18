@@ -69,7 +69,7 @@ public class CreditCard extends Account {
     public void addInterest() {
         if (this.getBalance() > 0) {
             AccountEntry entry = new AccountEntry(this.getBalance() * this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
-            entryList.add(entry);
+//            entryList.add(entry);
             AccountEntryDB.accountEntries.add(entry);
         }
     }
