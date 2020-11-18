@@ -3,6 +3,7 @@ package application.framework;
 import application.ccard.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -95,7 +96,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Account createCreditCard(String ccNumber, String customerName, AccountType accountType, AccountClass accountClass,
-                                    String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date expireDate, CreditCardType creditCardType) {
+                                    String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, LocalDate expireDate, CreditCardType creditCardType) {
         Account account = new CreditCard(ccNumber, AccountType.CREDITCARD, AccountClass.CREDITCARD);
         Customer customer = null;
         for (Customer customer1 : customerDAO.getCustomerList()) {
