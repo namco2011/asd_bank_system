@@ -1,5 +1,6 @@
 package application.framework;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +15,7 @@ public class Customer {
 	private String emailAddress;
 	private Date Birthday;
 	private int noOfEmployee;
-	private Date expirationDate;
+	private LocalDate expirationDate;
 	List<Account> accountList = new ArrayList<>();
 
 
@@ -94,7 +95,7 @@ public class Customer {
 		this.noOfEmployee = noOfEmployee;
 	}
 
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(LocalDate expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 

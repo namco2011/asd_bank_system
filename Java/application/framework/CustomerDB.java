@@ -6,7 +6,7 @@ import java.util.List;
 public class CustomerDB {
 
 
-    public static List<Customer> customerList = new ArrayList<>();
+    protected static List<Customer> customerList = new ArrayList<>();
 
     //String AccountNumber, String name, String emailAddress, String street, String city, String state, String zip
     static{

@@ -2,7 +2,8 @@ package ui.ccard;
 import application.banking.transaction.Deposit;
 import application.banking.transaction.HistoryCommand;
 import application.framework.AccountEntry;
-import application.framework.AccountEntryDB;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
 
 public class JDialog_Deposit extends javax.swing.JDialog
 {
@@ -10,6 +11,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
     private CardFrm parentframe;
     private String name;
+	AccountService accountService = new AccountServiceImpl();
 
 	public JDialog_Deposit(CardFrm parent, String aname)
 	{
@@ -58,8 +60,6 @@ public class JDialog_Deposit extends javax.swing.JDialog
 		//}}
 	}
 
-
-
 	//{{DECLARE_CONTROLS
 	javax.swing.JLabel JLabel1 = new javax.swing.JLabel();
 	javax.swing.JLabel JLabel2 = new javax.swing.JLabel();
@@ -86,7 +86,6 @@ public class JDialog_Deposit extends javax.swing.JDialog
 	{
         parentframe.amountDeposit=JTextField_Deposit.getText();
     //    parentframe.accountService.deposit(name,Double.parseDouble(JTextField_Deposit.getText()));
-
 		HistoryCommand historyCommand = new HistoryCommand();
 		long amount=Long.parseLong(JTextField_Deposit.getText());
 		Deposit depositcommand = new Deposit(parentframe.accountService,name,amount);
@@ -94,7 +93,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
 		historyCommand.addCommand(depositcommand);
 
 
-		for (AccountEntry accountEntry : AccountEntryDB.accountEntries) {
+		for (AccountEntry accountEntry : accountService.getAllAccountEntries()) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}
         dispose();

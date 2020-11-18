@@ -36,7 +36,7 @@ public class JDialogGenBill extends javax.swing.JDialog
 		getContentPane().add(JButton_OK);
 		JButton_OK.setBounds(156,276,96,24);
 
-		for (Account account : AccountDB.accountList) {
+		for (Account account : accountService.getAllAccounts()) {
 			if (account.getAccountClass() == AccountClass.CREDITCARD) {
 				billstring +=
 				accountService.monthlyBilling(account.getAccountNumber());
