@@ -7,11 +7,12 @@ import application.ccard.CreditCardType;
 import application.ccard.GoldCCStrategy;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Observable;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
-import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 
 public class Account extends Observable {
 	protected Customer customer;
@@ -99,9 +100,10 @@ public class Account extends Observable {
 		LocalDate startPrevMonth = prevMonth.with(firstDayOfMonth());
 //		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
 		for (AccountEntry entry : AccountEntryDB.accountEntry) {
-			Date entryDate = entry.getDate();
-			LocalDate entryLocalDate = entryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			if(entryLocalDate.isAfter(startPrevMonth) && entryLocalDate.isBefore(entryLocalDate)){
+		//	LocalDate entryDate = entry.getDate();
+		//	LocalDate entryLocalDate = entryDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		//	if(entryLocalDate.isAfter(startPrevMonth) && entryLocalDate.isBefore(entryLocalDate)){
+		if (entry.getDate().isAfter(startPrevMonth) && entry.getDate().isBefore(entry.getDate())) {
 				balance += entry.getAmount();}
 		}
 		return balance;
