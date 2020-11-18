@@ -2,6 +2,8 @@ package ui.bank;
 
 
 import application.framework.*;
+import ui.JDialog_General_Deposit;
+import ui.JDialog_General_Withdraw;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -279,7 +281,7 @@ public class BankFrm extends javax.swing.JFrame {
             String accnr = (String) model.getValueAt(selection, 0);
 
             //Show the dialog for adding deposit amount for the current mane
-            JDialog_Deposit dep = new JDialog_Deposit(myframe, accnr);
+            JDialog_General_Deposit dep = new JDialog_General_Deposit(myframe, accnr);
             dep.setBounds(430, 15, 275, 140);
             dep.show();
 
@@ -302,7 +304,7 @@ public class BankFrm extends javax.swing.JFrame {
             String accnr = (String) model.getValueAt(selection, 0);
 
             //Show the dialog for adding withdraw amount for the current mane
-            JDialog_Withdraw wd = new JDialog_Withdraw(myframe, accnr);
+            JDialog_General_Withdraw wd = new JDialog_General_Withdraw(myframe, accnr);
             wd.setBounds(430, 15, 275, 140);
             wd.show();
 

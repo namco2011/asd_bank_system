@@ -1,18 +1,20 @@
-package ui.bank;
+package ui;
 
 
 import application.banking.transaction.HistoryCommand;
 import application.banking.transaction.Withdraw;
+import application.framework.AccountServiceImpl;
 
+import javax.swing.*;
 import java.io.IOException;
 
-public class JDialog_Withdraw extends javax.swing.JDialog
+public class JDialog_General_Withdraw extends javax.swing.JDialog
 {
-   
-    private BankFrm parentframe;
+
+    private JFrame parentframe;
     private String accnr;
 
-	public JDialog_Withdraw(BankFrm parent, String aaccnr)
+	public JDialog_General_Withdraw(JFrame parent, String aaccnr)
 	{
 		super(parent);
 		parentframe=parent;
@@ -93,12 +95,12 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event) throws IOException {
 		double amount = Double.parseDouble(JTextField_AMT.getText());
 	//	if (amount < parentframe.accountService.getAccount(accnr).getBalance()) {
-			parentframe.transactionAmount = JTextField_AMT.getText();
+//			parentframe.transactionAmount = JTextField_AMT.getText();
 		//	parentframe.accountService.withdraw(accnr, Double.parseDouble(JTextField_AMT.getText()));
 
 			HistoryCommand historyCommand = new HistoryCommand();
 			long amounts=Long.parseLong(JTextField_AMT.getText());
-			Withdraw withdrawcommand = new Withdraw(parentframe.accountService,accnr,amounts);
+			Withdraw withdrawcommand = new Withdraw(AccountServiceImpl.getInstance(),accnr,amounts);
 			withdrawcommand.execute();
 			historyCommand.addCommand(withdrawcommand);
 //		}
