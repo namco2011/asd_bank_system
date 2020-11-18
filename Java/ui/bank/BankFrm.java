@@ -323,7 +323,7 @@ public class BankFrm extends javax.swing.JFrame {
     void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
         JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
 
-      for (AccountEntry e : AccountEntryDB.accountEntries) {
+      for (AccountEntry e : accountService.getAllAccountEntries()) {
             System.out.println("Before Generate transaction: " + e.getFromAccountNumber() + " " + e.getAmount()+" "+ e.getDate());
         }
 
@@ -334,7 +334,7 @@ public class BankFrm extends javax.swing.JFrame {
             }
         }
 
-        for (AccountEntry e : AccountEntryDB.accountEntries) {
+        for (AccountEntry e : accountService.getAllAccountEntries()) {
             System.out.println("After Generate transaction: " + e.getFromAccountNumber() + " " + e.getAmount()+" "+ e.getDate());
         }
         loadData();
@@ -344,7 +344,7 @@ public class BankFrm extends javax.swing.JFrame {
 //					.filter(a->a.getAccountNumber().equals("111"))
 //					.forEach(acc->{accountService.addInterest(acc.getAccountNumber());});
 //Nam update
-        for (AccountEntry accountEntry : AccountEntryDB.accountEntries) {
+        for (AccountEntry accountEntry : accountService.getAllAccountEntries()) {
             System.out.println(accountEntry.getFromAccountNumber() + " " + accountEntry.getDescription() + " " + accountEntry.getAmount());
 
         }

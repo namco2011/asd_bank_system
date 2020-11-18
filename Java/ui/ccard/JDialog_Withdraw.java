@@ -2,7 +2,8 @@ package ui.ccard;
 import application.banking.transaction.HistoryCommand;
 import application.banking.transaction.Withdraw;
 import application.framework.AccountEntry;
-import application.framework.AccountEntryDB;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
 
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog
    
     private CardFrm parentframe;
     private String name;
+	AccountService accountService = new AccountServiceImpl();
 
 	public JDialog_Withdraw(CardFrm parent, String aname)
 	{
@@ -101,7 +103,7 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 		withdrawcommand.execute();
 		historyCommand.addCommand(withdrawcommand);
 
-		for (AccountEntry accountEntry : AccountEntryDB.accountEntries) {
+		for (AccountEntry accountEntry : accountService.getAllAccountEntries()) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}
 		dispose();

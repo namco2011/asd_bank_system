@@ -66,12 +66,14 @@ public class CreditCard extends Account {
 //        AccountEntryDB.accountEntry.add(entry);
 //    }
 
-    public void addInterest() {
+    public AccountEntry addInterest() {
+        AccountEntry entry = null;
         if (this.getBalance() > 0) {
-            AccountEntry entry = new AccountEntry(this.getBalance() * this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
+             entry = new AccountEntry(this.getBalance() * this.creditCardStrategy.monthlyInterest(), "cc interest", "", "");
 //            entryList.add(entry);
-            AccountEntryDB.accountEntries.add(entry);
+//            AccountEntryDB.accountEntries.add(entry);
         }
+        return entry;
     }
 
 //    public void withdraw(double amount) {

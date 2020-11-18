@@ -2,7 +2,9 @@ package ui.ccard;
 import application.banking.transaction.Deposit;
 import application.banking.transaction.HistoryCommand;
 import application.framework.AccountEntry;
-import application.framework.AccountEntryDB;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
+//import application.framework.AccountEntryDB;
 
 public class JDialog_Deposit extends javax.swing.JDialog
 {
@@ -10,6 +12,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
     private CardFrm parentframe;
     private String name;
+	AccountService accountService = new AccountServiceImpl();
 
 	public JDialog_Deposit(CardFrm parent, String aname)
 	{
@@ -94,7 +97,7 @@ public class JDialog_Deposit extends javax.swing.JDialog
 		historyCommand.addCommand(depositcommand);
 
 
-		for (AccountEntry accountEntry : AccountEntryDB.accountEntries) {
+		for (AccountEntry accountEntry : accountService.getAllAccountEntries()) {
 			System.out.println(accountEntry.getFromAccountNumber()+" "+accountEntry.getDescription()+"  "+accountEntry.getAmount());
 		}
         dispose();

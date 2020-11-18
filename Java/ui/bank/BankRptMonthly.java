@@ -1,7 +1,6 @@
 package ui.bank;
 
 import application.framework.AccountEntry;
-import application.framework.AccountEntryDB;
 import application.framework.AccountService;
 import application.framework.AccountServiceImpl;
 
@@ -94,7 +93,7 @@ public class BankRptMonthly extends JFrame
 //		if(cal.after(cal2)){
 //			cal.roll(Calendar.YEAR, -1);
 //		}
-	for (AccountEntry entry:AccountEntryDB.accountEntries) {
+	for (AccountEntry entry:accountService.getAllAccountEntries()) {
 
 	//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
 			rowdata[0] = entry.getFromAccountNumber();

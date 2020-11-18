@@ -17,10 +17,11 @@ public interface AccountService {
                              String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date expireDate, CreditCardType creditCardType);
     Account getAccount(String accountNumber);
     Collection<Account> getAllAccounts();
+    Collection<AccountEntry> getAllAccountEntries();
     void deposit (String accountNumber, double amount);
     void addInterest (String accountNumber);
     public String monthlyBilling(String accountNumber);
     void withdraw (String accountNumber, double amount) throws IOException;
-    void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException;
+//    void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException;
 
     }

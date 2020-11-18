@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
+    private AccountEntryDAO accountEntryDAO;
     private CustomerDAO customerDAO;
 //    List<Customer> customerList = CustomerDB.customerList;
 
@@ -18,6 +19,7 @@ public class AccountServiceImpl implements AccountService {
     private static AccountServiceImpl instance;
     public AccountServiceImpl() {
         accountDAO = new AccountDAOImpl();
+        accountEntryDAO = new AccountEntryDAOImpl();
         customerDAO = new CustomerDAOImpl();
     }
     public static AccountServiceImpl getInstance() {
@@ -132,7 +134,7 @@ public class AccountServiceImpl implements AccountService {
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.addObserver(new EmailSender());
-        account.deposit(accountNumber, amount);
+        accountEntryDAO.saveAccountEntry(account.deposit(accountNumber,amount));
         accountDAO.updateAccount(account);
     }
 
@@ -143,7 +145,7 @@ public class AccountServiceImpl implements AccountService {
 //        for (AccountEntry e : AccountEntryDB.accountEntries) {
 //            System.out.println("Interest Function in AccountService Impl, default value: " + e.getFromAccountNumber() + " " + e.getAmount());
 //        }
-        account.addInterest(accountNumber);
+        accountEntryDAO.saveAccountEntry(account.addInterest(accountNumber));
         accountDAO.updateAccount(account);
     }
 
@@ -158,35 +160,37 @@ public class AccountServiceImpl implements AccountService {
 //        return AccountDB.accountList;
     }
 
+    public Collection<AccountEntry> getAllAccountEntries() {
+        //Revert later
+        return accountEntryDAO.getAccountEntries();
+//        return AccountDB.accountList;
+    }
+
     public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
         account.addObserver(new EmailSender());
         if (account.accountClass != AccountClass.CREDITCARD) {
-//            if (account.getBalance() < amount) {
-//                SendEmail email = new SendEmail();
-//                email.SendEMail(account.getCustomer().getEmailAddress(), " You can't withdraw because account balance " + account.getBalance() + " less than " + amount);
-//            } else {
-                account.withdraw(accountNumber, amount);
+            accountEntryDAO.saveAccountEntry(account.withdraw(accountNumber, amount));
                 accountDAO.updateAccount(account);
-//            }
         } else {
-            account.charge(accountNumber, amount);
+            accountEntryDAO.saveAccountEntry(account.charge(accountNumber, amount));
             accountDAO.updateAccount(account);
         }
     }
 
-
-    public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException {
-        Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
-        Account toAccount = accountDAO.loadAccount(toAccountNumber);
-        if (fromAccount.getBalance() < amount) {
-            SendEmail email = new SendEmail();
-            email.SendEMail(fromAccount.getCustomer().getEmailAddress(), " You can't withdraw because account balance " + fromAccount.getBalance() + " less than " + amount);
-        } else {
-            fromAccount.transferFunds(toAccount, amount, description);
-            //  fromAccount.changeNotification();
-            accountDAO.updateAccount(fromAccount);
-            accountDAO.updateAccount(toAccount);
-        }
-    }
+//
+//
+//    public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException {
+//        Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
+//        Account toAccount = accountDAO.loadAccount(toAccountNumber);
+//        if (fromAccount.getBalance() < amount) {
+//            SendEmail email = new SendEmail();
+//            email.SendEMail(fromAccount.getCustomer().getEmailAddress(), " You can't withdraw because account balance " + fromAccount.getBalance() + " less than " + amount);
+//        } else {
+//            fromAccount.transferFunds(toAccount, amount, description);
+//            //  fromAccount.changeNotification();
+//            accountDAO.updateAccount(fromAccount);
+//            accountDAO.updateAccount(toAccount);
+//        }
+//    }
 }

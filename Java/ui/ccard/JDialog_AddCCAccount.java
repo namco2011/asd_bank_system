@@ -6,11 +6,12 @@ package ui.ccard;
 import application.ccard.CreditCardType;
 import application.framework.Account;
 import application.framework.AccountEntry;
-import application.framework.AccountEntryDB;
+//import application.framework.AccountEntryDB;
 
 public class JDialog_AddCCAccount extends javax.swing.JDialog
 {
     private CardFrm parentframe;
+
     
 	public JDialog_AddCCAccount(CardFrm parent)
 	{

@@ -24,7 +24,7 @@ public class Application {
 //		// use account 2;
 		accountService.deposit("4253892", 300);
 		accountService.addInterest("4253892");
-		accountService.transferFunds("4253892", "1263862", 10000, "payment of invoice 10232");
+//		accountService.transferFunds("4253892", "1263862", 10000, "payment of invoice 10232");
 		// show balances
 
 		for (Account account : accountService.getAllAccounts()) {
@@ -36,7 +36,7 @@ public class Application {
 					+ "-Description------------------"
 					+ "-Amount-------------");
 
-			for (AccountEntry entry : AccountEntryDB.accountEntries) {
+			for (AccountEntry entry : accountService.getAllAccountEntries()) {
 				System.out.printf("%30s%30s%20.2f\n",
 						entry.getDate().toString(),
 						entry.getDescription(),

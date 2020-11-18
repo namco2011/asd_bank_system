@@ -101,87 +101,73 @@ public class Account extends Observable {
         return balance;
     }
 
-//    public void deposit(double amount) {
-//        AccountEntry entry = new AccountEntry(amount, "deposit", "", "");
-//        //	entryList.add(entry);
-//        AccountEntryDB.accountEntry.add(entry);
-//        notifyChanges(entry);
-//        for (AccountEntry e : AccountEntryDB.accountEntry) {
-//            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
-//        }
-//    }
 
-    public void deposit(String accountNumber, double amount) {
+    public AccountEntry deposit(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(amount, "deposit", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntries.add(entry);
+//        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
         for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println("Deposit Transaction: " + e.getFromAccountNumber() + " " + e.getAmount());
         }
+        return entry;
     }
 
-    public void addInterest(String accountNumber) {
+
+    public AccountEntry addInterest(String accountNumber) {
         AccountEntry entry = new AccountEntry(this.ICStrategy.interestCalculation(this), "interest", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntries.add(entry);
+//        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
+        return entry;
 //        for (AccountEntry e : AccountEntryDB.accountEntries) {
 //            System.out.println("Interest Function: " + e.getFromAccountNumber() + " " + e.getAmount());
 //        }
     }
 
-//    public void withdraw(double amount) {
-//        AccountEntry entry = new AccountEntry(-amount, "withdraw", "", "");
-//        //	entryList.add(entry);
-//        AccountEntryDB.accountEntry.add(entry);
-//
-//        notifyChanges(entry);
-//        for (AccountEntry e : AccountEntryDB.accountEntry) {
-//            System.out.println("Withdraw Function: " + e.getFromAccountNumber() + " " + e.getAmount() + " balance ");
-//        }
-//    }
 
-    public void withdraw(String accountNumber, double amount) {
+    public AccountEntry withdraw(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(-amount, "withdraw", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntries.add(entry);
+//        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
 
         for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
         }
+        return entry;
     }
 
-    public void charge(String accountNumber, double amount) {
+    public AccountEntry charge(String accountNumber, double amount) {
         AccountEntry entry = new AccountEntry(-amount, "charge", accountNumber, "");
         //	entryList.add(entry);
-        AccountEntryDB.accountEntries.add(entry);
+//        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
 
         for (AccountEntry e : AccountEntryDB.accountEntries) {
             System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
         }
+        return entry;
     }
 
 //    private void addEntry(AccountEntry entry) {
 //        entryList.add(entry);
 //    }
 
-    public void transferFunds(Account toAccount, double amount, String description) {
-        AccountEntry fromEntry = new AccountEntry(-amount, description, toAccount.getAccountNumber(),
-                toAccount.getCustomer().getName());
-        AccountEntry toEntry = new AccountEntry(amount, description, toAccount.getAccountNumber(),
-                toAccount.getCustomer().getName());
-
-        //	entryList.add(fromEntry);
-        AccountEntryDB.accountEntries.add(fromEntry);
-        notifyChanges(fromEntry);
-        //	toAccount.addEntry(toEntry);
-        AccountEntryDB.accountEntries.add(toEntry);
-        notifyChanges(toEntry);
-
-    }
+//    public void transferFunds(Account toAccount, double amount, String description) {
+//        AccountEntry fromEntry = new AccountEntry(-amount, description, toAccount.getAccountNumber(),
+//                toAccount.getCustomer().getName());
+//        AccountEntry toEntry = new AccountEntry(amount, description, toAccount.getAccountNumber(),
+//                toAccount.getCustomer().getName());
+//
+//        //	entryList.add(fromEntry);
+//        AccountEntryDB.accountEntries.add(fromEntry);
+//        notifyChanges(fromEntry);
+//        //	toAccount.addEntry(toEntry);
+//        AccountEntryDB.accountEntries.add(toEntry);
+//        notifyChanges(toEntry);
+//
+//    }
 
     public Customer getCustomer() {
         return customer;
