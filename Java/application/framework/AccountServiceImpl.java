@@ -142,6 +142,10 @@ public class AccountServiceImpl implements AccountService {
     public void addInterest(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.addObserver(new EmailSender());
+
+//        for (AccountEntry e : AccountEntryDB.accountEntries) {
+//            System.out.println("Interest Function in AccountService Impl, default value: " + e.getFromAccountNumber() + " " + e.getAmount());
+//        }
         account.addInterest(accountNumber);
         accountDAO.updateAccount(account);
     }

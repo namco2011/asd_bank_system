@@ -1,5 +1,6 @@
 package ui.bank;
 
+
 import application.framework.*;
 
 import javax.swing.*;
@@ -39,7 +40,7 @@ public class BankFrm extends javax.swing.JFrame {
         getContentPane().add(BorderLayout.CENTER, JPanel1);
         JPanel1.setBounds(0, 0, 575, 310);
 		/*
-		/Add five buttons on the pane 
+		/Add five buttons on the pane
 		/for Adding personal account, Adding company account
 		/Deposit, Withdraw and Exit from the system
 		*/
@@ -79,9 +80,7 @@ public class BankFrm extends javax.swing.JFrame {
         JPanel1.add(JButton_Addinterest);
         JButton_Withdraw.setBounds(468, 164, 96, 33);
 
-        JPanel1.add(JButton_Report);
-        JButton_Report.setText("Report");
-        JButton_Report.setBounds(468, 210, 96, 33);
+
 
         JButton_Exit.setText("Exit");
         JPanel1.add(JButton_Exit);
@@ -136,7 +135,6 @@ public class BankFrm extends javax.swing.JFrame {
     javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
     javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
     javax.swing.JButton JButton_Addinterest = new javax.swing.JButton();
-    javax.swing.JButton JButton_Report  = new javax.swing.JButton();
     javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
 
@@ -189,8 +187,7 @@ public class BankFrm extends javax.swing.JFrame {
                 JButtonWithdraw_actionPerformed(event);
             else if (object == JButton_Addinterest)
                 JButtonAddinterest_actionPerformed(event);
-            else if (object == JButton_Report)
-                JButton_Report_actionPerformed(event);
+
         }
     }
 
@@ -203,7 +200,7 @@ public class BankFrm extends javax.swing.JFrame {
     void JButtonPerAC_actionPerformed(java.awt.event.ActionEvent event) throws ParseException {
 		/*
 		 JDialog_AddPAcc type object is for adding personal information
-		 construct a JDialog_AddPAcc type object 
+		 construct a JDialog_AddPAcc type object
 		 set the boundaries and show it
 		*/
 
@@ -233,9 +230,9 @@ public class BankFrm extends javax.swing.JFrame {
 
     void JButtonCompAC_actionPerformed(java.awt.event.ActionEvent event) {
 		/*
-		 construct a JDialog_AddCompAcc type object 
-		 set the boundaries and 
-		 show it 
+		 construct a JDialog_AddCompAcc type object
+		 set the boundaries and
+		 show it
 		*/
 
         JDialog_AddCompAcc pac = new JDialog_AddCompAcc(myframe);
@@ -326,11 +323,19 @@ public class BankFrm extends javax.swing.JFrame {
     void JButtonAddinterest_actionPerformed(java.awt.event.ActionEvent event) {
         JOptionPane.showMessageDialog(JButton_Addinterest, "Add interest to all accounts", "Add interest to all accounts", JOptionPane.WARNING_MESSAGE);
 
+      for (AccountEntry e : AccountEntryDB.accountEntries) {
+            System.out.println("Before Generate transaction: " + e.getFromAccountNumber() + " " + e.getAmount()+" "+ e.getDate());
+        }
+
         for (Account account : AccountDB.accountList) {
-            System.out.println(account.getAccountNumber() + " " + account.getAccountClass());
+
             if (account.getAccountClass() != AccountClass.CREDITCARD) {
                 accountService.addInterest(account.getAccountNumber());
             }
+        }
+
+        for (AccountEntry e : AccountEntryDB.accountEntries) {
+            System.out.println("After Generate transaction: " + e.getFromAccountNumber() + " " + e.getAmount()+" "+ e.getDate());
         }
         loadData();
 
@@ -347,12 +352,6 @@ public class BankFrm extends javax.swing.JFrame {
     }
 
 
-    void JButton_Report_actionPerformed(java.awt.event.ActionEvent event) {
-
-      //  BankRptMonthly wd = new BankRptMonthly(myframe);
-//        wd.setBounds(430, 15, 275, 140);
-//        wd.show();
-
-
-    }
 }
+
+

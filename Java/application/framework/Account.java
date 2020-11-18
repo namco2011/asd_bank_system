@@ -1,16 +1,13 @@
 package application.framework;
 
 import application.banking.CheckingICStrategy;
+import application.banking.ICStrategy;
 import application.banking.SavingICStrategy;
 import application.ccard.CreditCardStrategy;
 import application.ccard.CreditCardType;
 import application.ccard.GoldCCStrategy;
-import application.banking.ICStrategy;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Observable;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
@@ -129,9 +126,9 @@ public class Account extends Observable {
         //	entryList.add(entry);
         AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
-        for (AccountEntry e : AccountEntryDB.accountEntries) {
-            System.out.println("Interest Function: " + e.getFromAccountNumber() + " " + e.getAmount());
-        }
+//        for (AccountEntry e : AccountEntryDB.accountEntries) {
+//            System.out.println("Interest Function: " + e.getFromAccountNumber() + " " + e.getAmount());
+//        }
     }
 
 //    public void withdraw(double amount) {
