@@ -39,7 +39,8 @@ public class SendEmail {
             message.setFrom(new InternetAddress("asdproject287@gmail.com"));
             message.setRecipients(
                     Message.RecipientType.TO,
-                    InternetAddress.parse("hanhduy.nguyen@gmail.com")
+               //     InternetAddress.parse("hanhduy.nguyen@gmail.com")
+                    InternetAddress.parse(receipient)
             );
             message.setSubject("Email from ASD Banking");
             message.setText(content);
