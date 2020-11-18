@@ -21,23 +21,40 @@ public class CreditCard extends Account {
         double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
         double totalDue = MP * newBalance;
         this.addInterest();
-        String report;
-        report = String.format("Name= ",this.getCustomer().getName() );
-        report += String.format("\n Address=",this.getCustomer().getStreet() );
-        report += String.format(", ",this.getCustomer().getCity() );
-        report += String.format(", ",this.getCustomer().getState() );
-        report += String.format(", ",this.getCustomer().getZip() );
-        report += String.format("\r\n CC number=",this.getAccountNumber() );
-        report += String.format("\r\n CC type=",this.getCreditCardType());
-        report += String.format("\r\nPrevious balance : ${0}",previousBalance);
-        report += String.format("\n Total charge : ${0}",totalCharge );
-        report += String.format("\n Total credit : ${0}",totalCredit );
-        report += String.format("\n New Balance  : ${0}",newBalance );
-        report += String.format("\n Total Amount Due    : ${0}",totalDue);
-        report += String.format("\r\n");
-        report += String.format("\r\n");
+        StringBuilder report =new StringBuilder();
+//        System.out.println(this.getCustomer().getEmailAddress() + " "+this.getCustomer().getName() + " "+ this.getCustomer().getCity()
+//         + this.getCustomer().getStreet());
+//        report = String.format("Name= ",this.customer.getName() );
+//        report += String.format("\n Address=",this.customer.getStreet() );
+//        report += String.format(", ",super.customer.getCity() );
+//        report += String.format(", ",this.customer.getState() );
+//        report += String.format(", ",this.customer.getZip() );
+//        report += String.format("\r\n CC number=",this.getAccountNumber() );
+//        report += String.format("\r\n CC type=",this.getCreditCardType());
+//        report += String.format("\r\nPrevious balance : ${0}",previousBalance);
+//        report += String.format("\n Total charge : ${0}",totalCharge );
+//        report += String.format("\n Total credit : ${0}",totalCredit );
+//        report += String.format("\n New Balance  : ${0}",newBalance );
+//        report += String.format("\n Total Amount Due    : ${0}",totalDue);
+//        report += String.format("\r\n");
+//        report += String.format("\r\n");
+
+        report.append("Name= " +this.getCustomer().getName() );
+        report.append("\n Address=" +this.getCustomer().getStreet());
+        report.append( ", "+super.getCustomer().getCity() );
+        report.append(", "+this.getCustomer().getState() );
+        report.append( ", "+this.getCustomer().getZip() );
+        report.append( "\r\n CC number=" +this.getAccountNumber()) ;
+        report.append("\r\n CC type="+ this.getCreditCardType());
+        report.append( "\r\nPrevious balance : $" +previousBalance);
+        report.append( "\n Total charge : $ "+totalCharge );
+        report.append( "\n Total credit : $ "+totalCredit );
+        report.append( "\n New Balance  : $ "+newBalance );
+        report.append( "\n Total Amount Due    : $ "+totalDue);
+        report.append( "\r\n");
+        report.append( "\r\n");
         System.out.println(report);
-        return report;
+        return report.toString();
     }
 
 

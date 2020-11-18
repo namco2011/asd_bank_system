@@ -3,16 +3,12 @@ package ui.ccard;
 import application.ccard.CreditCardType;
 import application.framework.*;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * A basic JFC based application.
@@ -226,6 +222,8 @@ public class CardFrm extends javax.swing.JFrame
 			for (Account account: AccountDB.accountList) {
 				System.out.println(account.getAccountNumber()+" "+account.getAccountClass()+"  "+account.getBalance());
 			}
+
+
         }
     }
 
