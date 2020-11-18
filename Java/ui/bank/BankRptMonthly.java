@@ -8,6 +8,7 @@ import application.framework.AccountServiceImpl;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.time.LocalDate;
 
 /**
  * A basic JFC based application.
@@ -25,6 +26,7 @@ public class BankRptMonthly extends JFrame
     BankRptMonthly myframe;
     private Object rowdata[];
 	AccountService accountService =new AccountServiceImpl();
+	AccountEntryDB accountEntryDB;
 
 	public BankRptMonthly()
 	{
@@ -61,11 +63,47 @@ public class BankRptMonthly extends JFrame
         JScrollPane1.getViewport().add(JTable1);
         JTable1.setBounds(0, 0, 420, 0);
 //        rowdata = new Object[8];
-		
+
+
+		JButton_Generate_Report.setText("Generate Report");
+		JPanel1.add(JButton_Generate_Report);
+		JButton_Generate_Report.setBounds(250, 248, 140, 31);
+		label_Date_From.setText("Date From");
+		JPanel1.add(label_Date_From);
+		label_Date_From.setForeground(Color.black);
+		label_Date_From.setBounds(15,40,140,31);
+
+
+		Date_From.setEditable(true);
+		JPanel1.add(Date_From);
+		Date_From.setBounds(10, 60, 140, 31);
+
+
+		label_Date_To.setText("Date To");
+		JPanel1.add(label_Date_To);
+		label_Date_To.setForeground(Color.black);
+		label_Date_To.setBounds(170,40,140,31);
+
+		Date_To.setEditable(true);
+		JPanel1.add(Date_To);
+		Date_To.setBounds(165,60,140,31);
+
+
+
+		AccNo_lable.setText("Account Number");
+		JPanel1.add(AccNo_lable);
+		AccNo_lable.setForeground(Color.black);
+		AccNo_lable.setBounds(330,40,140,31);
+
+		AccNo.setEditable(true);
+		JPanel1.add(AccNo);
+		AccNo.setBounds(320,60,140,31);
+
 
 		JButton_Exit.setText("Exit");
 		JPanel1.add(JButton_Exit);
 		JButton_Exit.setBounds(468,248,96,31);
+
 		// lineBorder1.setRoundedCorners(true);
 		// lineBorder1.setLineColor(java.awt.Color.green);
 		//$$ lineBorder1.move(24,312);
@@ -75,39 +113,59 @@ public class BankRptMonthly extends JFrame
 		this.addWindowListener(aSymWindow);
 		SymAction lSymAction = new SymAction();
 		JButton_Exit.addActionListener(lSymAction);
+		JButton_Generate_Report.addActionListener(lSymAction);
 		loadData();
 
 		
 	}
 
 	public  void loadData( ){
-		rowdata = new Object[8];
+		rowdata = new Object[6];
+		//LocalDate fromdate =LocalDate.parse(Date_From.getText());
+		//LocalDate  toDate = LocalDate.parse(Date_To.getText());
 
+		LocalDate fromdate=LocalDate.now();
+		if (Date_From.getText().length()>0) fromdate= LocalDate.parse(Date_From.getText());
 
-
-
-
-//		Calendar cal = new GregorianCalendar();
-//		Calendar cal2 = new GregorianCalendar();
-//		cal.roll(Calendar.DAY_OF_YEAR, -30);
-////if within the first 30 days, need to roll the year as well
-//		if(cal.after(cal2)){
-//			cal.roll(Calendar.YEAR, -1);
-//		}
+		LocalDate toDate=LocalDate.now();
+		if (Date_To.getText().length()>0) toDate=LocalDate.parse(Date_To.getText());
+		model.setRowCount(0);
 	for (AccountEntry entry:AccountEntryDB.accountEntries) {
-
-	//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
+		if (AccNo.getText().length() > 0 && (Date_From.getText().length() == 0 || Date_To.getText().length() == 0)) {
+			if ( entry.getFromAccountNumber().equals(AccNo)) {
+			//if (entry.getDate().isAfter(fromdate) && entry.getDate().isBefore(toDate) && entry.getFromAccountNumber()==AccNo.getText()) {
 			rowdata[0] = entry.getFromAccountNumber();
 			rowdata[1] = entry.getFromPersonName();
-			rowdata[2] = entry.getFromPersonName();
-			rowdata[3] = entry.getFromPersonName();
-			rowdata[4] = entry.getFromPersonName();
-			rowdata[5] = entry.getAmount();
+			rowdata[2] = entry.getDescription();
+			rowdata[3] = entry.getAmount();
+			rowdata[4] = entry.getDate();
+
 			model.addRow(rowdata);
+			//}
 		}
-	//}
+			else if (AccNo.getText().length()>0 && Date_From.getText().length()>0 && Date_To.getText().length()>0){
+				if (entry.getDate().isAfter(fromdate)
+						&& entry.getDate().isBefore(toDate)
+						&& entry.getFromAccountNumber().equals(AccNo)) {
+					// if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
+					rowdata[0] = entry.getFromAccountNumber();
+					rowdata[1] = entry.getFromPersonName();
+					rowdata[2] = entry.getDescription();
+					rowdata[3] = entry.getAmount();
+					rowdata[4] = entry.getDate();
+					model.addRow(rowdata);
+				}
+			}
+			else {
+				rowdata[0] = entry.getFromAccountNumber();
+				rowdata[1] = entry.getFromPersonName();
+				rowdata[2] = entry.getDescription();
+				rowdata[3] = entry.getAmount();
+				rowdata[4] = entry.getDate();
+				model.addRow(rowdata);
+			}
 
-
+	}
 
 
 
@@ -117,7 +175,7 @@ public class BankRptMonthly extends JFrame
 		//ZoneId defaultZoneId = ZoneId.systemDefault();
 		//AccountEntryDB.accountEntry.stream().filter(e ->  e.getDate().compareTo(cal.getTime() )>=0);
 
-
+	}
 	}
 
 	
@@ -156,6 +214,13 @@ public class BankRptMonthly extends JFrame
 //	JButton JButton_Withdraw = new JButton();
 //	JButton JButton_Addinterest= new JButton();
 	JButton JButton_Exit = new JButton();
+	JTextField Date_From = new JTextField();
+	JTextField Date_To = new JTextField();
+	javax.swing.JLabel  label_Date_From = new javax.swing.JLabel();
+	javax.swing.JLabel  label_Date_To = new javax.swing.JLabel();
+	javax.swing.JButton JButton_Generate_Report = new javax.swing.JButton();
+	JTextField AccNo = new JTextField();
+	javax.swing.JLabel  AccNo_lable = new javax.swing.JLabel();
 
 	void exitApplication()
 	{

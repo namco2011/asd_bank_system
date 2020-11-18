@@ -327,10 +327,7 @@ public class BankFrm extends javax.swing.JFrame {
 //					.filter(a->a.getAccountNumber().equals("111"))
 //					.forEach(acc->{accountService.addInterest(acc.getAccountNumber());});
 //Nam update
-        for (AccountEntry accountEntry : AccountEntryDB.accountEntry) {
-            System.out.println(accountEntry.getFromAccountNumber() + " " + accountEntry.getDescription() + " " + accountEntry.getAmount());
 
-        }
 
     }
 }
