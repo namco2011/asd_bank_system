@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
+    List<Customer> customerList = CustomerDB.customerList;
 
     //MEKU
     //Singleton account service implementation
@@ -19,10 +20,8 @@ public class AccountServiceImpl implements AccountService {
         accountDAO = new AccountDAOImpl();
     }
 
-    public static AccountServiceImpl getInstance()
-    {
-        if(instance == null)
-        {
+    public static AccountServiceImpl getInstance() {
+        if (instance == null) {
             instance = new AccountServiceImpl();
         }
 
@@ -39,42 +38,71 @@ public class AccountServiceImpl implements AccountService {
         AccountDB.accountList.add(account);
         CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-      //  account.changeNotification();
+        //  account.changeNotification();
         return account;
     }
 
     public Account createPersonalAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                          String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date birthdate) {
         Account account = new Account(accountNumber, accountType, AccountClass.PERSONAL);
-        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+//        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        Customer customer = null;
+        for (Customer customer1 : customerList) {
+            if (customer1.getName().equals(customerName)) {
+                customer = customer1;
+                break;
+            }
+        }
+        if (customer == null) {
+            customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        }
         account.setCustomer(customer);
         customer.setBirthday(birthdate);
         accountDAO.saveAccount(account);
         AccountDB.accountList.add(account);
         CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-     //   account.changeNotification();
+        //   account.changeNotification();
         return account;
     }
 
     public Account createCompanyAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                         String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, int noOfEmployee) {
         Account account = new Account(accountNumber, accountType, AccountClass.COMPANY);
-        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+//        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        Customer customer = null;
+        for (Customer customer1 : customerList) {
+            if (customer1.getName().equals(customerName)) {
+                customer = customer1;
+                break;
+            }
+        }
+        if (customer == null) {
+            customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        }
         account.setCustomer(customer);
         customer.setNoOfEmployee(noOfEmployee);
         accountDAO.saveAccount(account);
         AccountDB.accountList.add(account);
         CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-     //   account.changeNotification();
+        //   account.changeNotification();
         return account;
     }
 
     public Account createCreditCard(String ccNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                     String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date expireDate, CreditCardType creditCardType) {
         Account account = new CreditCard(ccNumber, AccountType.CREDITCARD, AccountClass.CREDITCARD);
-        Customer customer = new Customer(ccNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        Customer customer = null;
+        for (Customer customer1 : customerList) {
+            if (customer1.getName().equals(customerName)) {
+                customer = customer1;
+                break;
+            }
+        }
+        if (customer == null) {
+            customer = new Customer(ccNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+        }
         account.setCustomer(customer);
         account.setCreditCardType(creditCardType);
         customer.setExpirationDate(expireDate);
@@ -92,14 +120,14 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
-    public String monthlyBilling(String accountNumber){
+    public String monthlyBilling(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
         return account.monthlyBilling();
     }
 
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.deposit(accountNumber,amount);
+        account.deposit(accountNumber, amount);
         accountDAO.updateAccount(account);
     }
 
@@ -122,17 +150,16 @@ public class AccountServiceImpl implements AccountService {
 
     public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
-        if(account.accountClass!=AccountClass.CREDITCARD) {
+        if (account.accountClass != AccountClass.CREDITCARD) {
             if (account.getBalance() < amount) {
                 SendEmail email = new SendEmail();
                 email.SendEMail(account.getCustomer().getEmailAddress(), " You can't withdraw because account balance " + account.getBalance() + " less than " + amount);
             } else {
-                account.withdraw(accountNumber,amount);
+                account.withdraw(accountNumber, amount);
                 accountDAO.updateAccount(account);
             }
-        }
-        else {
-            account.charge(accountNumber,amount);
+        } else {
+            account.charge(accountNumber, amount);
             accountDAO.updateAccount(account);
         }
     }
@@ -141,11 +168,10 @@ public class AccountServiceImpl implements AccountService {
     public void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException {
         Account fromAccount = accountDAO.loadAccount(fromAccountNumber);
         Account toAccount = accountDAO.loadAccount(toAccountNumber);
-        if (fromAccount.getBalance()<amount) {
-            SendEmail email  = new SendEmail();
-            email.SendEMail(fromAccount.getCustomer().getEmailAddress()," You can't withdraw because account balance "+ fromAccount.getBalance() +" less than "+ amount);
-        }
-        else {
+        if (fromAccount.getBalance() < amount) {
+            SendEmail email = new SendEmail();
+            email.SendEMail(fromAccount.getCustomer().getEmailAddress(), " You can't withdraw because account balance " + fromAccount.getBalance() + " less than " + amount);
+        } else {
             fromAccount.transferFunds(toAccount, amount, description);
             //  fromAccount.changeNotification();
             accountDAO.updateAccount(fromAccount);

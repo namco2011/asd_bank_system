@@ -102,6 +102,5 @@ public class JDialogGenBill extends javax.swing.JDialog
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
 		dispose();
-			 
 	}
 }

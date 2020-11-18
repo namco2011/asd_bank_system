@@ -1,6 +1,8 @@
 package application.framework;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Customer {
 	private String name;
@@ -10,13 +12,10 @@ public class Customer {
 	private String zip;
 	private String AccountNumber;
 	private String emailAddress;
-
-
 	private Date Birthday;
 	private int noOfEmployee;
 	private Date expirationDate;
-
-
+	List<Account> accountList = new ArrayList<>();
 
 
 	public Customer(String AccountNumber, String name, String emailAddress, String street, String city, String state, String zip) {
@@ -27,8 +26,9 @@ public class Customer {
 		this.city= city;
 		this.state = state;
 		this.zip = zip;
-
-
+	}
+	public void addAccount(Account account){
+		this.accountList.add(account);
 	}
 
 	public void setStreet(String street) {

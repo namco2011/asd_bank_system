@@ -57,7 +57,6 @@ public class CreditCard extends Account {
         return report.toString();
     }
 
-
     public double getTotalCredits() {
         double totalCredits = 0;
         for (AccountEntry entry : AccountEntryDB.accountEntry) {
