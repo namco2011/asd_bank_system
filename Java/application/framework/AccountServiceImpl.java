@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
@@ -129,7 +128,7 @@ public class AccountServiceImpl implements AccountService {
 
     public String monthlyBilling(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
-        return account.monthlyBilling();
+        return account.monthlyBilling(accountNumber);
     }
 
     public void deposit(String accountNumber, double amount) {

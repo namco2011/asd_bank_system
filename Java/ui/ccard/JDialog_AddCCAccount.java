@@ -4,8 +4,7 @@ package ui.ccard;
 */
 
 import application.ccard.CreditCardType;
-import application.framework.Account;
-import application.framework.AccountEntry;
+import application.utilities.Utilities;
 //import application.framework.AccountEntryDB;
 
 public class JDialog_AddCCAccount extends javax.swing.JDialog
@@ -107,6 +106,8 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
 		JButton_OK.addActionListener(lSymAction);
 		JButton_Cancel.addActionListener(lSymAction);
 		JRadioButton_Bronze.addMouseListener(aSymMouse);
+		JTextField_ExpDate.setText(Utilities.generate_ExpireDate());
+		JTextField_CCNR.setText(Utilities.generateCardNumber());
 		//}}
 	}
 

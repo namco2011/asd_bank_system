@@ -71,6 +71,34 @@ public class CreditCard extends Account {
         return report.toString();
     }
 
+    public String monthlyBilling(String acct) {
+        double previousBalance = this.getPreviousBalance(acct);
+        double totalCharge = Math.abs(this.getTotalCharges(acct));
+        double totalCredit = Math.abs( this.getTotalCredits(acct));
+        double MI = this.creditCardStrategy.monthlyInterest();
+        double MP = this.creditCardStrategy.minimumPayment();
+        double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
+        double totalDue = MP * newBalance;
+        this.addInterest();
+        StringBuilder report =new StringBuilder();
+        report.append("Name= " +this.getCustomer().getName() );
+        report.append("\n Address=" +this.getCustomer().getStreet());
+        report.append( ", "+super.getCustomer().getCity() );
+        report.append(", "+this.getCustomer().getState() );
+        report.append( ", "+this.getCustomer().getZip() );
+        report.append( "\r\n CC number=" +this.getAccountNumber()) ;
+        report.append("\r\n CC type="+ this.getCreditCardType());
+        report.append( "\r\nPrevious balance : $" +previousBalance);
+        report.append( "\n Total charge : $ "+totalCharge );
+        report.append( "\n Total credit : $ "+totalCredit );
+        report.append( "\n New Balance  : $ "+newBalance );
+        report.append( "\n Total Amount Due    : $ "+totalDue);
+        report.append( "\r\n");
+        report.append( "\r\n");
+        System.out.println(report);
+        return report.toString();
+    }
+
     public double getTotalCredits() {
         double totalCredits = 0;
         for (AccountEntry entry : AccountEntryDB.accountEntries) {
@@ -81,10 +109,30 @@ public class CreditCard extends Account {
         return totalCredits;
     }
 
+    public double getTotalCredits(String acct) {
+        double totalCredits = 0;
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
+            if (entry.getDescription().equals("deposit") && entry.getFromAccountNumber().equals(acct)) {
+                totalCredits += entry.getAmount();
+            }
+        }
+        return totalCredits;
+    }
+
     public double getTotalCharges() {
         double totalCharges = 0;
         for (AccountEntry entry : AccountEntryDB.accountEntries) {
             if (entry.getDescription().equals("charge")) {
+                totalCharges += entry.getAmount();
+            }
+        }
+        return totalCharges;
+    }
+
+    public double getTotalCharges(String acct) {
+        double totalCharges = 0;
+        for (AccountEntry entry : AccountEntryDB.accountEntries) {
+            if (entry.getDescription().equals("charge") && entry.getFromAccountNumber().equals(acct)) {
                 totalCharges += entry.getAmount();
             }
         }

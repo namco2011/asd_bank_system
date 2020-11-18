@@ -3,8 +3,6 @@ package ui.ccard;
 import application.ccard.CreditCard;
 import application.ccard.CreditCardType;
 import application.framework.*;
-import ui.JDialog_General_Deposit;
-import ui.JDialog_General_Withdraw;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -100,6 +98,7 @@ public class CardFrm extends javax.swing.JFrame
 
 	void loadData() {
 		model.setRowCount(0);
+
 		for (Account account : accountService.getAllAccounts()) {
 			if(account.getAccountClass()!=null && account.getAccountClass().equals(AccountClass.CREDITCARD)) {
 				//	if (entry.getDate() >= fromdate && entry.getDate() <= toDate && entry.getFromAccountNumber()=="xxc") {
@@ -266,7 +265,7 @@ public class CardFrm extends javax.swing.JFrame
 
 		    //Show the dialog for adding deposit amount for the current mane
 //		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,name);
-			JDialog_General_Deposit dep = new JDialog_General_Deposit(thisframe,ccNumber);
+		    JDialog_Deposit dep = new JDialog_Deposit(thisframe,ccNumber);
 		    dep.setBounds(430, 15, 275, 140);
 		    dep.show();
     		
@@ -292,7 +291,7 @@ public class CardFrm extends javax.swing.JFrame
 
 		    //Show the dialog for adding withdraw amount for the current mane
 //		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,name);
-		    JDialog_General_Withdraw wd = new JDialog_General_Withdraw(thisframe,ccNumber);
+		    JDialog_Withdraw wd = new JDialog_Withdraw(thisframe,ccNumber);
 		    wd.setBounds(430, 15, 275, 140);
 		    wd.show();
     		
