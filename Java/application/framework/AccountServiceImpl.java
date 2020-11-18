@@ -9,12 +9,18 @@ import java.util.List;
 
 public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
+//    private AccountDAO accountDAO = new AccountDAOImpl();
     List<Customer> customerList = CustomerDB.customerList;
 
 
     //MEKU
     //Singleton account service implementation
 
+//    public static AccountServiceImpl getInstance() {
+//        return instance;
+//    }
+
+//    private static AccountServiceImpl instance = new AccountServiceImpl();
     private static AccountServiceImpl instance;
 
     public AccountServiceImpl() {
