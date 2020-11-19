@@ -20,7 +20,6 @@ public class Account extends Observable {
     protected String accountNumber;
     protected AccountType accountType;
     protected CreditCardType creditCardType;
-//    protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
     public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
         this.accountNumber = accountNumber;

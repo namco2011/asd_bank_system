@@ -62,9 +62,6 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 		
 	}
 
-
-
-	
 	javax.swing.JLabel JLabel1 = new javax.swing.JLabel();
 	javax.swing.JLabel JLabel2 = new javax.swing.JLabel();
 	javax.swing.JTextField JTextField_NAME = new javax.swing.JTextField();

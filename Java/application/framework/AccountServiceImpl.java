@@ -11,17 +11,16 @@ public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
     private AccountEntryDAO accountEntryDAO;
     private CustomerDAO customerDAO;
-//    List<Customer> customerList = CustomerDB.customerList;
 
-    //MEKU
     //Singleton account service implementation
-
     private static AccountServiceImpl instance;
+
     public AccountServiceImpl() {
         accountDAO = new AccountDAOImpl();
         accountEntryDAO = new AccountEntryDAOImpl();
         customerDAO = new CustomerDAOImpl();
     }
+
     public static AccountServiceImpl getInstance() {
         if (instance == null) {
             instance = new AccountServiceImpl();
@@ -37,17 +36,13 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomer(customer);
         accountDAO.saveAccount(account);
         customerDAO.saveCustomer(customer);
-//        AccountDB.accountList.add(account);
-//        CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-        //  account.changeNotification();
         return account;
     }
 
     public Account createPersonalAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                          String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, Date birthdate) {
         Account account = new Account(accountNumber, accountType, AccountClass.PERSONAL);
-//        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         Customer customer = null;
         for (Customer customer1 : customerDAO.getCustomerList()) {
             if (customer1.getName().equals(customerName)) {
@@ -62,17 +57,13 @@ public class AccountServiceImpl implements AccountService {
         customer.setBirthday(birthdate);
         accountDAO.saveAccount(account);
         customerDAO.saveCustomer(customer);
-//        AccountDB.accountList.add(account);
-//        CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-        //   account.changeNotification();
         return account;
     }
 
     public Account createCompanyAccount(String accountNumber, String customerName, AccountType accountType, AccountClass accountClass,
                                         String customerStreet, String customerCity, String customerState, String customerZip, String customerEmail, int noOfEmployee) {
         Account account = new Account(accountNumber, accountType, AccountClass.COMPANY);
-//        Customer customer = new Customer(accountNumber, customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         Customer customer = null;
         for (Customer customer1 : customerDAO.getCustomerList()) {
             if (customer1.getName().equals(customerName)) {
@@ -81,16 +72,13 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         if (customer == null) {
-            customer = new Customer( customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+            customer = new Customer(customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         }
         account.setCustomer(customer);
         customer.setNoOfEmployee(noOfEmployee);
         accountDAO.saveAccount(account);
         customerDAO.saveCustomer(customer);
-//        AccountDB.accountList.add(account);
-//        CustomerDB.customerList.add(customer);
         account.addObserver(new EmailSender());
-        //   account.changeNotification();
         return account;
     }
 
@@ -105,36 +93,27 @@ public class AccountServiceImpl implements AccountService {
             }
         }
         if (customer == null) {
-            customer = new Customer( customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
+            customer = new Customer(customerName, customerEmail, customerStreet, customerCity, customerState, customerZip);
         }
         account.setCustomer(customer);
         account.setCreditCardType(creditCardType);
         customer.setExpirationDate(expireDate);
-
-
         account.addObserver(new EmailSender());
-//        account.changeNotification();
         switch (creditCardType) {
             case GOLD -> account.setCreditCardStrategy(new GoldCCStrategy());
             case SILVER -> account.setCreditCardStrategy(new SilverCCStrategy());
             case BRONZE -> account.setCreditCardStrategy(new BronzeCCStrategy());
         }
-//        AccountDB.accountList.add(account);
         accountDAO.saveAccount(account);
         customerDAO.saveCustomer(customer);
-//        CustomerDB.customerList.add(customer);
         return account;
     }
 
-//    public String monthlyBilling(String accountNumber) {
-//        Account account = accountDAO.loadAccount(accountNumber);
-//        return account.monthlyBilling(accountNumber);
-//    }
 
     public String monthlyBilling(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
-       return  account.monthlyBilling();
-     }
+        return account.monthlyBilling();
+    }
 
     @Override
     public String monthlyBilling() {
@@ -144,14 +123,13 @@ public class AccountServiceImpl implements AccountService {
     public void deposit(String accountNumber, double amount) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.addObserver(new EmailSender());
-        accountEntryDAO.saveAccountEntry(account.deposit(accountNumber,amount));
+        accountEntryDAO.saveAccountEntry(account.deposit(accountNumber, amount));
         accountDAO.updateAccount(account);
     }
 
     public void addInterest(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
         account.addObserver(new EmailSender());
-
 //        for (AccountEntry e : AccountEntryDB.accountEntries) {
 //            System.out.println("Interest Function in AccountService Impl, default value: " + e.getFromAccountNumber() + " " + e.getAmount());
 //        }
@@ -165,15 +143,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Collection<Account> getAllAccounts() {
-        //Revert later
-         return accountDAO.getAccounts();
-//        return AccountDB.accountList;
+        return accountDAO.getAccounts();
     }
 
     public Collection<AccountEntry> getAllAccountEntries() {
-        //Revert later
         return accountEntryDAO.getAccountEntries();
-//        return AccountDB.accountList;
     }
 
     public void withdraw(String accountNumber, double amount) throws IOException {
@@ -181,7 +155,7 @@ public class AccountServiceImpl implements AccountService {
         account.addObserver(new EmailSender());
         if (account.accountClass != AccountClass.CREDITCARD) {
             accountEntryDAO.saveAccountEntry(account.withdraw(accountNumber, amount));
-                accountDAO.updateAccount(account);
+            accountDAO.updateAccount(account);
         } else {
             accountEntryDAO.saveAccountEntry(account.charge(accountNumber, amount));
             accountDAO.updateAccount(account);
