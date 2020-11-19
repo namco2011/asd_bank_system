@@ -41,7 +41,7 @@ public class AccountEntryRpt extends javax.swing.JFrame {
     JTextField todatestr= new JTextField();
     ButtonGroup buttonGroup  = new ButtonGroup();
 
-    AccountService accountService = new AccountServiceImpl();
+    AccountService accountService =  AccountServiceImpl.getInstance();
 
     public AccountEntryRpt() {
         myframe = this;

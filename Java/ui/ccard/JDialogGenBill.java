@@ -11,7 +11,7 @@ import java.awt.*;
 public class JDialogGenBill extends javax.swing.JDialog
 {
     String billstring;
-	AccountService accountService = new AccountServiceImpl();
+	AccountService accountService = AccountServiceImpl.getInstance();
     
 	public JDialogGenBill(Frame parent)
 	{

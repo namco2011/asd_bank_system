@@ -217,7 +217,6 @@ public class Account extends Observable {
     public void notifyChanges(AccountEntry entry) {
         setChanged();
         notifyObservers(entry);
-
     }
 
 

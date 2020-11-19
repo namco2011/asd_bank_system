@@ -29,7 +29,7 @@ public class BankFrm extends javax.swing.JFrame {
     private JScrollPane JScrollPane1;
     BankFrm myframe;
     private Object rowdata[];
-    AccountService accountService = new AccountServiceImpl();
+    AccountService accountService = AccountServiceImpl.getInstance();
 
     public BankFrm() {
         myframe = this;
