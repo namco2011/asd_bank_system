@@ -234,10 +234,12 @@ public class AccountEntryRpt extends javax.swing.JFrame {
                         //    rowdata[0] =
                         rowdata[0] = entry.getFromAccountNumber();
                         rowdata[1] = entry.getDate();
-                        rowdata[2] = entry.getAmount();
-                        rowdata[3] = entry.getDescription();
-
+                        rowdata[2] = entry.getAmount()>0?entry.getAmount():0;
+                        rowdata[3] = entry.getAmount()<=0?Math.abs(entry.getAmount()):0;
+                        rowdata[4] = entry.getDescription();
                         model.addRow(rowdata);
+
+
 
                     }
                 }

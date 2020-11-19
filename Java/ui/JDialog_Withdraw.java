@@ -1,9 +1,9 @@
 package ui;
 
 
-import application.banking.transaction.HistoryCommand;
 import application.banking.transaction.Withdraw;
 import application.framework.AccountServiceImpl;
+import ui.bank.BankFrm;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -95,11 +95,12 @@ public class JDialog_Withdraw extends javax.swing.JDialog
 //			parentframe.transactionAmount = JTextField_AMT.getText();
 		//	parentframe.accountService.withdraw(accnr, Double.parseDouble(JTextField_AMT.getText()));
 
-			HistoryCommand historyCommand = new HistoryCommand();
+			//HistoryCommand historyCommand = new HistoryCommand();
 			long amounts=Long.parseLong(JTextField_AMT.getText());
 			Withdraw withdrawcommand = new Withdraw(AccountServiceImpl.getInstance(),accnr,amounts);
 			withdrawcommand.execute();
-			historyCommand.addCommand(withdrawcommand);
+			//historyCommand.addCommand(withdrawcommand);
+			BankFrm.historyCommand.addCommand(withdrawcommand);
 //		}
 //		else {
 //			JOptionPane.showMessageDialog(this, "Withdraw exceed current balance.");

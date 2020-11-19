@@ -3,6 +3,7 @@ package ui.bank;
 
 import application.banking.report.AccountEntryRpt;
 import application.banking.report.AccountRpt;
+import application.banking.transaction.HistoryCommand;
 import application.framework.*;
 import ui.JDialog_Deposit;
 import ui.JDialog_Withdraw;
@@ -10,6 +11,7 @@ import ui.JDialog_Withdraw;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +33,10 @@ public class BankFrm extends javax.swing.JFrame {
     private Object rowdata[];
     AccountService accountService = AccountServiceImpl.getInstance();
 
+
+
+    //     protected static HistoryCommand historyCommand = new HistoryCommand();
+    public static HistoryCommand historyCommand = new HistoryCommand();
     public BankFrm() {
         myframe = this;
 
@@ -91,6 +97,10 @@ public class BankFrm extends javax.swing.JFrame {
         JPanel1.add(JButton_AccountEntryRpt);
         JButton_AccountEntryRpt.setBounds(650, 400, 200, 31);
 
+        JButton_Reversal.setText("Reversal");
+        JPanel1.add(JButton_Reversal);
+        JButton_Reversal.setBounds(650, 450, 200, 31);
+
         JButton_Exit.setText("Exit");
         JPanel1.add(JButton_Exit);
         JButton_Exit.setBounds(650, 500, 96, 31);
@@ -110,7 +120,7 @@ public class BankFrm extends javax.swing.JFrame {
         JButton_Addinterest.addActionListener(lSymAction);
         JButton_AccountRpt.addActionListener(lSymAction);
         JButton_AccountEntryRpt.addActionListener(lSymAction);
-
+        JButton_Reversal.addActionListener(lSymAction);
         loadData();
 
     }
@@ -151,7 +161,7 @@ public class BankFrm extends javax.swing.JFrame {
     javax.swing.JButton JButton_AccountRpt = new javax.swing.JButton();
     javax.swing.JButton JButton_AccountEntryRpt = new javax.swing.JButton();
 
-
+    JButton JButton_Reversal = new JButton();
     void exitApplication() {
         try {
             this.setVisible(false);    // hide the Frame
@@ -205,6 +215,13 @@ public class BankFrm extends javax.swing.JFrame {
                 JButton_AccountRpt_actionPerformed(event);
             else if (object == JButton_AccountEntryRpt)
                 JButton_AccountEntryRpt_actionPerformed(event);
+            else if (object == JButton_Reversal) {
+                try {
+                    JButton_Reversal_actionPerformed(event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         }
     }
@@ -280,6 +297,12 @@ public class BankFrm extends javax.swing.JFrame {
         AccountRpt billFrm  = new AccountRpt();
         billFrm.setBounds(450, 20, 400, 350);
         billFrm.show();
+    }
+
+    void JButton_Reversal_actionPerformed(java.awt.event.ActionEvent event) throws IOException {
+    historyCommand.undo();
+    loadData();
+
     }
 
     void JButton_AccountEntryRpt_actionPerformed(java.awt.event.ActionEvent event) {

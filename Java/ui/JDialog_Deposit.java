@@ -1,8 +1,8 @@
 package ui;
 
 import application.banking.transaction.Deposit;
-import application.banking.transaction.HistoryCommand;
 import application.framework.AccountServiceImpl;
+import ui.bank.BankFrm;
 
 import javax.swing.*;
 
@@ -86,14 +86,20 @@ public class JDialog_Deposit extends javax.swing.JDialog
 
 	void JButtonOK_actionPerformed(java.awt.event.ActionEvent event)
 	{
-		HistoryCommand historyCommand = new HistoryCommand();
+//		HistoryCommand historyCommand = new HistoryCommand();
+//		long amount=Long.parseLong(JTextField_Deposit.getText());
+//		Deposit depositcommand = new Deposit(AccountServiceImpl.getInstance(),accnr,amount);
+//		depositcommand.execute();
+//		historyCommand.addCommand(depositcommand);
+
+
+
 		long amount=Long.parseLong(JTextField_Deposit.getText());
 		Deposit depositcommand = new Deposit(AccountServiceImpl.getInstance(),accnr,amount);
 		depositcommand.execute();
-		historyCommand.addCommand(depositcommand);
-//        parentframe.transactionAmount =JTextField_Deposit.getText();
-		//parentframe.accountService.deposit(accnr,);
+		BankFrm.historyCommand.addCommand(depositcommand);
 
+//
         dispose();
 	}
 
