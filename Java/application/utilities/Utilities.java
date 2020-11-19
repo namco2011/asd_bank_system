@@ -15,5 +15,24 @@ public class Utilities {
             LocalDate date = LocalDate.now().plusYears(3);
             return date.toString();
         }
+
+    public static String generateAccount () {
+
+        long max = 1999999998;
+        long min = 1000000000;
+        long range = max - min + 1;
+        long rand = (long)(Math.random() * range) + min;
+        return String.valueOf("2000"+rand);
+    }
+    public static String generateComAccount () {
+
+        long max = 1999999998;
+        long min = 1000000000;
+        long range = max - min + 1;
+        long rand = (long)(Math.random() * range) + min;
+        return String.valueOf("1000"+rand);
+    }
+
+
 }
 

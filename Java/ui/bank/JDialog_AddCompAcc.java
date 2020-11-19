@@ -1,5 +1,6 @@
 package ui.bank;
 import application.framework.AccountType;
+import application.utilities.Utilities;
 
 
 public class JDialog_AddCompAcc extends javax.swing.JDialog
@@ -92,6 +93,7 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog
 		JTextField_ZIP.setText("52557");
 		JTextField_CT.setText("Fairfield");
 		JTextField_STR.setText("1000 N 4th");
+		JTextField_ACNR.setText(Utilities.generateComAccount());
 
 		//}}
 	
