@@ -8,6 +8,7 @@ public class AccountEntry {
 	private String description;
 	private String fromAccountNumber;
 	private String fromPersonName;
+	private AccountType accountType;
 	
 	public AccountEntry() {
 	}
@@ -19,6 +20,7 @@ public class AccountEntry {
 		this.description = description;
 		this.fromAccountNumber = fromAccountNumber;
 		this.fromPersonName = fromPersonName;
+
 	}
 
 	public double getAmount() {

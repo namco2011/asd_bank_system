@@ -1,6 +1,8 @@
 package ui.bank;
 
 
+import application.banking.report.AccountEntryRpt;
+import application.banking.report.AccountRpt;
 import application.framework.*;
 import ui.JDialog_Deposit;
 import ui.JDialog_Withdraw;
@@ -35,11 +37,11 @@ public class BankFrm extends javax.swing.JFrame {
         setTitle("Bank Application.");
         setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout(0, 0));
-        setSize(575, 310);
+        setSize(1000, 600);
         setVisible(false);
         JPanel1.setLayout(null);
         getContentPane().add(BorderLayout.CENTER, JPanel1);
-        JPanel1.setBounds(0, 0, 575, 310);
+        JPanel1.setBounds(0, 0, 1000, 600);
 		/*
 		/Add five buttons on the pane
 		/for Adding personal account, Adding company account
@@ -59,7 +61,7 @@ public class BankFrm extends javax.swing.JFrame {
 
 
         JPanel1.add(JScrollPane1);
-        JScrollPane1.setBounds(12, 92, 444, 160);
+        JScrollPane1.setBounds(50, 92, 600, 400);
         JScrollPane1.getViewport().add(JTable1);
         JTable1.setBounds(0, 0, 420, 0);
 //        rowdata = new Object[8];
@@ -73,19 +75,25 @@ public class BankFrm extends javax.swing.JFrame {
         JButton_CompAC.setBounds(240, 20, 192, 33);
         JButton_Deposit.setText("Deposit");
         JPanel1.add(JButton_Deposit);
-        JButton_Deposit.setBounds(468, 104, 96, 33);
+        JButton_Deposit.setBounds(650, 104, 96, 33);
         JButton_Withdraw.setText("Withdraw");
         JPanel1.add(JButton_Withdraw);
-        JButton_Addinterest.setBounds(448, 20, 106, 33);
+        JButton_Addinterest.setBounds(650, 20, 106, 33);
         JButton_Addinterest.setText("Add interest");
         JPanel1.add(JButton_Addinterest);
-        JButton_Withdraw.setBounds(468, 164, 96, 33);
+        JButton_Withdraw.setBounds(650, 164, 96, 33);
 
+        JButton_AccountRpt.setText("Account Report");
+        JPanel1.add(JButton_AccountRpt);
+        JButton_AccountRpt.setBounds(650, 300, 200, 31);
 
+        JButton_AccountEntryRpt.setText("AccountEntry Report");
+        JPanel1.add(JButton_AccountEntryRpt);
+        JButton_AccountEntryRpt.setBounds(650, 400, 200, 31);
 
         JButton_Exit.setText("Exit");
         JPanel1.add(JButton_Exit);
-        JButton_Exit.setBounds(468, 248, 96, 31);
+        JButton_Exit.setBounds(650, 500, 96, 31);
         // lineBorder1.setRoundedCorners(true);
         // lineBorder1.setLineColor(java.awt.Color.green);
         //$$ lineBorder1.move(24,312);
@@ -100,6 +108,9 @@ public class BankFrm extends javax.swing.JFrame {
         JButton_Deposit.addActionListener(lSymAction);
         JButton_Withdraw.addActionListener(lSymAction);
         JButton_Addinterest.addActionListener(lSymAction);
+        JButton_AccountRpt.addActionListener(lSymAction);
+        JButton_AccountEntryRpt.addActionListener(lSymAction);
+
         loadData();
 
     }
@@ -137,6 +148,8 @@ public class BankFrm extends javax.swing.JFrame {
     javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
     javax.swing.JButton JButton_Addinterest = new javax.swing.JButton();
     javax.swing.JButton JButton_Exit = new javax.swing.JButton();
+    javax.swing.JButton JButton_AccountRpt = new javax.swing.JButton();
+    javax.swing.JButton JButton_AccountEntryRpt = new javax.swing.JButton();
 
 
     void exitApplication() {
@@ -188,6 +201,10 @@ public class BankFrm extends javax.swing.JFrame {
                 JButtonWithdraw_actionPerformed(event);
             else if (object == JButton_Addinterest)
                 JButtonAddinterest_actionPerformed(event);
+            else if (object == JButton_AccountRpt)
+                JButton_AccountRpt_actionPerformed(event);
+            else if (object == JButton_AccountEntryRpt)
+                JButton_AccountEntryRpt_actionPerformed(event);
 
         }
     }
@@ -255,6 +272,22 @@ public class BankFrm extends javax.swing.JFrame {
             accountService.createCompanyAccount(accountnr, clientName, accountType, AccountClass.PERSONAL, street, city, state, zip, email, noEmployee);
             newaccount = false;
         }
+
+    }
+
+    void JButton_AccountRpt_actionPerformed(java.awt.event.ActionEvent event) {
+
+        AccountRpt billFrm  = new AccountRpt();
+        billFrm.setBounds(450, 20, 400, 350);
+        billFrm.show();
+    }
+
+    void JButton_AccountEntryRpt_actionPerformed(java.awt.event.ActionEvent event) {
+
+        AccountEntryRpt billFrm  = new AccountEntryRpt();
+        billFrm.setBounds(450, 20, 400, 350);
+        billFrm.show();
+
 
     }
 

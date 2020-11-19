@@ -1,6 +1,7 @@
 package application.banking.report;
 
 
+import application.ccard.BillEntry;
 import application.framework.*;
 
 import javax.swing.*;
@@ -160,7 +161,7 @@ public class MonthlyBillRpt extends javax.swing.JFrame {
         try {
             this.setVisible(false);    // hide the Frame
             this.dispose();            // free the system resources
-            System.exit(0);            // close the application
+        //    System.exit(0);            // close the application
         } catch (Exception e) {
         }
     }
@@ -201,7 +202,8 @@ public class MonthlyBillRpt extends javax.swing.JFrame {
     //When the Exit button is pressed this code gets executed
     //this will exit from the system
     void JButtonExit_actionPerformed(java.awt.event.ActionEvent event) {
-        System.exit(0);
+
+        this.exitApplication();
     }
     void loadData() {
         model.setRowCount(0);
@@ -212,35 +214,37 @@ public class MonthlyBillRpt extends javax.swing.JFrame {
             LocalDate toDate = LocalDate.parse(todatestr.getText());
 
 
-                // billrpt=accountService.monthlyBilling();
-                 for (String xxx:billrpt) {
-                     rowdata[0]=billrpt.get(0);
-                     rowdata[1]=billrpt.get(1);
-                     rowdata[2]=billrpt.get(2);
-                     rowdata[3]=billrpt.get(3);
-                     rowdata[4]=billrpt.get(4);
-                     model.addRow(rowdata);
-                 }
+            /*
+
+this.cardNumber = cardNumber;
+        this.previousBalance = previousBalance;
+        this.totalCharge = totalCharge;
+        this.totalCredit = totalCredit;
+        this.newBalance = newBalance;
+        this.totalDue = totalDue;            * */
+            for (Account account : accountService.getAllAccounts()) {
+			if (account.getAccountClass() == AccountClass.CREDITCARD) {
+                BillEntry bill = accountService.monthlyBilling(account.getAccountNumber());
+                rowdata[0]= bill.getCardNumber();
+                rowdata[1]=bill.getPreviousBalance();
+                rowdata[2]=bill.getTotalCharge();
+                rowdata[3]=bill.getTotalCredit();
+                rowdata[4]=bill.getNewBalance();
+                rowdata[5]=bill.getTotalDue();
+                model.addRow(rowdata);
+			}
+		}
+
+
 
             }
-           // for (AccountEntry entry : accountService.getAllAccountEntries()) {
 
-//                if (entry.getDate().isAfter(fromDate) && entry.getDate().isBefore(toDate)) {
-//                    rowdata[0] = entry.getFromPersonName();
-//                    rowdata[1] = entry.getFromAccountNumber();
-//                    rowdata[2] = entry.getDate();
-//                    rowdata[3] = entry.getAmount();
-//                    rowdata[4] = entry.getDescription();
-//
-//                    model.addRow(rowdata);
-//
-//                }
-          //  }
 
     }
     void JButton_Report_actionPerformed(java.awt.event.ActionEvent event) {
 
         loadData();
+
 
     }
 

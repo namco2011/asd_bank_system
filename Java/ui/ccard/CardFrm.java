@@ -1,5 +1,6 @@
 package ui.ccard;
 
+import application.banking.report.AccountEntryRpt;
 import application.banking.report.MonthlyBillRpt;
 import application.ccard.CreditCard;
 import application.ccard.CreditCardType;
@@ -39,11 +40,11 @@ public class CardFrm extends javax.swing.JFrame
 		setTitle("Credit-card processing Application.");
 		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0,0));
-		setSize(575,310);
+		setSize(700,310);
 		setVisible(false);
 		JPanel1.setLayout(null);
 		getContentPane().add(BorderLayout.CENTER, JPanel1);
-		JPanel1.setBounds(0,0,575,310);
+		JPanel1.setBounds(0,0,700,310);
 		/*
 		/Add five buttons on the pane 
 		/for Adding personal account, Adding company account
@@ -80,6 +81,11 @@ public class CardFrm extends javax.swing.JFrame
 		JButton_Withdraw.setText("Charge");
 		JPanel1.add(JButton_Withdraw);
 		JButton_Withdraw.setBounds(468,164,96,33);
+
+		JButton_AccountEntry.setText("AccountEntry Report");
+		JPanel1.add(JButton_AccountEntry);
+		JButton_AccountEntry.setBounds(468,200,180,31);
+
 		JButton_Exit.setText("Exit");
 		JPanel1.add(JButton_Exit);
 		JButton_Exit.setBounds(468,248,96,31);
@@ -95,6 +101,7 @@ public class CardFrm extends javax.swing.JFrame
 		JButton_GenBill.addActionListener(lSymAction);
 		JButton_Deposit.addActionListener(lSymAction);
 		JButton_Withdraw.addActionListener(lSymAction);
+		JButton_AccountEntry.addActionListener(lSymAction);
 		loadData();
 		
 	}
@@ -149,6 +156,7 @@ public class CardFrm extends javax.swing.JFrame
 	javax.swing.JButton JButton_GenBill = new javax.swing.JButton();
 	javax.swing.JButton JButton_Deposit = new javax.swing.JButton();
 	javax.swing.JButton JButton_Withdraw = new javax.swing.JButton();
+	javax.swing.JButton JButton_AccountEntry = new javax.swing.JButton();
 	javax.swing.JButton JButton_Exit = new javax.swing.JButton();
 
 
@@ -206,6 +214,8 @@ public class CardFrm extends javax.swing.JFrame
 				JButtonDeposit_actionPerformed(event);
 			else if (object == JButton_Withdraw)
 				JButtonWithdraw_actionPerformed(event);
+			else if (object == JButton_AccountEntry)
+				JButton_AccountEntry_actionPerformed(event);
 			
 		}
 	}
@@ -258,6 +268,14 @@ public class CardFrm extends javax.swing.JFrame
 	    
 	}
 
+	void JButton_AccountEntry_actionPerformed(java.awt.event.ActionEvent event)
+	{
+		//	JDialogGenBill billFrm = new JDialogGenBill();
+		AccountEntryRpt billFrm  = new AccountEntryRpt();
+		billFrm.setBounds(450, 20, 400, 350);
+		billFrm.show();
+
+	}
 	void JButtonDeposit_actionPerformed(java.awt.event.ActionEvent event)
 	{
 	    // get selected name

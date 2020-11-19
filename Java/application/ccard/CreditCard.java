@@ -3,8 +3,6 @@ package application.ccard;
 import application.framework.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreditCard extends Account {
 
@@ -41,72 +39,82 @@ public class CreditCard extends Account {
        this.expiry_date  = LocalDate.parse(expireDate);
     }
 
-    public String monthlyBilling() {
-        double previousBalance = this.getPreviousBalance();
-        double totalCharge = this.getTotalCharges();
-        double totalCredit = this.getTotalCredits();
+    public BillEntry monthlyBilling(String acct) {
+        double previousBalance= this.getPreviousBalance(acct);
+        double totalCharge =this.getTotalCharges(acct);
+        double totalCredit =this.getTotalCredits(acct);
         double MI = this.creditCardStrategy.monthlyInterest();
         double MP = this.creditCardStrategy.minimumPayment();
-        double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
-        double totalDue = MP * newBalance;
+        double newBalance =previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
+        double totalDue= MP * newBalance;
         this.addInterest();
-        StringBuilder report =new StringBuilder();
-        report.append("Name= " +this.getCustomer().getName() );
-        report.append("\n Address=" +this.getCustomer().getStreet());
-        report.append( ", "+super.getCustomer().getCity() );
-        report.append(", "+this.getCustomer().getState() );
-        report.append( ", "+this.getCustomer().getZip() );
-        report.append( "\r\n CC number=" +this.getAccountNumber()) ;
-        report.append("\r\n CC type="+ this.getCreditCardType());
-        report.append( "\r\nPrevious balance : $" +previousBalance);
-        report.append( "\n Total charge : $ "+totalCharge );
-        report.append( "\n Total credit : $ "+totalCredit );
-        report.append( "\n New Balance  : $ "+newBalance );
-        report.append( "\n Total Amount Due    : $ "+totalDue);
-        report.append( "\r\n");
-        report.append( "\r\n");
-        System.out.println(report);
-        return report.toString();
+
+    //    StringBuilder report =new StringBuilder();
+//        report.append("Name= " +this.getCustomer().getName() );
+//        report.append("\n Address=" +this.getCustomer().getStreet());
+//        report.append( ", "+super.getCustomer().getCity() );
+//        report.append(", "+this.getCustomer().getState() );
+//        report.append( ", "+this.getCustomer().getZip() );
+//        report.append( "\r\n CC number=" +this.getAccountNumber()) ;
+//        report.append("\r\n CC type="+ this.getCreditCardType());
+//        report.append( "\r\nPrevious balance : $" +previousBalance);
+//        report.append( "\n Total charge : $ "+totalCharge );
+//        report.append( "\n Total credit : $ "+totalCredit );
+//        report.append( "\n New Balance  : $ "+newBalance );
+//        report.append( "\n Total Amount Due    : $ "+totalDue);
+
+
+//        report.append( this.getAccountNumber()) ;
+//        report.append( previousBalance);
+//        report.append( totalCharge );
+//        report.append( totalCredit );
+//        report.append( newBalance );
+//        report.append( totalDue);
+        BillEntry bill = new BillEntry(this.getAccountNumber(),previousBalance,totalCharge,totalCredit,newBalance,totalDue);
+        //return report.toString();
+        return bill;
     }
 
-    public String monthlyBilling(String acct) {
-        double previousBalance = this.getPreviousBalance(acct);
-        double totalCharge = Math.abs(this.getTotalCharges(acct));
-        double totalCredit = Math.abs( this.getTotalCredits(acct));
-        double MI = this.creditCardStrategy.monthlyInterest();
-        double MP = this.creditCardStrategy.minimumPayment();
-        double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
-        double totalDue = MP * newBalance;
-        this.addInterest();
-        StringBuilder report =new StringBuilder();
-        /*
-        report.append("Name= " +this.getCustomer().getName() );
-        report.append("\n Address=" +this.getCustomer().getStreet());
-        report.append( ", "+super.getCustomer().getCity() );
-        report.append(", "+this.getCustomer().getState() );
-        report.append( ", "+this.getCustomer().getZip() );
-        report.append( "\r\n CC number=" +this.getAccountNumber()) ;
-        report.append("\r\n CC type="+ this.getCreditCardType());
-        report.append( "\r\nPrevious balance : $" +previousBalance);
-        report.append( "\n Total charge : $ "+totalCharge );
-        report.append( "\n Total credit : $ "+totalCredit );
-        report.append( "\n New Balance  : $ "+newBalance );
-        report.append( "\n Total Amount Due    : $ "+totalDue);
-        report.append( "\r\n");
-        report.append( "\r\n");
-        System.out.println(report);
-        */
-        List<String> list = new ArrayList<>();
-        report.append( this.getAccountNumber()+"|||") ;
-        report.append("\r\n CC type="+ this.getCreditCardType());
-        report.append( "\r\nPrevious balance : $" +previousBalance);
-        report.append( "\n Total charge : $ "+totalCharge );
-        report.append( "\n Total credit : $ "+totalCredit );
-        report.append( "\n New Balance  : $ "+newBalance );
-        report.append( "\n Total Amount Due    : $ "+totalDue);
 
-        return report.toString();
-    }
+//
+//    public String monthlyBilling(String acct) {
+//        double previousBalance = this.getPreviousBalance(acct);
+//        double totalCharge = Math.abs(this.getTotalCharges(acct));
+//        double totalCredit = Math.abs( this.getTotalCredits(acct));
+//        double MI = this.creditCardStrategy.monthlyInterest();
+//        double MP = this.creditCardStrategy.minimumPayment();
+//        double newBalance = previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
+//        double totalDue = MP * newBalance;
+//        this.addInterest();
+//        StringBuilder report =new StringBuilder();
+//        /*
+//        report.append("Name= " +this.getCustomer().getName() );
+//        report.append("\n Address=" +this.getCustomer().getStreet());
+//        report.append( ", "+super.getCustomer().getCity() );
+//        report.append(", "+this.getCustomer().getState() );
+//        report.append( ", "+this.getCustomer().getZip() );
+//        report.append( "\r\n CC number=" +this.getAccountNumber()) ;
+//        report.append("\r\n CC type="+ this.getCreditCardType());
+//        report.append( "\r\nPrevious balance : $" +previousBalance);
+//        report.append( "\n Total charge : $ "+totalCharge );
+//        report.append( "\n Total credit : $ "+totalCredit );
+//        report.append( "\n New Balance  : $ "+newBalance );
+//        report.append( "\n Total Amount Due    : $ "+totalDue);
+//        report.append( "\r\n");
+//        report.append( "\r\n");
+//        System.out.println(report);
+//        */
+//        List<String> list = new ArrayList<>();
+//        report.append( this.getAccountNumber()+"|||") ;
+//        report.append("\r\n CC type="+ this.getCreditCardType());
+//        report.append( "\r\nPrevious balance : $" +previousBalance);
+//        report.append( "\n Total charge : $ "+totalCharge );
+//        report.append( "\n Total credit : $ "+totalCredit );
+//        report.append( "\n New Balance  : $ "+newBalance );
+//        report.append( "\n Total Amount Due    : $ "+totalDue);
+//
+//        return report.toString();
+//    }
 
     public double getTotalCredits() {
         double totalCredits = 0;

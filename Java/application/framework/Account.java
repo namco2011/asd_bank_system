@@ -3,6 +3,7 @@ package application.framework;
 import application.banking.CheckingICStrategy;
 import application.banking.ICStrategy;
 import application.banking.SavingICStrategy;
+import application.ccard.BillEntry;
 import application.ccard.CreditCardStrategy;
 import application.ccard.CreditCardType;
 import application.ccard.GoldCCStrategy;
@@ -20,6 +21,7 @@ public class Account extends Observable {
     protected String accountNumber;
     protected AccountType accountType;
     protected CreditCardType creditCardType;
+//    protected List<AccountEntry> entryList = new ArrayList<AccountEntry>();
 
     public Account(String accountNumber, AccountType accountType, AccountClass accountClass) {
         this.accountNumber = accountNumber;
@@ -90,13 +92,13 @@ public class Account extends Observable {
     }
 
 
-    public String monthlyBilling() {
-        return " ";
+    public BillEntry monthlyBilling(String acct) {
+        return null;
     }
 
-    public String monthlyBilling(String acct) {
-        return " ";
-    }
+//    public String monthlyBilling(String acct) {
+//        return " ";
+//    }
 
     public double getPreviousBalance() {
         double balance = 0;

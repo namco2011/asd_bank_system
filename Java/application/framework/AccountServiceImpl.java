@@ -110,9 +110,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
 
-    public String monthlyBilling(String accountNumber) {
+    public BillEntry monthlyBilling(String accountNumber) {
         Account account = accountDAO.loadAccount(accountNumber);
-        return account.monthlyBilling();
+        return account.monthlyBilling(accountNumber);
     }
 
     @Override

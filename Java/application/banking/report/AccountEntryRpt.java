@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 /**
  * A basic JFC based application.
@@ -31,9 +32,11 @@ public class AccountEntryRpt extends javax.swing.JFrame {
     javax.swing.JButton JButton_Exit = new javax.swing.JButton();
     javax.swing.JRadioButton JRadio_Account= new JRadioButton();
     javax.swing.JRadioButton JRadio_CreditCard= new JRadioButton();
+
     JLabel lblfromdate = new JLabel();
     JLabel lbltodate = new JLabel();
 
+    JTextField txtacct= new JTextField();
     JTextField fromdatestr= new JTextField();
     JTextField todatestr= new JTextField();
     ButtonGroup buttonGroup  = new ButtonGroup();
@@ -46,11 +49,11 @@ public class AccountEntryRpt extends javax.swing.JFrame {
         setTitle("AccountEntry Monthly Report.");
         setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout(0, 0));
-        setSize(800, 600);
+        setSize(1000, 600);
         setVisible(false);
         JPanel1.setLayout(null);
         getContentPane().add(BorderLayout.CENTER, JPanel1);
-        JPanel1.setBounds(0, 0, 800, 600);
+        JPanel1.setBounds(0, 0, 1000, 600);
 		/*
 		/Add five buttons on the pane
 		/for Adding personal account, Adding company account
@@ -59,7 +62,7 @@ public class AccountEntryRpt extends javax.swing.JFrame {
         JScrollPane1 = new JScrollPane();
         model = new DefaultTableModel();
         JTable1 = new JTable(model);
-        model.addColumn("Name");
+//        model.addColumn("Name");
         model.addColumn("Account");
         model.addColumn("Date");
         model.addColumn("Amount");
@@ -91,6 +94,9 @@ public class AccountEntryRpt extends javax.swing.JFrame {
 //        JPanel1.add(JRadio_CreditCard);
 //        JRadio_CreditCard.setSelected(false);
 //        JRadio_CreditCard.setBounds(100,50,150,30);
+        txtacct.setText("");
+        txtacct.setBounds(200,10,100,30);
+        JPanel1.add(txtacct);
 
         fromdatestr.setText("2020-01-10");
         JPanel1.add(fromdatestr);
@@ -157,8 +163,8 @@ public class AccountEntryRpt extends javax.swing.JFrame {
     void exitApplication() {
         try {
             this.setVisible(false);    // hide the Frame
-            this.dispose();            // free the system resources
-            System.exit(0);            // close the application
+           this.dispose();            // free the system resources
+         //   System.exit(0);            // close the application
         } catch (Exception e) {
         }
     }
@@ -167,17 +173,17 @@ public class AccountEntryRpt extends javax.swing.JFrame {
         public void windowClosing(java.awt.event.WindowEvent event) {
             Object object = event.getSource();
             if (object == AccountEntryRpt.this)
-                AccountRpt_windowClosing(event);
+                AccountEntryRpt_windowClosing(event);
         }
     }
 
-    void AccountRpt_windowClosing(java.awt.event.WindowEvent event) {
+    void AccountEntryRpt_windowClosing(java.awt.event.WindowEvent event) {
         // to do: code goes here.
 
-        AccountRpt_windowClosing_Interaction1(event);
+        AccountEntryRpt_windowClosing_Interaction1(event);
     }
 
-    void AccountRpt_windowClosing_Interaction1(java.awt.event.WindowEvent event) {
+    void AccountEntryRpt_windowClosing_Interaction1(java.awt.event.WindowEvent event) {
         try {
             this.exitApplication();
         } catch (Exception e) {
@@ -199,7 +205,8 @@ public class AccountEntryRpt extends javax.swing.JFrame {
     //When the Exit button is pressed this code gets executed
     //this will exit from the system
     void JButtonExit_actionPerformed(java.awt.event.ActionEvent event) {
-        System.exit(0);
+      //  System.exit(0);
+        this.exitApplication();
     }
    void loadData() {
         model.setRowCount(0);
@@ -207,17 +214,30 @@ public class AccountEntryRpt extends javax.swing.JFrame {
         if (fromdatestr.getText().length()>0 && todatestr.getText().length()>0) {
             LocalDate fromDate = LocalDate.parse(fromdatestr.getText());
             LocalDate toDate = LocalDate.parse(todatestr.getText());
-            for (AccountEntry entry : accountService.getAllAccountEntries()) {
+            for (AccountEntry entry : accountService.getAllAccountEntries().stream()
+                    .collect(Collectors.toList())) {
+                if (txtacct.getText().length() == 0) {
+                    if (entry.getDate().isAfter(fromDate) && entry.getDate().isBefore(toDate)) {
+                        //    rowdata[0] =
+                        rowdata[0] = entry.getFromAccountNumber();
+                        rowdata[1] = entry.getDate();
+                        rowdata[2] = entry.getAmount();
+                        rowdata[3] = entry.getDescription();
+                        model.addRow(rowdata);
 
-                if (entry.getDate().isAfter(fromDate) && entry.getDate().isBefore(toDate)) {
-                    rowdata[0] = entry.getFromPersonName();
-                    rowdata[1] = entry.getFromAccountNumber();
-                    rowdata[2] = entry.getDate();
-                    rowdata[3] = entry.getAmount();
-                    rowdata[4] = entry.getDescription();
+                    }
+                }
+                else {
+                    if (entry.getDate().isAfter(fromDate) && entry.getDate().isBefore(toDate) &&entry.getFromAccountNumber().equals(txtacct.getText())) {
+                        //    rowdata[0] =
+                        rowdata[0] = entry.getFromAccountNumber();
+                        rowdata[1] = entry.getDate();
+                        rowdata[2] = entry.getAmount();
+                        rowdata[3] = entry.getDescription();
 
-                    model.addRow(rowdata);
+                        model.addRow(rowdata);
 
+                    }
                 }
             }
         }
@@ -226,6 +246,13 @@ public class AccountEntryRpt extends javax.swing.JFrame {
 
         loadData();
 
+
+    }
+
+    void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
+    {
+        //make this frame invisible if Cancel button is clicked
+        dispose();
     }
 
 }

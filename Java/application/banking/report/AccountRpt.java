@@ -156,7 +156,7 @@ public class AccountRpt extends javax.swing.JFrame {
         try {
             this.setVisible(false);    // hide the Frame
             this.dispose();            // free the system resources
-            System.exit(0);            // close the application
+       //     System.exit(0);            // close the application
         } catch (Exception e) {
         }
     }
@@ -197,7 +197,7 @@ public class AccountRpt extends javax.swing.JFrame {
     //When the Exit button is pressed this code gets executed
     //this will exit from the system
     void JButtonExit_actionPerformed(java.awt.event.ActionEvent event) {
-        System.exit(0);
+       this.exitApplication();
     }
 
 
@@ -240,7 +240,15 @@ public class AccountRpt extends javax.swing.JFrame {
 
         loadData();
 
+
     }
+
+    void JButtonCalcel_actionPerformed(java.awt.event.ActionEvent event)
+    {
+        //make this frame invisible if Cancel button is clicked
+        dispose();
+    }
+
 
 }
 

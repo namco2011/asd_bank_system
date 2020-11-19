@@ -3,11 +3,10 @@ package ui.ccard;
 		A basic implementation of the JDialog class.
 */
 
-import application.ccard.CreditCard;
-import application.framework.*;
+import application.framework.AccountService;
+import application.framework.AccountServiceImpl;
 
 import java.awt.*;
-import javax.swing.*;
 
 public class JDialogGenBill extends javax.swing.JDialog
 {
@@ -36,12 +35,12 @@ public class JDialogGenBill extends javax.swing.JDialog
 		getContentPane().add(JButton_OK);
 		JButton_OK.setBounds(156,276,96,24);
 
-		for (Account account : accountService.getAllAccounts()) {
-			if (account.getAccountClass() == AccountClass.CREDITCARD) {
-				billstring +=
-				accountService.monthlyBilling(account.getAccountNumber());
-			}
-		}
+//		for (Account account : accountService.getAllAccounts()) {
+//			if (account.getAccountClass() == AccountClass.CREDITCARD) {
+//				billstring +=
+//				accountService.monthlyBilling(account.getAccountNumber());
+//			}
+//		}
 
 //		billstring =
 
