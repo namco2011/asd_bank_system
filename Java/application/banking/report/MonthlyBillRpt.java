@@ -40,7 +40,6 @@ public class MonthlyBillRpt extends javax.swing.JFrame {
     JTextField todatestr= new JTextField();
     ButtonGroup buttonGroup  = new ButtonGroup();
 
-    AccountService accountService = new AccountServiceImpl();
 
     public MonthlyBillRpt() {
         myframe = this;

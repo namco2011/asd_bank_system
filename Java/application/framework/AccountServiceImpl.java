@@ -15,7 +15,7 @@ public class AccountServiceImpl implements AccountService {
     //Singleton account service implementation
     private static AccountServiceImpl instance;
 
-    public AccountServiceImpl() {
+    private AccountServiceImpl() {
         accountDAO = new AccountDAOImpl();
         accountEntryDAO = new AccountEntryDAOImpl();
         customerDAO = new CustomerDAOImpl();

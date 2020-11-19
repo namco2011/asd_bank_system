@@ -25,7 +25,7 @@ public class BankRptMonthly extends JFrame
     private JScrollPane JScrollPane1 =new JScrollPane();
     BankRptMonthly myframe;
     private Object rowdata[];
-	AccountService accountService =new AccountServiceImpl();
+	AccountService accountService = AccountServiceImpl.getInstance();
 	AccountEntryDB accountEntryDB;
 
 	public BankRptMonthly()
