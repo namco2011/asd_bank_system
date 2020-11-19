@@ -26,6 +26,7 @@ public class MonthlyBillRpt extends javax.swing.JFrame {
     private JScrollPane JScrollPane1;
     MonthlyBillRpt myframe;
     private Object rowdata[];
+    AccountService accountService;
 
 
 
