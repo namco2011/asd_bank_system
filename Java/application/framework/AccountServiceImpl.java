@@ -152,7 +152,7 @@ public class AccountServiceImpl implements AccountService {
 
     public void withdraw(String accountNumber, double amount) throws IOException {
         Account account = accountDAO.loadAccount(accountNumber);
-        account.addObserver(new EmailSender());
+    //    account.addObserver(new EmailSender());
         if (account.accountClass != AccountClass.CREDITCARD) {
             accountEntryDAO.saveAccountEntry(account.withdraw(accountNumber, amount));
             accountDAO.updateAccount(account);

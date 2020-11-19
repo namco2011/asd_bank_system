@@ -116,7 +116,7 @@ public class CardFrm extends javax.swing.JFrame
 					rowdata[0] = cc.getCustomer().getName();
 					rowdata[1] = cc.getAccountNumber();
 					rowdata[2] = cc.getExpiry_date();
-					rowdata[3] = account.getAccountClass() == AccountClass.COMPANY ? "C" : "P";
+					rowdata[3] = account.getAccountClass() == AccountClass.COMPANY ? "Credit Card" : "Credit Card";
 					rowdata[4] = account.getBalance();
 					model.addRow(rowdata);
 				}

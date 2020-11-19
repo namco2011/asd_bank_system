@@ -90,6 +90,13 @@ public class JDialog_AddPAcc extends javax.swing.JDialog
 		JLabel8.setForeground(java.awt.Color.black);
 		JLabel8.setBounds(12,60,48,24);
 		//}}
+
+		JTextField_EM.setText("hanhduy.nguyen@gmail.com");
+		JTextField_BD.setText("11/11/1990");
+		JTextField_ST.setText("Iowa");
+		JTextField_ZIP.setText("52557");
+		JTextField_CT.setText("Fairfield");
+		JTextField_STR.setText("1000 N 4th");
 	
 		//{{REGISTER_LISTENERS
 		SymMouse aSymMouse = new SymMouse();

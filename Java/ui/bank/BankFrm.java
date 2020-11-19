@@ -90,7 +90,7 @@ public class BankFrm extends javax.swing.JFrame {
         JButton_Withdraw.setBounds(650, 164, 96, 33);
 
         JButton_AccountRpt.setText("Account Report");
-        JPanel1.add(JButton_AccountRpt);
+    //    JPanel1.add(JButton_AccountRpt);
         JButton_AccountRpt.setBounds(650, 300, 200, 31);
 
         JButton_AccountEntryRpt.setText("AccountEntry Report");

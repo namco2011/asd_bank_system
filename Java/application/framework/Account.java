@@ -140,9 +140,9 @@ public class Account extends Observable {
         //	entryList.add(entry);
 //        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
-        for (AccountEntry e : AccountEntryDB.accountEntries) {
-            System.out.println("Deposit Transaction: " + e.getFromAccountNumber() + " " + e.getAmount());
-        }
+//        for (AccountEntry e : AccountEntryDB.accountEntries) {
+//            System.out.println("Deposit Transaction: " + e.getFromAccountNumber() + " " + e.getAmount());
+//        }
         return entry;
     }
 
@@ -165,9 +165,9 @@ public class Account extends Observable {
 //        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
 
-        for (AccountEntry e : AccountEntryDB.accountEntries) {
-            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
-        }
+//        for (AccountEntry e : AccountEntryDB.accountEntries) {
+//            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
+//        }
         return entry;
     }
 
@@ -177,9 +177,9 @@ public class Account extends Observable {
 //        AccountEntryDB.accountEntries.add(entry);
         notifyChanges(entry);
 
-        for (AccountEntry e : AccountEntryDB.accountEntries) {
-            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
-        }
+//        for (AccountEntry e : AccountEntryDB.accountEntries) {
+//            System.out.println(e.getFromAccountNumber() + " " + e.getAmount());
+//        }
         return entry;
     }
 

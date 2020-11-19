@@ -86,6 +86,13 @@ public class JDialog_AddCompAcc extends javax.swing.JDialog
 		JLabel8.setBounds(12,72,48,24);
 		getContentPane().add(JTextField_ACNR);
 		JTextField_ACNR.setBounds(120,72,156,20);
+
+		JTextField_EM.setText("hanhduy.nguyen@gmail.com");
+		JTextField_ST.setText("Iowa");
+		JTextField_ZIP.setText("52557");
+		JTextField_CT.setText("Fairfield");
+		JTextField_STR.setText("1000 N 4th");
+
 		//}}
 	
 		//{{REGISTER_LISTENERS

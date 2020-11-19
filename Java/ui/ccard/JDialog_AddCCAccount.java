@@ -96,6 +96,11 @@ public class JDialog_AddCCAccount extends javax.swing.JDialog
 		JLabel7.setBounds(12,228,48,24);
 		getContentPane().add(JTextField_Email);
 		JTextField_Email.setBounds(84,228,156,20);
+		JTextField_Email.setText("hanhduy.nguyen@gmail.com");
+		JTextField_ST.setText("Iowa");
+		JTextField_ZIP.setText("52557");
+		JTextField_CT.setText("Fairfield");
+		JTextField_STR.setText("1000 N 4th");
 		//}}
 	
 		//{{REGISTER_LISTENERS

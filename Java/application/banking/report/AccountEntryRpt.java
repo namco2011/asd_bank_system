@@ -49,11 +49,11 @@ public class AccountEntryRpt extends javax.swing.JFrame {
         setTitle("AccountEntry Monthly Report.");
         setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout(0, 0));
-        setSize(1000, 600);
+        setSize(800, 600);
         setVisible(false);
         JPanel1.setLayout(null);
         getContentPane().add(BorderLayout.CENTER, JPanel1);
-        JPanel1.setBounds(0, 0, 1000, 600);
+        JPanel1.setBounds(0, 0, 800, 400);
 		/*
 		/Add five buttons on the pane
 		/for Adding personal account, Adding company account
@@ -75,7 +75,7 @@ public class AccountEntryRpt extends javax.swing.JFrame {
 
 
         JPanel1.add(JScrollPane1);
-        JScrollPane1.setBounds(50, 92, 600, 350);
+        JScrollPane1.setBounds(50, 92, 600, 400);
         JScrollPane1.getViewport().add(JTable1);
         JTable1.setBounds(0, 0, 600, 0);
 //        rowdata = new Object[8];
