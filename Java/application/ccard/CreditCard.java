@@ -41,12 +41,12 @@ public class CreditCard extends Account {
 
     public BillEntry monthlyBilling(String acct) {
         double previousBalance= this.getPreviousBalance(acct);
-        double totalCharge =this.getTotalCharges(acct);
+        double totalCharge =Math.abs(this.getTotalCharges(acct));
         double totalCredit =this.getTotalCredits(acct);
         double MI = this.creditCardStrategy.monthlyInterest();
         double MP = this.creditCardStrategy.minimumPayment();
-        double newBalance =previousBalance + totalCredit - totalCharge + MI * (previousBalance + totalCredit);
-        double totalDue= newBalance>0?0:MP*newBalance;
+        double newBalance =previousBalance - totalCredit + totalCharge + MI * (previousBalance - totalCredit);
+        double totalDue= MP*newBalance;
         this.addInterest();
 
     //    StringBuilder report =new StringBuilder();
