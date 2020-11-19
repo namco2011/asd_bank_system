@@ -1,5 +1,6 @@
 package ui.ccard;
 
+import application.banking.report.MonthlyBillRpt;
 import application.ccard.CreditCard;
 import application.ccard.CreditCardType;
 import application.framework.*;
@@ -250,7 +251,8 @@ public class CardFrm extends javax.swing.JFrame
 
 	void JButtonGenerateBill_actionPerformed(java.awt.event.ActionEvent event)
 	{
-		JDialogGenBill billFrm = new JDialogGenBill();
+	//	JDialogGenBill billFrm = new JDialogGenBill();
+		MonthlyBillRpt billFrm  = new MonthlyBillRpt();
 		billFrm.setBounds(450, 20, 400, 350);
 		billFrm.show();
 	    
