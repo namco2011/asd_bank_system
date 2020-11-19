@@ -90,11 +90,13 @@ public class Account extends Observable {
         return balance;
     }
 
+
     public String monthlyBilling() {
-        return "go to CreditCard";
+        return " ";
     }
+
     public String monthlyBilling(String acct) {
-        return "go to CreditCard";
+        return " ";
     }
 
     public double getPreviousBalance() {

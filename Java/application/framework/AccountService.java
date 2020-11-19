@@ -21,7 +21,8 @@ public interface AccountService {
     Collection<AccountEntry> getAllAccountEntries();
     void deposit (String accountNumber, double amount);
     void addInterest (String accountNumber);
-    public String monthlyBilling(String accountNumber);
+    public String monthlyBilling(String acct);
+    public String monthlyBilling();
     void withdraw (String accountNumber, double amount) throws IOException;
 //    void transferFunds(String fromAccountNumber, String toAccountNumber, double amount, String description) throws IOException;
 

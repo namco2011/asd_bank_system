@@ -1,12 +1,10 @@
 package application.ccard;
 
-import application.framework.Account;
-import application.framework.AccountClass;
-import application.framework.AccountEntry;
-import application.framework.AccountType;
-import application.framework.AccountEntryDB;
+import application.framework.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreditCard extends Account {
 
@@ -81,6 +79,7 @@ public class CreditCard extends Account {
         double totalDue = MP * newBalance;
         this.addInterest();
         StringBuilder report =new StringBuilder();
+        /*
         report.append("Name= " +this.getCustomer().getName() );
         report.append("\n Address=" +this.getCustomer().getStreet());
         report.append( ", "+super.getCustomer().getCity() );
@@ -96,6 +95,16 @@ public class CreditCard extends Account {
         report.append( "\r\n");
         report.append( "\r\n");
         System.out.println(report);
+        */
+        List<String> list = new ArrayList<>();
+        report.append( this.getAccountNumber()+"|||") ;
+        report.append("\r\n CC type="+ this.getCreditCardType());
+        report.append( "\r\nPrevious balance : $" +previousBalance);
+        report.append( "\n Total charge : $ "+totalCharge );
+        report.append( "\n Total credit : $ "+totalCredit );
+        report.append( "\n New Balance  : $ "+newBalance );
+        report.append( "\n Total Amount Due    : $ "+totalDue);
+
         return report.toString();
     }
 
