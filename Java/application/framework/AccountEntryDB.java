@@ -27,15 +27,15 @@ public class AccountEntryDB {
 //        accountEntries.add(accountentry4);
 
 
-        AccountEntry accountentry5 = new AccountEntry(10000, "deposit", "6666","Jhon");
-        accountentry5.setDate(LocalDate.now().minusDays(30));
+        AccountEntry accountentry5 = new AccountEntry(-10000, "charge", "6666","Jhon");
+        accountentry5.setDate(LocalDate.now().minusDays(1));
         AccountEntry accountentry6 = new AccountEntry(-2000, "charge", "6666","Jhon");
-        accountentry6.setDate(LocalDate.now().minusDays(45));
+        accountentry6.setDate(LocalDate.now().minusDays(2));
 
-        AccountEntry accountentry7 = new AccountEntry(8000, "deposit", "5555","Frank");
-        accountentry7.setDate(LocalDate.now().minusDays(60));
+        AccountEntry accountentry7 = new AccountEntry(-8000, "charge", "5555","Frank");
+        accountentry7.setDate(LocalDate.now().minusDays(1));
         AccountEntry accountentry8 = new AccountEntry(-5000, "charge", "5555","Frank");
-        accountentry8.setDate(LocalDate.now().minusDays(90));
+        accountentry8.setDate(LocalDate.now().minusDays(2));
         accountEntries.add(accountentry5);
         accountEntries.add(accountentry6);
         accountEntries.add(accountentry7);

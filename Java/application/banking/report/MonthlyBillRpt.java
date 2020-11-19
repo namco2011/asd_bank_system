@@ -222,9 +222,9 @@ this.cardNumber = cardNumber;
         this.totalCredit = totalCredit;
         this.newBalance = newBalance;
         this.totalDue = totalDue;            * */
-            for (Account account : accountService.getAllAccounts()) {
+            for (Account account : AccountServiceImpl.getInstance().getAllAccounts()) {
 			if (account.getAccountClass() == AccountClass.CREDITCARD) {
-                BillEntry bill = accountService.monthlyBilling(account.getAccountNumber());
+                BillEntry bill = AccountServiceImpl.getInstance().monthlyBilling(account.getAccountNumber());
                 rowdata[0]= bill.getCardNumber();
                 rowdata[1]=bill.getPreviousBalance();
                 rowdata[2]=bill.getTotalCharge();

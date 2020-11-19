@@ -122,10 +122,13 @@ public class Account extends Observable {
         LocalDate current = LocalDate.now();
         LocalDate prevMonth = current.minusMonths(1);
         LocalDate startPrevMonth = prevMonth.with(firstDayOfMonth());
+
 //		LocalDate endPrevMonth = prevMonth.with(lastDayOfMonth());
         for (AccountEntry entry : AccountEntryDB.accountEntries) {
             if (entry.getDate().isAfter(startPrevMonth) && entry.getDate().isBefore(entry.getDate()) && entry.getFromAccountNumber().equals(acct)) {
-                balance += entry.getAmount();
+        //    if (entry.getDate().isBefore(startPrevMonth)  && entry.getFromAccountNumber().equals(acct)) {
+
+            balance += entry.getAmount();
             }
         }
         return balance;
